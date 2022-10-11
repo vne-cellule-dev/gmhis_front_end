@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/layout/sidebar2/sidebar2.component.scss"
+    ],
+    "names": [],
+    "file": "sidebar2.component.css"
+}

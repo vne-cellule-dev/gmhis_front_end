@@ -1,0 +1,59 @@
+<nb-card class="nbCardList">
+    <nb-card-header class="row d-flex justify-content-between align-items-center">
+      <div class="col-lg-5 col-md-3 col-sm-12 mb-2">
+        <h4  class=" w-100 text-center">LISTE DES PAYS</h4>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="searchForm" (ngSubmit)="getCountries()">
+        <div class="row d-flex justify-content-between">
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input type="text" class="form-control" formControlName="name" placeholder="Pays" (keyup)="onKeyUp()">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input type="text" class="form-control" formControlName="isoCode" placeholder="code ISO" (keyup)="onKeyUp()">
+              </div>
+              <div class="col-lg-1 col-md-2 col-sm-12 mb-2 rounded-pill">
+              </div>
+            </div>
+          </div>
+          <div class=" col-lg-2 col-md-3 col-sm-12">
+            <ng-select [(ngModel)]="selectedSize" formControlName="size" (change)="onTableSizeChange()">
+              <ng-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </form>
+      <div  class="tableFixHead"><table   class="table table-bordered table-striped table-hover table-md align-middle">
+        <thead class="pb-3 text-capitalize">
+          <tr class="pb-3">
+            <th>Pays <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('name')" ></fa-icon>
+            </th>
+            <th>Code ISO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let country of items | paginate : { 
+                  itemsPerPage: selectedSize,
+                  currentPage: currentPage,
+                  totalItems: totalItems};
+                  let i = index" [class.active]="i == currentIndex" (click)="rowSelected(country,i)">
+            <td>{{country?.name }}</td>
+            <td>{{country?.isoCode}}</td>
+          </tr>
+        </tbody>
+      </table> </div>
+      <div class="d-flex w-100 justify-content-center">
+        <div style="color: #623508;" *ngIf="showloading" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="onPageChange($event)">
+        </pagination-controls>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  

@@ -1,0 +1,37 @@
+ol {
+  cursor: pointer;
+  margin-bottom: 0rem;
+}
+
+.dashboard {
+  margin: 0.5rem 0px 0;
+  padding-left: 1rem;
+  font-size: 14.5px;
+  color: #222b45;
+  cursor: pointer;
+}
+
+.menuActive {
+  background-color: #623508;
+  color: #fff;
+}
+
+.routerActive {
+  background-color: #ced4e3;
+}
+
+.vne {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.vne a {
+  text-decoration: none;
+  color: #1267af;
+}
+/*# sourceMappingURL=sidebar.component.css.map */

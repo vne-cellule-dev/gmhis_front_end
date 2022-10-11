@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/bank/bank-form/bank-form.component.scss"
+    ],
+    "names": [],
+    "file": "bank-form.component.css"
+}

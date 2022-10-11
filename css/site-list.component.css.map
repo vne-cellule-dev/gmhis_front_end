@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/site/site-list/site-list.component.scss"
+    ],
+    "names": [],
+    "file": "site-list.component.css"
+}

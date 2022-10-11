@@ -1,0 +1,151 @@
+<nb-card class="nbCardList" [hidden]="!canListUser">
+    <nb-card-header class="row d-flex justify-content-between align-items-center">
+      <div class="col-lg-5 col-md-12 col-sm-12">
+        <h4 class="d-flex justify-content-start w-100 text-center">LISTE DES UTILISATEURS</h4>
+      </div>
+      <div [hidden]="!canAddUser" class="col-lg-2 col-md-3 col-sm-12  justify-content-end">
+        <button  (click)="openAddForm(addFormContent)"
+          class="btn text-capitalize bg-biblos w-100  d-flex align-items-center justify-content-center text-white rounded">
+          <nb-icon icon="plus-outline"></nb-icon>
+          <span class="fw-bold"> NOUVEAU</span>
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="searchForm" (ngSubmit)="getUsers()" class="mb-3">
+        <div class="row d-flex justify-content-between">
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input type="text" class="form-control" formControlName="lastName" placeholder="Nom" (keyup)="onKeyUp()">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input type="text" class="form-control" formControlName="firstName" placeholder="Prénom" (keyup)="onKeyUp()">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input type="text" class="form-control" formControlName="tel" placeholder="Téléphone" (keyup)="onKeyUp()">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <ng-select formControlName="depot" (change)="onIsActiveChange()"  placeholder="Selectionné un dépot">
+                  <ng-option *ngFor="let depot of depots" [value]="depot.id">
+                      {{depot.name}}
+                  </ng-option>
+              </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class=" col-lg-2 col-md-3 col-sm-12">
+            <ng-select [(ngModel)]="selectedSize" formControlName="size" (change)="onTableSizeChange()">
+              <ng-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </form>
+      <div  class="tableFixHead"><table   class="table table-bordered table-striped table-hover table-md align-middle">
+        <thead >
+             <th class="text-nowrap">Nom <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('firstName')" ></fa-icon></th>
+            <th class="text-nowrap">Prénom <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('lastName')" ></fa-icon></th>
+            <th class="text-nowrap">Statut <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('isActive')" ></fa-icon></th>
+            <th class="text-nowrap">Email</th>
+            <th class="text-nowrap">Téléphone</th>
+            <!-- <th class="text-center">Controller tout depot</th> -->
+           <th class="text-nowrap">Dépot <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('depot')" ></fa-icon></th>
+           <!-- <th class="text-nowrap">Role</th> -->
+           <th class="text-nowrap">vérou <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('isNotLocked')" ></fa-icon></th>
+           <th class="text-nowrap" >actions</th>
+           <!-- <th [hidden]="!canResetPassword" class="text-nowrap">Changer MP </th> -->
+        </thead>
+        <tbody *ngIf="!showloading">
+            <tr *ngFor="let user of items | paginate : { 
+                itemsPerPage: selectedSize,
+                currentPage: currentPage,
+                totalItems: totalItems};
+                let i = index" [class.active]="i == currentIndex" (click)="rowSelected(user,i)" >
+                <!-- <td>
+                    <img src="{{user?.profileImageUrl}}" width="30" alt="">
+                </td> -->
+                <td class="text-nowrap">{{user?.lastName }}</td>
+                <td class="text-nowrap">{{user?.firstName }}</td>
+                <td class="text-center">
+                  <nb-icon *ngIf="user.active == true" style="color: green;" icon="checkmark-circle-2"></nb-icon>
+                  <nb-icon *ngIf="user.active == false" style="color: red;" icon="close-circle"></nb-icon>
+              </td>
+                <td class="text-lowercase">{{user?.email}}</td>
+                <td>{{user?.tel}}</td>
+                <td class="text-center">
+                  <nb-icon *ngIf="user.controllerAllDepot == false" style="color: red;" icon="close-circle"></nb-icon>
+                    <nb-icon *ngIf="user.controllerAllDepot == true" style="color: green;" icon="checkmark-circle-2"></nb-icon>
+                </td>
+                <!-- <td class="text-nowrap">{{user?.depot.name }}</td> -->
+                <!-- <td>{{user?.role}}</td> -->
+                <td class="text-center">
+                    <nb-icon *ngIf="user.notLocked == false" style="color: red;" icon="unlock"></nb-icon>
+                    <nb-icon *ngIf="user.notLocked == true" style="color: green;" icon="lock"></nb-icon>
+                </td>
+                <td style="font-size: 30px;" [hidden]="!canUpdateUser" class="text-center text-nowrap">
+                     <nb-icon  (click)="openUpdateForm(updateFormContent, user)" placement="left" ngbTooltip="Modifier" class="mx-2 pointer" style=" cursor: pointer;" icon="edit-outline"></nb-icon>
+                     <nb-icon icon="refresh" (click)="resetAndSendNewPassword(user)" placement="left" ngbTooltip="Changer le mot de passe"></nb-icon>
+                </td>
+             </tr>
+        </tbody>
+      </table> </div>
+      <div class="d-flex w-100 justify-content-center">
+        <div style="color: #623508;" *ngIf="showloading" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="onPageChange($event)">
+        </pagination-controls>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  
+  <!-- permission modal -->
+  <ng-template #permissionFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title" id="permisison-modal">Hi there!</h4>
+      <button type="button" class="button btn-danger close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-permission></app-permission>
+    </div>
+  </ng-template>
+  
+<!-- add modal -->
+<ng-template  #addFormContent let-c="close" let-d="dismiss">
+  <div  class="modal-header bg-gray">
+    <h5 class="modal-title text-capitalize " id="update-form-modal">Ajouter un utilisateur</h5>
+      <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body bg-gray">
+    <app-user-form  (addUser)="addUser()"></app-user-form>
+  </div>
+</ng-template>
+  
+ <!-- update modal -->
+<ng-template #updateFormContent let-c="close" let-d="dismiss">
+  <div  class="modal-header bg-gray">
+    <h5 class="modal-title text-capitalize " id="update-form-modal">Modifier un utilisateur</h5>
+      <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body bg-gray">
+    <app-user-form [user]='user' (updateUser)="updateUser()"></app-user-form>
+  </div>
+</ng-template>
+
+<!-- reset password modal -->
+<ng-template #resetPasswordFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title text-capitalize color-biblos" id="update-form-modal">Réinitialisation du mot de passe de : <span class="text-primary">{{user.lastName+" "+user.firstName }}</span></h5>
+    <button type="button" class="button btn  btn-sm " aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+  </div>
+</ng-template>
+

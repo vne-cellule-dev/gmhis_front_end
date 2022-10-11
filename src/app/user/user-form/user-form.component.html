@@ -1,0 +1,147 @@
+  
+<form [formGroup]="userForm" (ngSubmit)="save()">
+    <div *ngIf="showloading == true" class="overlay  d-flex justify-content-center align-items-center">
+        <div class="d-flex w-100 justify-content-center">
+            <div  class="spinner-border" style="width: 5rem; height: 5rem; color: #623508;" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+    </div> 
+    <div >
+        <div class="mb-2 fw-bold">Nb: Tous les champs marqués par <span class="text-danger">*</span> sont obligatoires</div>
+        <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label for="lastName" class="form-label text-capitalize fw-bold">Nom</label>
+                <span class="text-danger">*</span>
+                <input type="text" class="form-control" formControlName="lastName">
+                <div *ngIf="formSubmitted && !userForm.controls.lastName.valid">
+                    <div *ngIf="lastName.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="firstName" class="form-label text-capitalize fw-bold">Prénoms</label>
+                <span class="text-danger">*</span>
+                <input type="text" class="form-control" formControlName="firstName">
+                <div *ngIf="formSubmitted && !userForm.controls.firstName.valid">
+                    <div *ngIf="firstName.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label for="email" class="form-label text-capitalize fw-bold">Email</label>
+                <span class="text-danger">*</span>
+                <input type="email" class="form-control" formControlName="email">
+                <div *ngIf="formSubmitted && !userForm.controls.email.valid">
+                    <div *ngIf="email.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+                <div *ngIf="formSubmitted && !userForm.controls.email.valid">
+                    <div *ngIf="email.errors.email" class="text-danger">Format email invalid</div>
+                </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="tel" class="form-label text-capitalize fw-bold">Numéro de téléphone</label>
+                <span class="text-danger">*</span>
+                <input type="text" class="form-control" formControlName="tel">
+                <div *ngIf="formSubmitted && !userForm.controls.tel.valid">
+                    <div *ngIf="tel.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label for="depot" class="form-label text-capitalize fw-bold">Dépot</label>
+                <span class="text-danger">*</span>
+                <ng-select formControlName="depot" placeholder="Selectionné un dépot">
+                    <ng-option *ngFor="let depot of depots" [value]="depot.id">
+                        {{depot.name}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="formSubmitted && !userForm.controls.depot.valid">
+                    <div *ngIf="depot.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="role" class="form-label text-capitalize fw-bold">Role</label>
+                <span class="text-danger">*</span>
+                <ng-select multiple="true" formControlName="role" placeholder="Selectionné un role">
+                    <ng-option *ngFor="let role of roles" [value]="role.id">
+                        {{role.name}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="formSubmitted && !userForm.controls.role.valid">
+                    <div *ngIf="role.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="mb-3 col">
+                <label for="isActive" class="form-label text-capitalize fw-bold">Controlleur tout depôt</label>
+                <span class="text-danger">*</span>
+                <ng-select formControlName="controllerAllDepot" [clearable]="false">
+                    <ng-option *ngFor="let option of controllerAllDepotOptions" [value]="option.id">
+                        {{option.value}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="formSubmitted && !userForm.controls.controllerAllDepot.valid">
+                    <div *ngIf="controllerAllDepot.errors.required" class="text-danger">Vérrouller</div>
+                </div>
+            </div>
+            <div class="mb-3 col">
+                <label for="isActive" class="form-label text-capitalize fw-bold">Etat</label>
+                <span class="text-danger">*</span>
+                <ng-select formControlName="isActive" [clearable]="false">
+                    <ng-option *ngFor="let state of states" [value]="state.id">
+                        {{state.value}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="formSubmitted && !userForm.controls.isActive.valid">
+                    <div *ngIf="isActive.enabled && isActive.errors.required" class="text-danger">Vérrouller</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            
+            <div class="mb-3 col">
+                <label for="isNonLocked" class="form-label text-capitalize fw-bold">Vérrou</label>
+                <span class="text-danger">*</span>
+                <ng-select formControlName="isNonLocked">
+                    <ng-option *ngFor="let lock of lockOptions" [value]="lock.id">
+                        {{lock.value}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="formSubmitted && !userForm.controls.isNonLocked.valid">
+                    <div *ngIf="isNonLocked.enabled && isNonLocked.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+            </div>
+    
+            <div class="mb-3 col">
+                <label for="passwordMustBeChange" class="form-label text-capitalize fw-bold">Changer le mot de passe</label>
+                <span class="text-danger">*</span>
+                <ng-select formControlName="passwordMustBeChange">
+                    <ng-option *ngFor="let option of changPwdOptions" [value]="option.id">
+                        {{option.value}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="formSubmitted && !userForm.controls.passwordMustBeChange.valid">
+                    <div *ngIf="passwordMustBeChange.enabled && passwordMustBeChange.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+        <div *ngIf="user" style="width: 250px; margin-right: 5px;">
+            <img src="{{user.profileImageUrl}}" alt="" width="250">
+        </div>
+        <ngx-dropzone style="width:250px" [multiple]="false" (change)="onSelect($event)">
+            <ngx-dropzone-label>Choisir une image </ngx-dropzone-label>
+            <ngx-dropzone-image-preview  [removable]="true" (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-image-preview>
+        </ngx-dropzone>
+    </div>
+        <button [disabled]="showloading" type="submit" class="btn text-capitalize bg-biblos justify-content-center text-white rounded  px-3">
+                VALIDER
+        </button>
+    </div>
+</form>

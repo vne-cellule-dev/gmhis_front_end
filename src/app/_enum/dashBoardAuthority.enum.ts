@@ -1,0 +1,16 @@
+export enum DashBoardAuthorityEnum {
+    CUSTOMER_ORDER = "dashboard:customer_order",
+    TRANSFERT = "dashboard:transfer",
+    DEPOTAGE_TO_VALIDATE = "dashboard:depotage_to_validate",
+    STOCK_ENTRY_TO_CONSOLIDATEE = "dashboard:stock_entry_to_consolidate",
+    INVENTORY_TO_PERFORM = "dashboard:inventory_to_perform",
+    INVENTORY_TO_CONSOLIDATE= "dashboard:inventory_to_consolidate",
+    CUSTOMER_PROMOTION = "dashboard:customer_promotion",
+    INVOICE_RELAUNCH = "dashboard:invoice_to_relaunch",
+    SUPPLIER_ORDER= "dashboard:supplier_order",
+    CONTAINER_IN_SEA = "dashboard:container_in_sea",
+    ASSET_TO_CONSOLIDATE = "dashboard:asset_to_consolidate",
+    CUMP_TO_CALCULATE = "dashboard:cump_to_calculate",
+    DORMANT_CUSCTOMER_ACCOUNT = "dashboard:dormant_customer_account",
+    STOCK_DORMANT_LIST = "dashboard:dormant_stock_list",
+}

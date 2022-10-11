@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/local/local-form/local-form.component.scss"
+    ],
+    "names": [],
+    "file": "local-form.component.css"
+}

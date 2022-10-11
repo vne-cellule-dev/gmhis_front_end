@@ -1,1 +1,388 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+};
+@import "~bootstrap/scss/bootstrap";
+
+@import "~material-icons/iconfont/material-icons.css";
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+::after,
+::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+.notification-clignote  {
+  animation-duration: .8s;
+  animation-name: clignoter;
+  animation-iteration-count: infinite;
+  transition: none;
+}
+@keyframes clignoter {
+ 0%   { opacity:1; }
+ 40%   {opacity:0; }
+ 100% { opacity:1; }
+}
+
+
+
+
+@import "~angular-notifier/styles";
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+.bg-gray {
+  background-color:#f9f2ec;
+}
+
+.bg-orange {
+  background-color:#ffe0cc;
+}
+
+
+.t-biblos{
+  color: black;
+}
+
+h4{
+  color: black;
+  font-weight: bold;
+}
+
+.h5{
+  color: black;
+}
+
+h6{
+  color: black !important;
+  font-weight: bold !important; 
+}
+
+.bg-biblos{
+  background-color: #623508;
+}
+
+.custom-btn-primary{
+  background-color: #2199e8;
+}
+
+.sweetAlert{
+  font-size: 20 px;
+}
+
+.overlay{
+  position: absolute;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  z-index: 1000;
+  background-color: rgba(237,241,247,0.4);
+}
+
+h4{
+  color: black !important; 
+  font-family: 'Nunito Sans', sans-serif !important;
+}
+
+table{
+  font-family: 'Trebuchet MS', sans-serif;
+  font-weight : bold; 
+  letter-spacing: 0.2px;
+}
+
+thead {
+  background-color:  #6c757d54;
+  color: black;
+}
+
+td{
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+  // text-transform: uppercase !important;
+  font-size: 13.2px !important;
+  text-align: center;
+}
+td div .text-danger{
+  text-transform: lowercase !important;
+}
+
+th{
+  // text-transform: uppercase !important;
+  font-size: 13.2px !important;
+  text-align: center;
+}
+
+.table tr.active td, .table tr:hover {  
+  background-color:#cdd3e5 !important;  
+}
+
+.articleFormGroupTh{
+  width: 25rem;
+}
+
+.articleFormGroupTotalTh{
+  width: 12rem;
+}
+
+.qtyWidth{
+  width: 8rem;
+}
+
+.numberSize{
+  font-size: 0.95rem !important;
+}
+
+//nb-calendar, nb-header and ngb-modal z-index
+ngb-modal-backdrop {
+  z-index: 1030 !important;
+}
+
+nb-layout-column{
+  padding: 1rem 1rem 0.75rem !important;
+}
+ngb-modal-window{
+  z-index: 1030 !important;
+}
+
+
+nb-layout-header{
+  z-index: 1030 !important;
+}
+
+nb-layout-header{
+  z-index: 1030 !important;
+}
+
+
+// nebular calendar
+.nb-theme-default nb-calendar-days-names .day, .nb-theme-default nb-calendar-days-names .day.holiday {
+	color: #979494;
+
+}
+
+ nb-calendar-range-day-cell.range-cell.day-cell.bounding-month.ng-star-inserted div.cell-content {
+  color: #979494;
+}
+
+.modal-open div#printContainer {
+  position: relative !important;
+  z-index: 1050 !important;
+}
+
+
+.nbCardList {
+  max-height: 100% !important;
+  
+  margin-bottom: 0px;
+}
+
+//notification color
+p.notifier__notification-message.ng-star-inserted
+{
+  color: white !important;
+}
+
+//table
+table {
+  font-size: 1rem;
+}
+
+tbody > tr {
+  padding: 0.25rem;
+}
+
+tr > td {
+padding: 0px;
+}
+
+.checkBox {
+  font-size: 1.3em;
+}
+
+.tableFixHead  { overflow: auto; max-height:70vh !important; }
+.statTable {overflow: auto; height: 80%;}
+.tableFixHead thead th,.statTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1; 
+  background:#6c757d;
+  color: white;
+}
+
+.tableFixHead tfoot td , .detailTableFixHead tfoot td,.statTable tfoot td {
+  position: sticky;
+   bottom: 0;
+   z-index: 1;
+   background:#d4e6f5;
+
+}
+
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#6c757d !important; color: white; }
+
+
+.tdDivIconWidth{
+  width: 25px;
+  background-color: inherit !important;
+}
+
+.action-container {
+  padding: inherit !important
+}
+
+//ng select custom style
+.ng-select{
+  text-transform: uppercase;
+  font-size: 0.83rem;
+  // font-weight: bold;
+}
+
+.ng-select .ng-select-container {
+  min-height: 33px !important;
+
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height:0px !important;
+}
+
+.div-info{
+  min-height: 33px;
+  background-color:white;
+}
+
+.info-size {
+  font-size: 0.9rem;
+}
+
+.form-control{
+  padding: 0.1rem 0.75rem !important;
+  min-height: 33px;
+}
+
+.btn {
+  font-size: small;
+}
+
+
+@media print {
+  body {
+    min-width: auto !important;
+  }
+}
+
+// ng modal
+.modal-header{
+  padding: 0.5rem 1rem;
+}
+
+::ng-deep .my-class .modal-dialog { 
+  max-width: 80% !important;
+  width: 80% !important;
+}
+.modal-dialog > .modal-xl{
+  margin: 0 !important;
+}
+
+
+
+.xlModal > .modal-dialog {
+  max-width: 1490px !important;
+  min-width: 971px !important;   
+  width: 95% !important;
+}
+
+.activity{
+  font-size: 14px;
+}
+
+.activity-thead{
+  font-size: 13px;
+}
+
+.text-warning {
+  color: #D2691E !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+// nb card
+nb-card-header{
+  padding-bottom: 0 !important;
+}
+nb-card{
+  height: 100% !important;
+
+}
+
+.nbCardStatBox{
+  box-shadow: 0 0 11px rgba(33,33,33,.2) !important; 
+  height: 100% !important;
+  background-color: white !important;
+} 
+nb-card-body{
+ height: 90% !important;
+}
+
+
+button{
+  padding: 3px 10px 3px 10px !important;
+}
+
+@media (min-width: 1200px){
+  .modal-xl {
+    max-width: 95%;
+}
+
+
+// @media screen and (max-width: 900px){
+//   .hiddenArticleNameform{   
+//       display: none; 
+//    }  
+// }
+
+
+//ngb carousel
+// .carousel-control-next-icon, .carousel-control-prev-icon{
+//   position: relative;
+//   left: 0;
+//   background: #623508 !important;
+// }
+
+ngb-carousel {
+  width: 700px;
+}
+
+.carousel-control-prev-icon{
+ background-image: url('assets/images/carousel-control-prev-icon.png') !important;
+}
+.carousel-control-next-icon{
+   background-image: url('assets/images/carousel-control-next-icon.png')!important;
+}
+}
+
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+
+

@@ -1,0 +1,18 @@
+.smAndMdHeader {
+  display: none !important;
+}
+
+@media screen and (max-width: 700px) {
+  .lgHeader {
+    display: none !important;
+  }
+  .smAndMdHeader {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+/*# sourceMappingURL=header.component.css.map */

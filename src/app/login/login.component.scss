@@ -1,0 +1,21 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.loginPage{
+    height: 100vh;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.login{
+    background-color: #f9f2ec;
+
+}
+
+.bg{
+    background-image: url("../../assets/img/login-bg-img.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}

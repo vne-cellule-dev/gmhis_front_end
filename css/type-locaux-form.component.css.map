@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/type-locaux/type-locaux-form/type-locaux-form.component.scss"
+    ],
+    "names": [],
+    "file": "type-locaux-form.component.css"
+}

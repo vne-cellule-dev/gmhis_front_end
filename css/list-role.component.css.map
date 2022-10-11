@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC,KAAK,CAAC,EAAE,CAAA;EACV,cAAc,EAAE,MAAM;CACzB;;AAED,AAAA,EAAE,CAAA;EACE,KAAK,EAAE,OAAO;CACjB",
+    "sources": [
+        "../src/app/role/list-role/list-role.component.scss"
+    ],
+    "names": [],
+    "file": "list-role.component.css"
+}

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/locataire/locataire-list/locataire-list.component.scss"
+    ],
+    "names": [],
+    "file": "locataire-list.component.css"
+}

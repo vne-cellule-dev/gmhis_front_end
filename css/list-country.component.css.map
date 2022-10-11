@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/country/list-country/list-country.component.scss"
+    ],
+    "names": [],
+    "file": "list-country.component.css"
+}

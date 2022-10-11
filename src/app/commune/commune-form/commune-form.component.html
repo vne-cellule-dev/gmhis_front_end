@@ -1,0 +1,40 @@
+<form [formGroup]="communeForm" (ngSubmit)="save()">
+  <div *ngIf="showloading == true" class="overlay  d-flex justify-content-center align-items-center">
+    <div class="d-flex w-100 justify-content-center">
+      <div class="spinner-border" style="width: 5rem; height: 5rem; color: #623508;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!details" class="mb-2 fw-bold">Nb: Tous les champs marqués par <span class="text-danger">*</span> sont
+    obligatoires</div>
+  <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid </div>
+  <div class="row">
+    <div class="mb-2 col-lg-6 col-md-6 col-sm-12">
+      <label for="name" class="form-label text-capitalize fw-bold">Nom</label>
+      <span *ngIf="!details" class="text-danger">*</span>
+      <input type="text" class="form-control" formControlName="name">
+      <div *ngIf="formSubmitted && !communeForm.controls.name.valid">
+        <div *ngIf="name.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+      </div>
+    </div>
+
+    <div class="mb-2 col-lg-6 col-md-6 col-sm-12">
+      <label for="name" class="form-label text-capitalize fw-bold">Nombre de site</label>
+      <input type="number" class="form-control" formControlName="numberOfSites">
+
+    </div>
+
+    <div class="mb-2 col-lg-12 col-md-12 col-sm-12">
+      <label for="name" class="form-label text-capitalize fw-bold">informations</label>
+      <textarea formControlName="informations" class="form-control"
+            rows="2"></textarea>
+    </div>
+  </div>
+  <div *ngIf="!details" class="mb-2 col">
+    <div class="mb-3">
+      <button type="submit"
+        class="btn text-capitalize bg-biblos justify-content-center text-white rounded px-3 fw-bold">VALIDER</button>
+    </div>
+  </div>
+</form>

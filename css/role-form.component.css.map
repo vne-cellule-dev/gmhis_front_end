@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/app/role/role-form/role-form.component.scss"
+    ],
+    "names": [],
+    "file": "role-form.component.css"
+}
