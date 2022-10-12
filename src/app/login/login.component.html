@@ -1,0 +1,85 @@
+<div>
+  <div class="loginPage row">
+    <div
+      class="row login d-flex flex-column justify-content-center align-items-center bg col-lg-12"
+    >
+      <div class="col-lg-3 col-md-7 col-sm-9 card text-center">
+        <div class="card-header">
+          <div class="login-logo h2 my-4">
+            <b> Connexion </b>
+          </div>
+        </div>
+        <div class="card-body px-3">
+          <p class="login-box-msg my-5">
+            Saissisez vos identifiants de connexion !
+          </p>
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="onLogin(loginForm.value)"
+            class="mx-2 col-lg-12 col-md-12 col-sm-12"
+            action=""
+          >
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                formControlName="username"
+                class="form-control input-login"
+                placeholder="Login"
+              />
+              <div class="input-group-append">
+                <span
+                  style="height: 50px"
+                  class="px-3 btn btn-outline-secondary box-iconLock"
+                >
+                  <fa-icon [icon]="LockIcon"></fa-icon>
+                </span>
+              </div>
+            </div>
+            <div class="mb-4 d-flex flex-column">
+              <div style="height: 50px" class="input-group mb-3">
+                <input
+                  formControlName="password"
+                  [type]="getInputType()"
+                  type="password"
+                  class="form-control"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  placeholder="Password"
+                  (click)="onClick()"
+                />
+                <div class="input-group-append">
+                  <button
+                    style="height: 50px"
+                    (click)="toggleShowPassword()"
+                    class="px-3 btn btn-outline-secondary"
+                    type="button"
+                  >
+                    <fa-icon [icon]="EyeIcon"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              *ngIf="!showloading"
+              style="height: 50px"
+              type="submit"
+              [disabled]="!loginForm.valid"
+              class="w-50 btn btn-primary btn-block mb-4 border border-none text-white confirm-btn"
+            >
+              Se connecter
+            </button>
+            <div class="d-flex w-100 justify-content-center">
+              <div
+                style="color: #623508"
+                *ngIf="showloading"
+                class="spinner-border"
+                style="width: 3rem; height: 3rem"
+                role="status"
+              ></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

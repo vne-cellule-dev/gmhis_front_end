@@ -1,0 +1,48 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+$nb-themes: nb-register-theme((
+    menu-item-hover-text-color : #14a2b8,
+    menu-item-active-text-color:white,
+    menu-submenu-active-text-color: #cef5fd,
+    menu-item-active-background-color:#14a2b8,
+    menu-submenu-hover-text-color: #cef5fd,
+    menu-item-padding : 0.52rem,
+    // menu-submenu-background-color: #e6ccb3,
+    menu-item-icon-color :#000000,
+   
+  card-background-color:#fafafa,
+
+  // sidebar
+  sidebar-background-color: white,
+  sidebar-shadow: none,
+  sidebar-padding: 0,
+
+  // accordion
+  accordion-padding: 0.70rem,
+  accordion-header-text-font-size: 0.9rem,
+  accordion-item-background-color : #f9f2ec,
+  accordion-shadow:	0  0rem  0rem  0,
+  accordion-item-text-font-weight: 550,
+
+// header
+  header-background-color: #14a2b8,
+  header-text-color:#ffffff,
+  header-padding : 0rem,
+
+  layout-background-color:#ffffff,
+  user-name-text-color :#ffffff,
+  user-title-text-color: #ffffff,
+  text-hint-color :#ffffff,
+  user-title-text-font-weight: 500,
+  
+ /*tabs*/
+ tabset-tab-active-text-color:#14a2b8,
+ tabset-tab-active-underline-color:#14a2b8,
+ tabset-tab-hover-text-color:#14a2b8,
+ tabset-tab-hover-underline-color:#14a2b8,
+ tabset-tab-text-color	:#8f9bb3,
+ tabset-divider-color		:#8f9bb3,
+ tabset-tab-focus-text-color : #14a2b8,
+ tabset-tab-focus-underline-color : #14a2b8,
+), default, default);

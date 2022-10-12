@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="mb-2 fw-bold">Nb: Tous les champs marqués par <span class="text-danger">*</span> sont obligatoires</div>
+  <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
+  <div class="mb-3">
+    <label for="name" class="form-label text-capitalize fw-bold">Name</label>
+    <span class="text-danger">*</span>
+    <input type="text" class="form-control" formControlName="name">
+    <div *ngIf="formSubmitted && !form.controls.name.valid">
+      <div *ngIf="name.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="isActive" class="form-label text-capitalize fw-bold">Etat</label>
+    <span class="text-danger">*</span>
+    <ng-select formControlName="active">
+      <ng-option *ngFor="let active of states" [value]="active.id">{{active.value}}</ng-option>
+    </ng-select>
+    <div *ngIf="formSubmitted && !form.controls.active.valid">
+      <div *ngIf="active.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <button type="submit" class="btn text-capitalize bg-biblos justify-content-center text-white rounded px-3 fw-bold">VALIDER</button>
+  </div>
+</form>

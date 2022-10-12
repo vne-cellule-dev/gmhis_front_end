@@ -1,0 +1,17 @@
+<nb-layout>
+  <nb-layout-header class="mw-100 " fixed>
+    <app-header class="w-100"></app-header>
+  </nb-layout-header>
+  <nb-sidebar class="menu-sidebar"  tag="left" responsive start>
+    <app-sidebar></app-sidebar>
+  </nb-sidebar>
+  <nb-sidebar class="menu-sidebar2" [ngStyle]="{'display':showRightSideBar === true ? 'block' : 'none' }" right tag="right">
+    <app-sidebar2  ></app-sidebar2>
+  </nb-sidebar>
+  <nb-layout-column >
+    <router-outlet ></router-outlet>
+  </nb-layout-column>
+  <!-- <nb-layout-footer fixed>
+    <app-footer> </app-footer>
+  </nb-layout-footer> -->
+</nb-layout>

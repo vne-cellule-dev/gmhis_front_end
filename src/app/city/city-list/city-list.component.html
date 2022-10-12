@@ -1,0 +1,103 @@
+<nb-card class="nbCardList" [hidden]="!canListCity" >
+    <nb-card-header class="row d-flex justify-content-between align-items-center">
+      <div class="col-lg-7 col-md-3 col-sm-12">
+        <h4 class="text-capitalize d-flex justify-content-start w-100 text-center">LISTE DES VILLES</h4>
+      </div>
+      <div [hidden]="!canAddCity" class="col-lg-2 col-md-3 col-sm-12  justify-content-end">
+        <button   (click)="openAddForm(addFormContent)"
+          class="btn text-capitalize bg-biblos w-100  d-flex align-items-center justify-content-center text-white rounded">
+          <nb-icon icon="plus-outline"></nb-icon>
+          <span class="fw-bold"> NOUVEAU</span>
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="searchForm" (ngSubmit)="getCity()">
+        <div class="row d-flex justify-content-between">
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input type="text" class="form-control" formControlName="name" placeholder="Nom" (keyup)="onKeyUp()">
+              </div>
+            </div>
+          </div>
+          <div class=" col-lg-2 col-md-3 col-sm-12">
+            <ng-select [(ngModel)]="selectedSize" formControlName="size" (change)="onTableSizeChange()">
+              <ng-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </form>
+      <div  class="tableFixHead">
+          <table   class="table table-bordered table-striped table-hover table-md align-middle">
+        <thead class="pb-3 text-capitalize">
+          <tr class="pb-3">
+              <th>Nom</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+           <th  [hidden]="!canUpdateCity">Actions</th>
+           <tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let city of items | paginate : { 
+                itemsPerPage: selectedSize,
+                currentPage: currentPage,
+                totalItems: totalItems};
+                let i = index" [class.active]="i == currentIndex" (click)="rowSelected(city,i)">
+                 <td>{{city?.name}}</td>
+                 <td>{{city?.latitude}}</td>
+                 <td>{{city?.longitude}}</td>
+                <td style="font-size: 30px;">
+                    <nb-icon [hidden]="!canUpdateCity"  (click)="openUpdateForm(updateFormContent, city)" class="mx-2 pointer" style=" cursor: pointer;" icon="edit-outline"></nb-icon>
+                    <nb-icon (click)="openDetailsForm(detailFormContent, city)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon>
+                </td>
+             </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex w-100 justify-content-center">
+        <div style="color: #623508;" *ngIf="showloading" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="onPageChange($event)">
+        </pagination-controls>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  
+ 
+<!-- add modal -->
+<ng-template #addFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header bg-gray">
+    <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">Ajouter une ville</h4>
+    <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body bg-gray">
+    <app-city-form (addCity)="addCity()"></app-city-form>
+  </div>
+</ng-template>
+  
+ <!-- update modal -->
+<ng-template #updateFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header bg-gray">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">Modifier une ville</h4>
+    <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body bg-gray">
+    <app-city-form [city]='city'  (updateCity)="updateCity()"></app-city-form>
+  </div>
+</ng-template>
+
+ <!-- detail modal -->
+ <ng-template #detailFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header bg-gray">
+      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">Detail d'une ville</h4>
+      <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+    </div>
+    <div class="modal-body bg-gray">
+      <app-city-form [city]='city' [details]='details'></app-city-form>
+    </div>
+  </ng-template>
+

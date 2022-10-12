@@ -1,0 +1,53 @@
+<p [ngClass]="{menuActive :menuItem == 'Dashboard' }" (click)=" menuItemFunction('Dashboard')" [hidden]="!canAccessDashBoard" routerLink="/home" class="dashboard  py-3">
+  <fa-icon [icon]="faTachometerAlt" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Tableau de bord</span>
+</p>
+
+<p [ngClass]="{menuActive :menuItem == 'local' }" (click)=" menuItemFunction('local')" [hidden]="!canAccessLocal" routerLink="/local/list" class="dashboard  py-3">
+  <fa-icon [icon]="faHome" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Patients</span>
+</p>
+
+<p [ngClass]="{menuActive :menuItem == 'locataire' }" (click)=" menuItemFunction('locataire')" [hidden]="!canAccessLocal" routerLink="/locataire/list" class="dashboard  py-3">
+  <fa-icon [icon]="faUsers" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Admissions</span>
+</p>
+
+<p [ngClass]="{menuActive :menuItem == 'leases' }" (click)=" menuItemFunction('leases')" [hidden]="!canAccessLocal" routerLink="/location/list" class="dashboard  py-3">
+  <fa-icon [icon]="faKey" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Caisse</span>
+</p>
+
+<p [ngClass]="{menuActive :menuItem == 'release' }" (click)=" menuItemFunction('release')" [hidden]="!canAccessLocal" routerLink="/release/list" class="dashboard  py-3">
+  <fa-icon [icon]="falOGOUT" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">File d'attentes</span>
+</p>
+<p [ngClass]="{menuActive :menuItem == 'avance' }" (click)=" menuItemFunction('avance')" [hidden]="!canAccessLocal" routerLink="/location/avance" class="dashboard  py-3">
+  <fa-icon [icon]="faMoney" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold"> Agenda des RDV</span>
+</p>
+
+<p [ngClass]="{menuActive :menuItem == 'owner' }" (click)=" menuItemFunction('owner')" [hidden]="!canAccessLocal" routerLink="/owner/list" class="dashboard  py-3">
+  <fa-icon [icon]="faUser" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Pharmacie</span>
+</p>
+<p [ngClass]="{menuActive :menuItem == 'owner' }" (click)=" menuItemFunction('owner')" [hidden]="!canAccessLocal" routerLink="/owner/list" class="dashboard  py-3">
+  <fa-icon [icon]="faUser" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Laboratoire</span>
+</p>
+<p [ngClass]="{menuActive :menuItem == 'owner' }" (click)=" menuItemFunction('owner')" [hidden]="!canAccessLocal" routerLink="/owner/list" class="dashboard  py-3">
+  <fa-icon [icon]="faUser" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Etats</span>
+</p>
+<p [ngClass]="{menuActive :menuItem == 'owner' }" (click)=" menuItemFunction('owner')" [hidden]="!canAccessLocal" routerLink="/owner/list" class="dashboard  py-3">
+  <fa-icon [icon]="faUser" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Hospitalisation</span>
+</p>
+<p [ngClass]="{menuActive :menuItem == 'owner' }" (click)=" menuItemFunction('owner')" [hidden]="!canAccessLocal" routerLink="/owner/list" class="dashboard  py-3">
+  <fa-icon [icon]="faUser" ngbTooltip="" style=" font-size:1rem; margin-right:10px;"></fa-icon><span
+    class="fw-bold">Etats</span>
+</p>
+
+<nb-accordion>
+
+</nb-accordion>

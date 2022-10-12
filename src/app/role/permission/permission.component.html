@@ -1,0 +1,18 @@
+<div *ngFor="let form of form.controls; let index = index;" >
+        <ng-container [formGroup]="form" >
+            <div class="row mb-2">
+                <div class="col-2">
+                    <label for=""><b>{{resources[index].name}}</b></label>
+                </div>
+                <div class="col-10">
+                    <ng-select  formControlName="authorities"  [items]="resources[index].authorities" [multiple]=true bindLabel="displayName" bindValue="id" [clearable]="false" >
+                    </ng-select>
+                </div>
+            </div> 
+        </ng-container>
+</div>
+
+<button type="submit" class="btn text-capitalize bg-biblos justify-content-center text-white rounded mt-3 col-md-3 col-sm-12 offset-2" (click)="save()">VALIDER</button>
+
+
+

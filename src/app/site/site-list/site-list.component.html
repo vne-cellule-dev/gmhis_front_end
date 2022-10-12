@@ -1,0 +1,113 @@
+<nb-card class="nbCardList" [hidden]="!canListSite" >
+    <nb-card-header class="row d-flex justify-content-between align-items-center">
+      <div class="col-lg-7 col-md-3 col-sm-12">
+        <h4 class="text-capitalize d-flex justify-content-start w-100 text-center">LISTE DES SITES</h4>
+      </div>
+      <div [hidden]="!canAddSite" class="col-lg-2 col-md-3 col-sm-12  justify-content-end">
+        <button   (click)="openAddForm(addFormContent)"
+          class="btn text-capitalize bg-biblos w-100  d-flex align-items-center justify-content-center text-white rounded">
+          <nb-icon icon="plus-outline"></nb-icon>
+          <span class="fw-bold"> NOUVEAU</span>
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="searchForm" (ngSubmit)="getSite()">
+        <div class="row d-flex justify-content-between">
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input type="text" class="form-control" formControlName="nom" placeholder="Nom du site" (keyup)="onSearchearchValueChange()">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <ng-select  formControlName="communeId" placeholder="Nom de la commune" (change)="onSearchearchValueChange()">
+                  <ng-option  *ngFor="let commune of communes" [value]="commune.id" >{{commune.name}} </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class=" col-lg-2 col-md-3 col-sm-12">
+            <ng-select [(ngModel)]="selectedSize" formControlName="size" (change)="onSearchearchValueChange()">
+              <ng-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </form>
+      <div  class="tableFixHead">
+          <table   class="table table-bordered table-striped table-hover table-md align-middle">
+        <thead class="pb-3 text-capitalize">
+          <tr class="pb-3">
+              <th>Nom du site</th>
+              <th>Localisation</th>
+              <th>Information du site</th>
+              <th>Nombre de locaux</th>
+              <th>Commune</th>
+           <th  [hidden]="!canUpdateSite">Actions</th>
+           <tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let site of items | paginate : { 
+                itemsPerPage: selectedSize,
+                currentPage: currentPage,
+                totalItems: totalItems};
+                let i = index" [class.active]="i == currentIndex" (click)="rowSelected(site,i)">
+                 <td>{{site?.nomSite}}</td>
+                 <td>{{site?.localisationSite}}</td>
+                 <td>{{site?.infoSite}}</td>
+                 <td>{{site?.nombreLocaux}}</td>
+                 <td>{{site?.commune?.name}}</td>
+
+                <td style="font-size: 30px;">
+                    <nb-icon  (click)="openUpdateForm(updateFormContent, site)" class="mx-2 pointer" style=" cursor: pointer;" icon="edit-outline"></nb-icon>
+                    <nb-icon (click)="openDetailsForm(detailFormContent, site)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon>
+                </td>
+             </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex w-100 justify-content-center">
+        <div style="color: #623508;" *ngIf="showloading" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="onPageChange($event)">
+        </pagination-controls>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  
+ 
+<!-- add modal -->
+<ng-template #addFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header bg-gray">
+    <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">Ajouter un site</h4>
+    <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body bg-gray">
+    <app-site-form (addSite)="addSite()"></app-site-form>
+  </div>
+</ng-template>
+  
+ <!-- update modal -->
+<ng-template #updateFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header bg-gray">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">Modiifer un site</h4>
+    <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body bg-gray">
+    <app-site-form [site]='site'  (updateSite)="updateSite()"></app-site-form>
+  </div>
+</ng-template>
+
+ <!-- detail modal -->
+ <ng-template #detailFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header bg-gray">
+      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">Details d'un site</h4>
+      <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
+    </div>
+    <div class="modal-body bg-gray">
+      <app-site-form [site]='site' [details]='details'></app-site-form>
+    </div>
+  </ng-template>
+
