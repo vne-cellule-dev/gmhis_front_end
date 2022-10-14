@@ -12,15 +12,14 @@ import { ActCategoryService } from '../service/act-category.service';
 @Component({
   selector: 'app-act-category-list',
   templateUrl: './act-category-list.component.html',
-  styleUrls: ['./act-category-list.component.scss']
+  styleUrls: ['./act-category-list.component.scss'],
 })
 export class ActCategoryListComponent implements OnInit {
-
   private subs = new SubSink();
 
-  public searchForm : FormGroup;
+  public searchForm: FormGroup;
 
-  public actCategory : ActCategory;
+  public actCategory: ActCategory;
 
   currentPage: number;
   empty: boolean;
@@ -44,57 +43,54 @@ export class ActCategoryListComponent implements OnInit {
   ];
 
   actives = [
-    { id: true, value: "Actif" },
-    { id: false, value: "Inactif" },
-  ]
+    { id: true, value: 'Actif' },
+    { id: false, value: 'Inactif' },
+  ];
 
   showloading: boolean = false;
   currentIndex: number;
   constructor(
-    private actCategoryService : ActCategoryService,
-     private notificationService: NotificationService,
-     config: NgbModalConfig,
-     private modalService: NgbModal,
-    ) { }
+    private actCategoryService: ActCategoryService,
+    private notificationService: NotificationService,
+    config: NgbModalConfig,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.initform();
     this.getSimpleList();
     this.getactCategories();
-    const actCategory = {
-      active: true,
-      id: 11,
-      name: "CAAAARDIO"
-    }
-    this.actCategoryService.updateActCategory(actCategory).subscribe(
-      (res : any)=>{
-        console.log(res);
-        
-      }, 
-      (error : HttpErrorResponse) =>{
-        console.error(error.error.message);
-        
-      }
-    )
+    // const actCategory = {
+    //   active: true,
+    //   id: 11,
+    //   name: "CAAAARDIO"
+    // }
+    // this.actCategoryService.updateActCategory(actCategory).subscribe(
+    //   (res : any)=>{
+    //     console.log(res);
+
+    //   },
+    //   (error : HttpErrorResponse) =>{
+    //     console.error(error.error.message);
+
+    //   }
+    // )
   }
 
-
-  getSimpleList(){
-    this.actCategoryService.findActSimpleList().subscribe(
-      (response : any)=>{
-        console.log(response);  
-      }
-    );
+  getSimpleList() {
+    this.actCategoryService.findActSimpleList().subscribe((response: any) => {
+      console.log(response);
+    });
   }
 
   initform() {
     this.searchForm = new FormGroup({
-      name: new FormControl(""),
+      name: new FormControl(''),
       active: new FormControl(null),
       page: new FormControl(0),
       size: new FormControl(10),
-      sort: new FormControl("id,desc"),
-    })
+      sort: new FormControl('id,desc'),
+    });
   }
 
   onSearchValueChange(): void {
@@ -105,32 +101,35 @@ export class ActCategoryListComponent implements OnInit {
     this.showloading = true;
     this.subs.add(
       this.actCategoryService.findAll(this.searchForm.value).subscribe(
-      (response: PageList) => {
-        console.log(response);
-        this.showloading = false;
-        this.currentPage = response.currentPage + 1;
-        this.empty = response.empty;
-        this.firstPage = response.firstPage;
-        this.items = response.items;        
-        this.lastPage = response.lastPage;
-        this.selectedSize = response.size;
-        this.totalItems = response.totalItems;
-        this.totalPages = response.totalPages;
-      },
-      (errorResponse: HttpErrorResponse) => {
-        this.showloading = false;
-        this.notificationService.notify(NotificationType.ERROR, errorResponse.error.message);
-      }
-    ));
-
+        (response: PageList) => {
+          console.log(response);
+          this.showloading = false;
+          this.currentPage = response.currentPage + 1;
+          this.empty = response.empty;
+          this.firstPage = response.firstPage;
+          this.items = response.items;
+          this.lastPage = response.lastPage;
+          this.selectedSize = response.size;
+          this.totalItems = response.totalItems;
+          this.totalPages = response.totalPages;
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.showloading = false;
+          this.notificationService.notify(
+            NotificationType.ERROR,
+            errorResponse.error.message
+          );
+        }
+      )
+    );
   }
 
-  onIsActiveChange(){
+  onIsActiveChange() {
     this.getactCategories();
   }
 
   onPageChange(event) {
-    this.searchForm.get("page").setValue(event - 1);
+    this.searchForm.get('page').setValue(event - 1);
     this.getactCategories();
   }
 
@@ -146,18 +145,24 @@ export class ActCategoryListComponent implements OnInit {
 
   addActCategory() {
     this.modalService.dismissAll();
-    this.notificationService.notify(NotificationType.SUCCESS, "catégorie d'acte ajouté avec succès");
+    this.notificationService.notify(
+      NotificationType.SUCCESS,
+      "catégorie d'acte ajouté avec succès"
+    );
     this.getactCategories();
   }
 
   updateActCategory() {
     this.modalService.dismissAll();
-    this.notificationService.notify(NotificationType.SUCCESS, "catégorie d'acte modifié avec succès");
+    this.notificationService.notify(
+      NotificationType.SUCCESS,
+      "catégorie d'acte modifié avec succès"
+    );
     this.getactCategories();
   }
 
   rowSelected(actCategory: ActCategory, index: number) {
     this.currentIndex = index;
-   this.actCategory = actCategory;
+    this.actCategory = actCategory;
   }
 }

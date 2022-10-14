@@ -8,7 +8,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { NotificationService } from '../_services/notification.service';
 import { HeaderType } from '../_utilities/header-type-enum';
 import { NotificationType } from '../_utilities/notification-type-enum';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import { SubSink } from 'subsink';
 import { ArticleService } from '../_services/article.service';
@@ -16,23 +16,19 @@ import { ArticleService } from '../_services/article.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
-
   private subs = new SubSink();
 
   faEye = faEye;
 
   EyeIcon = faEyeSlash;
+  LockIcon = faLock;
   /* 
     login form
   */
   loginForm: FormGroup;
-
-
-
 
   showPassword = true;
 
@@ -48,7 +44,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private authenticationService: AuthenticationService,
     private notificationService: NotificationService,
-    private articleService : ArticleService  ) { }
+    private articleService: ArticleService
+  ) {}
 
   // Unsubscribe when the component dies
   ngOnDestroy() {
@@ -56,7 +53,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     if (this.authenticationService.isLoggedIn()) {
       this.router.navigateByUrl('/home');
     } else {
@@ -70,10 +66,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   */
 
   initForm() {
-
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
+      password: new FormControl('', [Validators.required]),
     });
   }
 
@@ -82,8 +77,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.authenticationService.login(user).subscribe(
         (response: HttpResponse<User>) => {
-          ;
-          
           const token = response.headers.get(HeaderType.JWT_TOKEN);
           this.authenticationService.saveToken(token);
           this.authenticationService.addUserToLocalStorage(response.body);
@@ -92,18 +85,20 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.showloading = false;
         },
         (errorResponse: HttpErrorResponse) => {
-          this.notificationService.notify(NotificationType.ERROR, errorResponse.error.message);
+          this.notificationService.notify(
+            NotificationType.ERROR,
+            errorResponse.error.message
+          );
           this.showloading = false;
-
         }
-      ));
+      )
+    );
   }
 
   getInputType() {
     if (this.showPassword) {
       this.EyeIcon = faEye;
       return 'password';
-
     }
     this.EyeIcon = faEyeSlash;
     return 'text';
@@ -120,13 +115,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.showPassword = !this.showPassword;
   }
 
-  onClick(){
-    this.loginForm.get("username").enable();
+  onClick() {
+    this.loginForm.get('username').enable();
   }
 
-  onfocusout(){
-    this.loginForm.get("username").disable();
+  onfocusout() {
+    this.loginForm.get('username').disable();
     // this.readOnly = true;
   }
-
 }

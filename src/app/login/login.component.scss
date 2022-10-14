@@ -19,3 +19,20 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.box-iconLock{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ced4da;
+    border-left: none;
+
+    &:hover{
+        background-color: transparent;
+        color: initial;
+    }
+}
+
+.input-login{
+    border-right: none!important;
+}
