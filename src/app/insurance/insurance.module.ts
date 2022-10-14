@@ -6,13 +6,15 @@ import { InsuranceListComponent } from './insurance-list/insurance-list.componen
 import { InsuranceFormComponent } from './insurance-form/insurance-form.component';
 import { SubscriberListComponent } from './subscriber-list/subscriber-list.component';
 import { SubscriberFormComponent } from './subscriber-form/subscriber-form.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [InsuranceListComponent, InsuranceFormComponent, SubscriberListComponent, SubscriberFormComponent],
-  imports: [
-    CommonModule,
-    InsuranceRoutingModule
-  ]
+  declarations: [
+    InsuranceListComponent,
+    InsuranceFormComponent,
+    SubscriberListComponent,
+    SubscriberFormComponent,
+  ],
+  imports: [CommonModule, InsuranceRoutingModule, SharedModule],
 })
-export class InsuranceModule { }
+export class InsuranceModule {}
