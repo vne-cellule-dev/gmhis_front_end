@@ -170,6 +170,22 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       ],
     },
     {
+      title: 'CONSTANTE MEDICALE',
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        }
+      ],
+    },
+    {
       title: 'GESTION DES UTILISATEURS',
       icon: 'people-outline',
       hidden: !this.canAccessUserManagenent(),
