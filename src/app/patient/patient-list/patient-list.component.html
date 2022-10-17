@@ -70,8 +70,8 @@
         <thead class="pb-3 text-capitalize">
           <tr class="pb-3">
             <th>Patient</th>
-            <th>Texte</th>
-            <th>Texte</th>
+            <th>Téléphone</th>
+            <th>Email</th>
             <th>crée le</th>
             <th scope="col">crée par</th>
             <th scope="col">Dernière modif.</th>
@@ -97,9 +97,13 @@
             [class.active]="i == currentIndex"
             (click)="rowSelected(commune, i)"
           >
-            <td>{{ patient?.name | uppercase }}</td>
-            <td>{{ patient?.value }}</td>
             <td>
+              {{ patient?.lastName | uppercase }}
+              {{ patient?.firstName | uppercase }}
+            </td>
+            <td>{{ patient?.cellPhone1 }} / {{ patient?.cellPhone2 }}</td>
+            <td>{{ patient?.email }}</td>
+            <!-- <td>
               <nb-icon
                 *ngIf="patient.active == true"
                 style="color: green"
@@ -110,7 +114,7 @@
                 style="color: red"
                 icon="close-circle"
               ></nb-icon>
-            </td>
+            </td> -->
             <td>{{ patient?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
             <td>
               {{
