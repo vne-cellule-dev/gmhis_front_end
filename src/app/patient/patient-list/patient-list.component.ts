@@ -168,7 +168,7 @@ export class PatientListComponent implements OnInit {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      'Caisse ajoutée avec succès'
+      'Patient ajouté avec succès'
     );
     this.getPatient();
   }
@@ -177,7 +177,7 @@ export class PatientListComponent implements OnInit {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      'Caisse modifiée avec succès'
+      'Patient modifié avec succès'
     );
     this.getPatient();
   }

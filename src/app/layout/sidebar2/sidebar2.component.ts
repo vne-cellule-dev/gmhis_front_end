@@ -134,6 +134,18 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       ],
     },
     {
+      title: 'CONVENTION',
+      icon: 'folder-outline',
+      hidden: !this.canAccessBasicFiles(),
+      children: [
+        {
+          title: 'Liste convention',
+          link: '/convention/list',
+          icon: 'minus-outline',
+        },
+      ],
+    },
+    {
       title: 'DOCUMENTS TYPES',
       icon: 'folder-outline',
       children: [
@@ -182,7 +194,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'Constante type type',
           link: '/constant/type',
           icon: 'minus-outline',
-        }
+        },
       ],
     },
     {

@@ -23,7 +23,7 @@ export interface IPatient {
   motherProfession: string;
   correspondant: string;
   correspondantCellPhone: string;
-  emergencyContact1: string;
+  emergencyContact: string;
   emergencyContact2: string;
   insurances;
 }

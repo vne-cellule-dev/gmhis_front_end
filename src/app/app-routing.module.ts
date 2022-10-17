@@ -53,6 +53,13 @@ const routes: Routes = [
           import('./constant/constant.module').then((m) => m.ConstantModule),
       },
       {
+        path: 'convention',
+        loadChildren: () =>
+          import('./convention/convention.module').then(
+            (m) => m.ConventionModule
+          ),
+      },
+      {
         path: 'document',
         loadChildren: () =>
           import('./document-type/document-type.module').then(

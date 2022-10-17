@@ -20,6 +20,9 @@
   <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
 
   <div class="row mb-2">
+    <div class="col-md-12">
+      <h3>Informations Patient</h3>
+    </div>
     <!-- Nom -->
     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
       <label for="name" class="form-label text-capitalize">Nom</label>
@@ -75,7 +78,7 @@
       >
       <span *ngIf="!details" class="text-danger">*</span>
       <input
-        type="text"
+        type="number"
         id="cellPhone1"
         class="form-control"
         formControlName="cellPhone1"
@@ -93,7 +96,7 @@
       >
       <span *ngIf="!details" class="text-danger">*</span>
       <input
-        type="text"
+        type="number"
         id="cellPhone2"
         class="form-control"
         formControlName="cellPhone2"
@@ -127,7 +130,7 @@
       >
       <span *ngIf="!details" class="text-danger">*</span>
       <input
-        type="text"
+        type="date"
         id="birthDate"
         class="form-control"
         formControlName="birthDate"
@@ -139,53 +142,37 @@
     </div>
 
     <!-- Sexe -->
-    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-3 rounded-pill">
       <label for="gender" class="form-label text-capitalize">Sexe</label>
-      <span *ngIf="!details" class="text-danger">*</span>
-      <input
-        type="text"
-        id="gender"
-        class="form-control"
-        formControlName="gender"
-        [ngClass]="{ 'is-invalid': formsErrors['gender'] }"
-      />
-      <span style="color: red">
-        {{ formsErrors["gender"] }}
-      </span>
+      <ng-select placeholder="Homme/Femme" formControlName="gender">
+        <ng-option *ngFor="let gender of genders" [value]="gender.id">{{
+          gender.value
+        }}</ng-option>
+      </ng-select>
     </div>
 
     <!-- Civilité -->
-    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-3 rounded-pill">
       <label for="civility" class="form-label text-capitalize">Civilité</label>
-      <span *ngIf="!details" class="text-danger">*</span>
-      <input
-        type="text"
-        id="civility"
-        class="form-control"
-        formControlName="civility"
-        [ngClass]="{ 'is-invalid': formsErrors['civility'] }"
-      />
-      <span style="color: red">
-        {{ formsErrors["civility"] }}
-      </span>
+      <ng-select placeholder="Homme/Femme" formControlName="civility">
+        <ng-option *ngFor="let civility of civilitys" [value]="civility.id">{{
+          civility.value
+        }}</ng-option>
+      </ng-select>
     </div>
 
     <!-- Type de pièce -->
-    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-3 rounded-pill">
       <label for="idcardType" class="form-label text-capitalize"
         >Type de pièce</label
       >
-      <span *ngIf="!details" class="text-danger">*</span>
-      <input
-        type="text"
-        id="idcardType"
-        class="form-control"
-        formControlName="idcardType"
-        [ngClass]="{ 'is-invalid': formsErrors['idcardType'] }"
-      />
-      <span style="color: red">
-        {{ formsErrors["idcardType"] }}
-      </span>
+      <ng-select placeholder="Homme/Femme" formControlName="idcardType">
+        <ng-option
+          *ngFor="let typePiece of typePieces"
+          [value]="typePiece.id"
+          >{{ typePiece.value }}</ng-option
+        >
+      </ng-select>
     </div>
 
     <!-- N° de pièce -->
@@ -267,7 +254,7 @@
       >
       <span *ngIf="!details" class="text-danger">*</span>
       <input
-        type="text"
+        type="number"
         id="correspondantCellPhone"
         class="form-control"
         formControlName="correspondantCellPhone"
@@ -278,22 +265,21 @@
       </span>
     </div>
 
-    <!-- Statut Marié -->
-    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+    <!-- Statut Matrimonial -->
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-3 rounded-pill">
       <label for="maritalStatus" class="form-label text-capitalize"
-        >Statut Marié</label
+        >Statut Matrimonial</label
       >
-      <span *ngIf="!details" class="text-danger">*</span>
-      <input
-        type="text"
-        id="maritalStatus"
-        class="form-control"
+      <ng-select
+        placeholder="Statut matrimonial"
         formControlName="maritalStatus"
-        [ngClass]="{ 'is-invalid': formsErrors['maritalStatus'] }"
-      />
-      <span style="color: red">
-        {{ formsErrors["maritalStatus"] }}
-      </span>
+      >
+        <ng-option
+          *ngFor="let statutMatrimonial of statutMatrimonials"
+          [value]="statutMatrimonial.id"
+          >{{ statutMatrimonial.value }}</ng-option
+        >
+      </ng-select>
     </div>
 
     <!-- Nom Epous(e) -->
@@ -321,7 +307,7 @@
       >
       <span *ngIf="!details" class="text-danger">*</span>
       <input
-        type="text"
+        type="number"
         id="emergencyContact"
         class="form-control"
         formControlName="emergencyContact"
@@ -339,7 +325,7 @@
       >
       <span *ngIf="!details" class="text-danger">*</span>
       <input
-        type="text"
+        type="number"
         id="emergencyContact2"
         class="form-control"
         formControlName="emergencyContact2"
@@ -357,7 +343,7 @@
       >
       <span *ngIf="!details" class="text-danger">*</span>
       <input
-        type="text"
+        type="number"
         id="numberOfChildren"
         class="form-control"
         formControlName="numberOfChildren"
@@ -369,35 +355,28 @@
     </div>
 
     <!-- Pays -->
-    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-3 rounded-pill">
       <label for="country" class="form-label text-capitalize">Pays</label>
-      <span *ngIf="!details" class="text-danger">*</span>
-      <input
-        type="text"
+      <ng-select
         id="country"
-        class="form-control"
+        placeholder="Pays"
         formControlName="country"
-        [ngClass]="{ 'is-invalid': formsErrors['country'] }"
-      />
-      <span style="color: red">
-        {{ formsErrors["country"] }}
-      </span>
+        (change)="onGetCityBycountry($event)"
+      >
+        <ng-option *ngFor="let country of countryList" [value]="country.id">{{
+          country.name
+        }}</ng-option>
+      </ng-select>
     </div>
 
     <!-- Ville -->
-    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+    <div class="col-lg-4 col-md-4 col-sm-12 mb-3 rounded-pill">
       <label for="cityId" class="form-label text-capitalize">Ville</label>
-      <span *ngIf="!details" class="text-danger">*</span>
-      <input
-        type="text"
-        id="cityId"
-        class="form-control"
-        formControlName="cityId"
-        [ngClass]="{ 'is-invalid': formsErrors['cityId'] }"
-      />
-      <span style="color: red">
-        {{ formsErrors["cityId"] }}
-      </span>
+      <ng-select id="cityId" placeholder="Ville" formControlName="cityId">
+        <ng-option *ngFor="let city of cityList" [value]="city.id">{{
+          city.name
+        }}</ng-option>
+      </ng-select>
     </div>
 
     <!-- Nom de la mère -->
@@ -472,6 +451,224 @@
       </span>
     </div>
 
+    <div class="col-md-12 mt-4">
+      <h3>Assurance</h3>
+    </div>
+
+    <div
+      class="row mb-3"
+      *ngFor="let insurance of insuranceFormGroup.controls; let i = index"
+    >
+      <ng-container [formGroup]="insurance">
+        <!-- Statut -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label for="active--{{ i }}" class="form-label text-capitalize"
+            >Statut</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="text"
+            id="active--{{ i }}"
+            class="form-control"
+            formControlName="active"
+            [ngClass]="{ 'is-invalid': formsErrors['active'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["active"] }}
+          </span>
+        </div>
+
+        <!-- cardNumber -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label for="cardNumber-{{ i }}" class="form-label text-capitalize"
+            >cardNumber</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="text"
+            id="cardNumber-{{ i }}"
+            class="form-control"
+            formControlName="cardNumber"
+            [ngClass]="{ 'is-invalid': formsErrors['cardNumber'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["cardNumber"] }}
+          </span>
+        </div>
+
+        <!-- coverage -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label for="coverage-{{ i }}" class="form-label text-capitalize"
+            >coverage</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="number"
+            id="coverage-{{ i }}"
+            class="form-control"
+            formControlName="coverage"
+            [ngClass]="{ 'is-invalid': formsErrors['coverage'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["coverage"] }}
+          </span>
+        </div>
+
+        <!-- insurance -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label for="insurance-{{ i }}" class="form-label text-capitalize"
+            >insurance</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="number"
+            id="insurance-{{ i }}"
+            class="form-control"
+            formControlName="insurance"
+            [ngClass]="{ 'is-invalid': formsErrors['insurance'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["insurance"] }}
+          </span>
+        </div>
+
+        <!-- insuranceSuscriber -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label
+            for="insuranceSuscriber-{{ i }}"
+            class="form-label text-capitalize"
+            >insuranceSuscriber</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="number"
+            id="insuranceSuscriber-{{ i }}"
+            class="form-control"
+            formControlName="insuranceSuscriber"
+            [ngClass]="{ 'is-invalid': formsErrors['insuranceSuscriber'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["insuranceSuscriber"] }}
+          </span>
+        </div>
+
+        <!-- isPrincipalInsured -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label
+            for="isPrincipalInsured-{{ i }}"
+            class="form-label text-capitalize"
+            >isPrincipalInsured</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="text"
+            id="isPrincipalInsured-{{ i }}"
+            class="form-control"
+            formControlName="isPrincipalInsured"
+            [ngClass]="{ 'is-invalid': formsErrors['isPrincipalInsured'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["isPrincipalInsured"] }}
+          </span>
+        </div>
+
+        <!-- patient -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label for="patient-{{ i }}" class="form-label text-capitalize"
+            >patient</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="number"
+            id="patient-{{ i }}"
+            class="form-control"
+            formControlName="patient"
+            [ngClass]="{ 'is-invalid': formsErrors['patient'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["patient"] }}
+          </span>
+        </div>
+
+        <!-- principalInsuredAffiliation -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label
+            for="principalInsuredAffiliation-{{ i }}"
+            class="form-label text-capitalize"
+            >principalInsuredAffiliation</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="text"
+            id="principalInsuredAffiliation-{{ i }}"
+            class="form-control"
+            formControlName="principalInsuredAffiliation"
+            [ngClass]="{
+              'is-invalid': formsErrors['principalInsuredAffiliation']
+            }"
+          />
+          <span style="color: red">
+            {{ formsErrors["principalInsuredAffiliation"] }}
+          </span>
+        </div>
+
+        <!-- principalInsuredContact -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label
+            for="principalInsuredContact-{{ i }}"
+            class="form-label text-capitalize"
+            >principalInsuredContact</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="text"
+            id="principalInsuredContact-{{ i }}"
+            class="form-control"
+            formControlName="principalInsuredContact"
+            [ngClass]="{ 'is-invalid': formsErrors['principalInsuredContact'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["principalInsuredContact"] }}
+          </span>
+        </div>
+
+        <!-- principalInsuredName -->
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+          <label
+            for="principalInsuredName-{{ i }}"
+            class="form-label text-capitalize"
+            >principalInsuredName</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+            type="text"
+            id="principalInsuredName-{{ i }}"
+            class="form-control"
+            formControlName="principalInsuredName"
+            [ngClass]="{ 'is-invalid': formsErrors['principalInsuredName'] }"
+          />
+          <span style="color: red">
+            {{ formsErrors["principalInsuredName"] }}
+          </span>
+        </div>
+
+        <!-- Remove insurance -->
+        <div class="col-md-12">
+          <button (click)="removeInsurance(i)" class="deleteInsurance">
+            <fa-icon [icon]="AddIcon"></fa-icon>
+          </button>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-end">
+        <button (click)="addInsurance()" class="addInsurance">
+          Ajouter une assurance
+        </button>
+      </div>
+    </div>
+
     <!-- <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
       <label for="active" class="form-label text-capitalize">Etat</label>
       <ng-select placeholder="Etat" formControlName="active">
@@ -481,7 +678,7 @@
       </ng-select>
     </div> -->
   </div>
-  <div *ngIf="!details" class="mt-3 col">
+  <div *ngIf="!details" class="mt-5 col">
     <div class="">
       <button
         style="background-color: #14a2b8"

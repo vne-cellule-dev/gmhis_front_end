@@ -7,7 +7,7 @@ import { PageList } from '../_models/page-list.model';
 @Injectable({
   providedIn: 'root',
 })
-export class PatientService {
+export class ConventionService {
   private readonly apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
@@ -24,37 +24,29 @@ export class PatientService {
     };
 
     return this.http.get<PageList>(
-      `${this.apiUrl}/patient/p_list`,
+      `${this.apiUrl}/convention/list`,
       queryParams
     );
   }
 
-  findPatient(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/patient/p_list`);
+  findConventionSimpleList(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/convention/list`);
   }
 
-  createPatient(patient: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/patient/add`, patient);
+  createConvention(convention: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/convention/add`, convention);
   }
 
-  updatePatient(patient: any): Observable<any> {
+  updateConvention(convention: any): Observable<any> {
     return this.http.put<any>(
-      `${this.apiUrl}/patient/update/${patient.id}`,
-      patient
+      `${this.apiUrl}/convention/update/${convention.id}`,
+      convention
     );
   }
 
-  getPatientDetail(patient: any): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/patient/detail/${patient.id}`);
-  }
-
-  getCountry(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/country/names`);
-  }
-
-  getCityByCountry(idCountry: number): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${this.apiUrl}/country/cities_name/${idCountry}`
+  getConventionDetails(convention: any): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/convention/get-detail/${convention.id}`
     );
   }
 }

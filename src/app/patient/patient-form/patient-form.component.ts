@@ -9,11 +9,13 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {
+  FormArray,
   FormControl,
   FormControlName,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { fromEvent, merge, Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { GlobalGenerateValidator } from 'src/app/shared/validators/global-generic.validator';
@@ -30,6 +32,7 @@ import { PatientService } from '../patient.service';
 })
 export class PatientFormComponent implements OnInit {
   private subs = new SubSink();
+  AddIcon = faTrash;
 
   @Input()
   patient: IPatient;
@@ -74,6 +77,31 @@ export class PatientFormComponent implements OnInit {
     { id: false, value: 'Inactif' },
   ];
 
+  genders = [
+    { id: 'homme', value: 'Homme' },
+    { id: 'femme', value: 'Femme' },
+  ];
+
+  civilitys = [
+    { id: 'Mr', value: 'Monsieur' },
+    { id: 'Mme', value: 'Madame' },
+    { id: 'Mlle', value: 'Mademoiselle' },
+  ];
+
+  typePieces = [
+    { id: 'CNI', value: 'Carte Nationale Identité' },
+    { id: 'ATT', value: 'Attestation' },
+    { id: 'PC', value: 'Permis de conduire' },
+    { id: 'PP', value: 'Passport' },
+  ];
+
+  statutMatrimonials = [
+    { id: 'M', value: 'Marié(e)' },
+    { id: 'C', value: 'Celibataire' },
+    { id: 'V', value: 'Veuve' },
+    { id: 'D', value: 'Divorcé(e)' },
+  ];
+
   private validatiomMessage: { [key: string]: { [key: string]: string } } = {
     hotelName: {
       required: "Le nom de l'hotel est obligatoire",
@@ -98,6 +126,10 @@ export class PatientFormComponent implements OnInit {
   public formsErrors: { [key: string]: string } = {};
 
   private isFormSubmitted: boolean = false;
+  public insuranceForm!: FormGroup;
+  public insuranceFormGroup: any = new FormArray([]);
+  countryList: any = [];
+  cityList: any = [];
 
   constructor(
     private patientService: PatientService,
@@ -128,6 +160,10 @@ export class PatientFormComponent implements OnInit {
       //   )
       // )
     }
+
+    this.initInsuranceForm();
+    this.insuranceFormGroup.push(this.insuranceForm);
+    this.onGetCountry();
   }
 
   ngAfterViewInit(): void {
@@ -172,7 +208,7 @@ export class PatientFormComponent implements OnInit {
       correspondantCellPhone: new FormControl(null),
       maritalStatus: new FormControl(null),
       maidenName: new FormControl(null),
-      emergencyContact: new FormControl(null),
+      emergencyContact: new FormControl(''),
       emergencyContact2: new FormControl(null),
       numberOfChildren: new FormControl(null),
       country: new FormControl(null),
@@ -263,12 +299,39 @@ export class PatientFormComponent implements OnInit {
     return this.patientForm.get('patientExternalId');
   }
 
+  initInsuranceForm() {
+    this.insuranceForm = new FormGroup({
+      id: new FormControl(null),
+      active: new FormControl(''),
+      cardNumber: new FormControl(''),
+      coverage: new FormControl(null),
+      insurance: new FormControl(null),
+      insuranceSuscriber: new FormControl(null),
+      isPrincipalInsured: new FormControl(''),
+      patient: new FormControl(null),
+      principalInsuredAffiliation: new FormControl(''),
+      principalInsuredContact: new FormControl(''),
+      principalInsuredName: new FormControl(''),
+    });
+  }
+
+  addInsurance() {
+    this.initInsuranceForm();
+    this.insuranceFormGroup.push(this.insuranceForm);
+  }
+
+  removeInsurance(index: any) {
+    this.insuranceFormGroup.removeAt(index);
+  }
+
   save() {
     this.invalidFom = !this.patientForm.valid;
     this.formSubmitted = true;
     if (this.patientForm.valid) {
       this.showloading = true;
       this.patient = this.patientForm.value;
+      this.infoFormString();
+      this.patient.insurances = this.insuranceFormGroup.value;
       console.log(this.patient);
 
       if (this.patient.id) {
@@ -305,5 +368,51 @@ export class PatientFormComponent implements OnInit {
         );
       }
     }
+  }
+
+  infoFormString() {
+    this.patient.cellPhone1 = this.patientForm
+      .get('cellPhone1')
+      .value.toString();
+    this.patient.cellPhone2 = this.patientForm
+      .get('cellPhone2')
+      .value.toString();
+    this.patient.emergencyContact = this.patientForm
+      .get('emergencyContact')
+      .value.toString();
+    this.patient.emergencyContact2 = this.patientForm
+      .get('emergencyContact2')
+      .value.toString();
+    this.patient.numberOfChildren = this.patientForm
+      .get('numberOfChildren')
+      .value.toString();
+    this.patient.correspondantCellPhone = this.patientForm
+      .get('correspondantCellPhone')
+      .value.toString();
+  }
+
+  onGetCountry() {
+    this.patientService.getCountry().subscribe(
+      (res) => {
+        console.log(res);
+        this.countryList = res;
+        console.log('TCL: onGetCountry -> ', this.countryList);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err.message);
+      }
+    );
+  }
+
+  onGetCityBycountry(idCountry: number) {
+    this.patientService.getCityByCountry(idCountry).subscribe(
+      (res) => {
+        console.log(res);
+        this.cityList = res;
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err.message);
+      }
+    );
   }
 }
