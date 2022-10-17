@@ -52,4 +52,8 @@ export class SubscriberService {
       `${this.apiUrl}/insuranceSubscriber/get-detail/${insuranceSubscriber.id}`
     );
   }
+
+  getAllInsuranceSubscriberActive(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/insuranceSubscriber/active_subscribers_name/`);
+  }
 }

@@ -155,13 +155,13 @@ export class PatientListComponent implements OnInit {
   }
 
   openAddForm(addFormContent) {
-    this.modalService.open(addFormContent, { size: 'lg' });
+    this.modalService.open(addFormContent, { size: 'xl' });
   }
 
   openUpdateForm(updateFormContent, item?) {
     this.patient = item;
     console.log(this.patient);
-    this.modalService.open(updateFormContent, { size: 'lg' });
+    this.modalService.open(updateFormContent, { size: 'xl' });
   }
 
   addPatient() {

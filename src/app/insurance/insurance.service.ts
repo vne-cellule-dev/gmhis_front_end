@@ -49,4 +49,8 @@ export class InsuranceService {
       `${this.apiUrl}/insurance/get-detail/${antecedentType.id}`
     );
   }
+
+  getAllInsuranceActive(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/insurance/active_insurances_name/`);
+  }
 }

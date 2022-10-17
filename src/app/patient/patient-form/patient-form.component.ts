@@ -18,6 +18,8 @@ import {
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { fromEvent, merge, Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { InsuranceService } from 'src/app/insurance/insurance.service';
+import { SubscriberService } from 'src/app/insurance/subscriber.service';
 import { GlobalGenerateValidator } from 'src/app/shared/validators/global-generic.validator';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
@@ -116,6 +118,11 @@ export class PatientFormComponent implements OnInit {
     },
   };
 
+  isPrincipalInsuredOptions = [
+    { id: 'Y', value: 'Oui' },
+    { id: 'N', value: 'Non' }
+  ]
+
   private globalGenericValidator!: GlobalGenerateValidator;
 
   @ViewChildren(FormControlName, { read: ElementRef })
@@ -130,10 +137,14 @@ export class PatientFormComponent implements OnInit {
   public insuranceFormGroup: any = new FormArray([]);
   countryList: any = [];
   cityList: any = [];
+  insurances: any;
+  insurancesSubscribers: any;
 
   constructor(
     private patientService: PatientService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private insuranceService : InsuranceService,
+    private insuranceSubscriberService : SubscriberService
   ) {}
 
   // Unsubscribe when the component dies
@@ -164,6 +175,8 @@ export class PatientFormComponent implements OnInit {
     this.initInsuranceForm();
     this.insuranceFormGroup.push(this.insuranceForm);
     this.onGetCountry();
+    this.getInsuranceSimpleList();
+    this.getInsuranceSubscriberSimpleList();
   }
 
   ngAfterViewInit(): void {
@@ -191,21 +204,21 @@ export class PatientFormComponent implements OnInit {
     this.patientForm = new FormGroup({
       id: new FormControl(null),
       // active: new FormControl(true),
-      firstName: new FormControl(null),
-      lastName: new FormControl(null),
-      email: new FormControl(null),
-      cellPhone1: new FormControl(null),
-      cellPhone2: new FormControl(null),
+      firstName: new FormControl("coulibaly"),
+      lastName: new FormControl("Cherif Ousmane"),
+      email: new FormControl("cherif@gmail.com"),
+      cellPhone1: new FormControl("1111111111"),
+      cellPhone2: new FormControl("223334442222"),
       address: new FormControl('', [Validators.required]),
       birthDate: new FormControl(null),
-      gender: new FormControl(null),
+      gender: new FormControl("M"),
       civility: new FormControl(null),
       idcardType: new FormControl(null),
-      idCardNumber: new FormControl(null),
-      cnamNumber: new FormControl(null),
-      profession: new FormControl(null),
-      correspondant: new FormControl(null),
-      correspondantCellPhone: new FormControl(null),
+      idCardNumber: new FormControl("CNI1234556"),
+      cnamNumber: new FormControl("23387478487"),
+      profession: new FormControl("COMMERCIAL"),
+      correspondant: new FormControl("ADJA"),
+      correspondantCellPhone: new FormControl("787898797978"),
       maritalStatus: new FormControl(null),
       maidenName: new FormControl(null),
       emergencyContact: new FormControl(''),
@@ -216,7 +229,7 @@ export class PatientFormComponent implements OnInit {
       motherFirstName: new FormControl(null),
       motherLastName: new FormControl(null),
       motherProfession: new FormControl(null),
-      patientExternalId: new FormControl(null),
+      patientExternalId: new FormControl("PATIENT 10"),
       insurances: new FormControl([]),
     });
   }
@@ -415,4 +428,50 @@ export class PatientFormComponent implements OnInit {
       }
     );
   }
+
+  getInsuranceSimpleList(){
+   this.subs.add(
+     this.insuranceService.getAllInsuranceActive().subscribe(
+       (response : any) => {
+          this.insurances = response;
+       },
+       (errorResponse : HttpErrorResponse) => {
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          errorResponse.error.message
+        );
+       }
+     )
+   )
+  }
+
+  getInsuranceSubscriberSimpleList(){
+    this.subs.add(
+      this.insuranceSubscriberService.getAllInsuranceSubscriberActive().subscribe(
+        (response : any) => {
+           this.insurancesSubscribers = response;
+           console.log(this.insurancesSubscribers);
+           
+        },
+        (errorResponse : HttpErrorResponse) => {
+         this.notificationService.notify(
+           NotificationType.ERROR,
+           errorResponse.error.message
+         );
+        }
+      )
+    )
+   }
+
+  isPrincipalInsuredChange(row){
+    if(this.insuranceFormGroup.controls[row].get('isPrincipalInsured').value == 'Y') {
+      let insuredName = this.patientForm.get('firstName').value + ""+ this.patientForm.get('maidenName').value +" "+ this.patientForm.get('lastName').value;
+      let insuredContact = this.patientForm.get('cellPhone1').value;
+      this.insuranceFormGroup.controls[row].get('principalInsuredName').setValue(insuredName);
+      this.insuranceFormGroup.controls[row].get('principalInsuredContact').setValue(insuredContact);
+      this.insuranceFormGroup.controls[row].get('principalInsuredName').disable();
+      this.insuranceFormGroup.controls[row].get('principalInsuredAffiliation').disable();
+
+    }
+}
 }
