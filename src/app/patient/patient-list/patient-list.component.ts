@@ -49,6 +49,8 @@ export class PatientListComponent implements OnInit {
 
   showloading: boolean = false;
   currentIndex: number;
+
+  acctionsList : boolean = false;
   constructor(
     private patientService: PatientService,
     private notificationService: NotificationService,
@@ -58,8 +60,7 @@ export class PatientListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initform();
-    this.getPatient();
-    const actGroup = {
+   const actGroup = {
       active: false,
       id: 0,
       name: 'PATIENT',
@@ -106,10 +107,14 @@ export class PatientListComponent implements OnInit {
 
   initform() {
     this.searchForm = new FormGroup({
-      name: new FormControl(''),
-      active: new FormControl(null),
+      patientExternalId: new FormControl(''),
+      firstName: new FormControl(null),
+      cellPhone: new FormControl(null),
+      lastName: new FormControl(null),
+      cnamNumber: new FormControl(null),
+      idCardNumber: new FormControl(null),
       page: new FormControl(0),
-      size: new FormControl(10),
+      size: new FormControl(50),
       sort: new FormControl('id,desc'),
     });
   }
@@ -185,5 +190,9 @@ export class PatientListComponent implements OnInit {
   rowSelected(patient: IPatient, index: number) {
     this.currentIndex = index;
     this.patient = patient;
+  }
+
+  showActionsList(){
+    this.acctionsList = !this.acctionsList;
   }
 }

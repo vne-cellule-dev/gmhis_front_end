@@ -16,10 +16,14 @@ export class PatientService {
     let queryParams = {};
     queryParams = {
       params: new HttpParams()
+        .set('patientExternalId', data['patientExternalId'])
+        .set('firstName', data['firstName'] ?? '')
+        .set('lastName', data['lastName'] ?? '')
+        .set('cellPhone', data['cellPhone'] ?? '')
+        .set('cnamNumber', data['cnamNumber'] ?? '')
+        .set('idCardNumber', data['idCardNumber'] ?? '')
         .set('page', data['page'])
         .set('size', data['size'] ?? '')
-        .set('name', data['name'])
-        .set('active', data['active'] ?? '')
         .set('sort', data['sort']),
     };
 
@@ -38,6 +42,8 @@ export class PatientService {
   }
 
   updatePatient(patient: any): Observable<any> {
+    console.log(patient);
+    
     return this.http.put<any>(
       `${this.apiUrl}/patient/update/${patient.id}`,
       patient
@@ -57,4 +63,6 @@ export class PatientService {
       `${this.apiUrl}/country/cities_name/${idCountry}`
     );
   }
+
+  
 }

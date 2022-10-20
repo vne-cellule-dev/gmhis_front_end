@@ -18,68 +18,104 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <form [formGroup]="searchForm">
-      <div class="row d-flex justify-content-between align-items-center">
-        <div class="col-lg-9 col-md-9 col-sm-12">
-          <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-              <input
-                type="text"
-                class="form-control"
-                formControlName="name"
-                placeholder="Patient"
-              />
+        <form [formGroup]="searchForm">
+          <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-lg-8 col-md-9 col-sm-12 row">
+              <div class="col-lg-11 row">
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="lastName"
+                    placeholder="Nom"
+                  />
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="firstName"
+                    placeholder="Prenom"
+                  />
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="patientExternalId"
+                    placeholder="N° Patient"
+                  />
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="idCardNumber"
+                    placeholder="N° carte d'identité"
+                  />
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="cnamNumber"
+                    placeholder="N° CNAM"
+                  />
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="cellPhone"
+                    placeholder="N° Tel"
+                  />
+                </div>
+             
+              </div>
+              <div class="col-lg-1">
+                <span
+                  (click)="onSearchValueChange()"
+                  style="
+                    background-color: #ededed;
+                    color: #14a2b8;
+                    cursor: pointer;
+                  "
+                  class="material-icons px-2 p-1 rounded"
+                >
+                  search
+                </span>
+              </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-              <ng-select placeholder="Etat" formControlName="active">
-                <ng-option *ngFor="let actif of actives" [value]="actif.id">{{
-                  actif.value
+            <div class="col-lg-2 col-md-3 col-sm-12">
+              <ng-select
+                [(ngModel)]="selectedSize"
+                formControlName="size"
+                (change)="onSearchValueChange()"
+              >
+                <ng-option *ngFor="let size of sizes" [value]="size.id">{{
+                  size.value
                 }}</ng-option>
               </ng-select>
             </div>
-            <div class="col-lg-2">
-              <span
-                (click)="onSearchValueChange()"
-                style="
-                  background-color: #ededed;
-                  color: #14a2b8;
-                  cursor: pointer;
-                "
-                class="material-icons px-2 p-1 rounded"
-              >
-                search
-              </span>
-            </div>
           </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-12">
-          <ng-select
-            [(ngModel)]="selectedSize"
-            formControlName="size"
-            (change)="onSearchValueChange()"
-          >
-            <ng-option *ngFor="let size of sizes" [value]="size.id">{{
-              size.value
-            }}</ng-option>
-          </ng-select>
-        </div>
-      </div>
-    </form>
+        </form>   
     <div class="tableFixHead">
       <table class="table table-bordered table-hover table-md align-middle">
         <thead class="pb-3 text-capitalize">
           <tr class="pb-3">
-            <th>Patient</th>
-            <th>Téléphone</th>
-            <th>Email</th>
-            <th>crée le</th>
-            <th scope="col">crée par</th>
-            <th scope="col">Dernière modif.</th>
-            <th scope="col">Modifié par</th>
-            <th scope="col">Action</th>
+            <th>N° Patient</th>
+            <th>Nom</th>
+            <th>Prénom(s)</th>
+            <th>Date de naissance</th>
+            <th>Sexe</th>
+            <th>Civilité</th>
+            <th>profession</th>
+            <th>Contact 1</th>
+            <th>Type Carte ID</th> 
+            <th>N° carte ID</th>  
+            <th>N° CNAM</th> 
+            <th>Actions</th>        
           </tr>
-
-          <tr></tr>
         </thead>
 
         <tbody>
@@ -97,47 +133,39 @@
             [class.active]="i == currentIndex"
             (click)="rowSelected(commune, i)"
           >
+          <td>{{patient?.patientExternalId | uppercase }}</td>
             <td>
               {{ patient?.lastName | uppercase }}
-              {{ patient?.firstName | uppercase }}
             </td>
+            <td>
+              {{ patient?.firstName| uppercase  }}
+            </td>
+            <td> {{ patient?.birthDate | date  }}</td>
+            <td> {{ patient?.gender   }}</td>
+            <td> {{ patient?.civility   }}</td>
+            <td> {{ patient?.profession }}</td>
             <td>{{ patient?.cellPhone1 }} / {{ patient?.cellPhone2 }}</td>
-            <td>{{ patient?.email }}</td>
-            <!-- <td>
-              <nb-icon
-                *ngIf="patient.active == true"
-                style="color: green"
-                icon="checkmark-circle-2"
-              ></nb-icon>
-              <nb-icon
-                *ngIf="patient.active == false"
-                style="color: red"
-                icon="close-circle"
-              ></nb-icon>
-            </td> -->
-            <td>{{ patient?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+            <td class="text-nowrap">{{patient.idcardType}}</td>
+            <td class="text-nowrap">{{patient.idCardNumber}}</td>
+            <td class="text-nowrap">{{patient.cnamNumber}}</td>
             <td>
-              {{
-                patient.createdByFirstName + " " + patient.createdByLastName
-                  | uppercase
-              }}
-            </td>
-            <td>{{ patient?.updatedAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
-            <td>
-              {{
-                patient.UpdatedByFirstName
-                  ? patient.UpdatedByFirstName + " " + patient.UpdatedByLastName
-                  : ("" | uppercase)
-              }}
-            </td>
-            <td style="font-size: 30px">
-              <nb-icon
-                (click)="openUpdateForm(updateFormContent, patient)"
-                class="mx-2 pointer"
-                style="cursor: pointer"
-                icon="edit-outline"
-              ></nb-icon>
-              <!-- <nb-icon (click)="openDetailsForm(detailFormContent, commune)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon> -->
+              <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>
+                  ...
+                </button>
+                <div class="text" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button
+                  (click)="openUpdateForm(updateFormContent, patient)"
+                   class="text-center" 
+                   ngbDropdownItem>
+                   Modifier
+                  </button>
+                  <button class="text-center" ngbDropdownItem>Dossier</button>
+                  <button class="text-center" ngbDropdownItem>Constante</button>
+                  <button class="text-center" ngbDropdownItem>Nv.admiss</button>
+                  <button class="text-center" ngbDropdownItem>Etiquette</button>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -180,7 +208,7 @@
     ></nb-icon>
   </div>
   <div class="modal-body">
-    <app-patient-form (addPatient)="addPatient()"></app-patient-form>
+    <app-patient-formm (addPatient)="addPatient()"></app-patient-formm>
   </div>
 </ng-template>
 
@@ -198,9 +226,9 @@
     ></nb-icon>
   </div>
   <div class="modal-body">
-    <app-patient-form
+    <app-patient-formm
       [patient]="patient"
       (updatePatient)="updatePatient()"
-    ></app-patient-form>
+    ></app-patient-formm>
   </div>
 </ng-template>

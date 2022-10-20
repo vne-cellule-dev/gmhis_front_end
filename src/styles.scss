@@ -386,3 +386,11 @@ ngb-carousel {
 }
 
 
+.modal-content{
+  height: 90vh!important;
+  overflow: auto;
+}
+
+.modal.show .modal-dialog{
+  height: 95vh!important;
+}

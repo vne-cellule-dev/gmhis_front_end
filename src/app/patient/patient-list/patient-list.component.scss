@@ -1,0 +1,18 @@
+.actionList{
+    
+    display: block;
+
+
+    z-index: 1061;
+    
+   
+}
+
+.modal-content{
+    height: 90vh!important;
+    overflow: auto;
+  }
+  
+  .modal.show .modal-dialog{
+    height: 95vh!important;
+  }

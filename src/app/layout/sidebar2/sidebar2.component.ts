@@ -198,6 +198,210 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       ],
     },
     {
+      title: 'NOS ETABLISSEMENT',
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: 'PATHOLOGIES',
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: 'PHARMACIE',
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: 'PRATICIENS',
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "SALLES D'ATTENTE",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "SERVICES",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "STOCK",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "SPECIALITES",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "SUBDIVISION TERRITORIALE",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "SYMPTÔMES",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "TYPES DE PAYEMENT",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
+      title: "UNITE DE MESURES",
+      icon: 'folder-outline',
+      children: [
+        {
+          title: 'Groupe de constante',
+          link: '/constant/domain',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Constante type type',
+          link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        
+      ],
+    },
+    {
       title: 'GESTION DES UTILISATEURS',
       icon: 'people-outline',
       hidden: !this.canAccessUserManagenent(),

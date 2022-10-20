@@ -25,6 +25,10 @@ export class ActGroupService {
     return this.http.get<PageList>(`${this.apiUrl}/actGroup/list`, queryParams);
   }
 
+  findActiveActGroupNameAndId(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/actGroup/active_actGroup_name`);
+  }
+
   findActSimpleList(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/actGroup/list-simple`);
   }

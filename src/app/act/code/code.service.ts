@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class CodeService {
   private readonly apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   findAll(data): Observable<PageList> {
     let queryParams = {};
@@ -28,6 +28,17 @@ export class CodeService {
 
   findActSimpleList(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/actCode/list-simple`);
+  }
+
+  /**
+   * It returns an Observable of an array of any type
+   * @returns An array of objects with the following properties:
+   * - id
+   * - name
+   * - active
+   */
+  findActiveActCodeNameAndId(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/actCode/active_actCode_name`);
   }
 
   createActCode(actCode: any): Observable<any> {

@@ -1,0 +1,20 @@
+.deleteInsurance{
+    background-color: rgb(182, 75, 75);
+    color: white;
+    border: none;
+}
+
+.addInsurance{
+    background-color: rgb(91, 216, 91);
+    color: white;
+    border: none;
+}
+
+.modal-content{
+    height: 90vh!important;
+    overflow: auto;
+  }
+  
+  .modal.show .modal-dialog{
+    height: 95vh!important;
+  }
