@@ -88,7 +88,7 @@ export class ActCategoryListComponent implements OnInit {
       name: new FormControl(''),
       active: new FormControl(null),
       page: new FormControl(0),
-      size: new FormControl(10),
+      size: new FormControl(50),
       sort: new FormControl('id,desc'),
     });
   }
@@ -147,7 +147,7 @@ export class ActCategoryListComponent implements OnInit {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "catégorie d'acte ajouté avec succès"
+      "spécialité d'acte ajoutée avec succès"
     );
     this.getactCategories();
   }
@@ -156,7 +156,7 @@ export class ActCategoryListComponent implements OnInit {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "catégorie d'acte modifié avec succès"
+      "spécialité d'acte modifiée avec succès"
     );
     this.getactCategories();
   }

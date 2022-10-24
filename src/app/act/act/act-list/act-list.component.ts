@@ -6,6 +6,7 @@ import { PageList } from 'src/app/_models/page-list.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
+import { ActCategoryService } from '../../category/service/act-category.service';
 import { Act } from '../models/act';
 import { ActService } from '../service/act.service';
 
@@ -50,17 +51,19 @@ export class ActListComponent implements OnInit {
 
   showloading: boolean = false;
   currentIndex: number;
+  actCategoriesNameAndId: any;
   constructor(
     private actService: ActService,
     private notificationService: NotificationService,
     config: NgbModalConfig,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private actCategoryService : ActCategoryService
   ) {}
 
   ngOnInit(): void {
     this.initform();
     this.getPaginatedListOfAct();
-  
+    this.findActiveActCategoryNameAndId()
   }
 
 
@@ -68,9 +71,10 @@ export class ActListComponent implements OnInit {
   initform() {
     this.searchForm = new FormGroup({
       name: new FormControl(''),
+      category: new FormControl(''),
       active: new FormControl(null),
       page: new FormControl(0),
-      size: new FormControl(10),
+      size: new FormControl(50),
       sort: new FormControl('id,desc'),
     });
   }
@@ -146,6 +150,23 @@ export class ActListComponent implements OnInit {
   rowSelected(act: Act, index: number) {
     this.currentIndex = index;
     this.act = act;
+  }
+
+  private findActiveActCategoryNameAndId(){
+    this.actCategoryService.findActiveActCategoryNameAndId().subscribe(
+      (response : any) => {
+        this.actCategoriesNameAndId = response;
+        console.log("actCategoriesNameAndId",this.actCategoriesNameAndId);
+        
+      },
+      (errorResponse : HttpErrorResponse) => {
+        this.showloading = false;
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          errorResponse.error.message
+        ); 
+      }
+    )
   }
 
 }

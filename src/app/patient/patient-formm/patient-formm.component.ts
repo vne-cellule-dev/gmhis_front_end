@@ -194,7 +194,7 @@ export class PatientFormmComponent implements OnInit {
       civility: new FormControl("", [Validators.required]),
       idcardType: new FormControl("", [Validators.required]),
       idCardNumber: new FormControl(""),
-      cnamNumber: new FormControl(""),
+      cnamNumber: new FormControl("", [Validators.minLength(13)]),
       profession: new FormControl("", [Validators.required]),
       correspondant: new FormControl("", [Validators.required]),
       correspondantCellPhone: new FormControl(""),
@@ -210,6 +210,7 @@ export class PatientFormmComponent implements OnInit {
       motherProfession: new FormControl(""),
       patientExternalId: new FormControl("", [Validators.required]),
       insurances: new FormControl([]),
+      fatherName: new FormControl([]),
     });
   }
   get lastName() {

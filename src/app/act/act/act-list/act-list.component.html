@@ -27,8 +27,19 @@
                   type="text"
                   class="form-control"
                   formControlName="name"
-                  placeholder="Acte"
+                  placeholder="Recherche par nom d'Acte"
                 />
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <ng-select 
+                placeholder="Etat"
+                placeholder="Recherche par spécialité"
+                 formControlName="category"
+                 >
+                  <ng-option *ngFor="let actCategoryNameAndId of actCategoriesNameAndId" [value]="actCategoryNameAndId.id">{{
+                    actCategoryNameAndId.name
+                  }}</ng-option>
+                </ng-select>
               </div>
               <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                 <ng-select placeholder="Etat" formControlName="active">
@@ -74,6 +85,8 @@
               <th>Categorie</th>
               <th>Famille</th>
               <th scope="col">Code</th>
+              <th scope="col">Coefficient</th>
+              <th scope="col">Coût</th>
               <th>Etat</th>
               <th>crée le</th>
               <th>crée par</th>
@@ -88,7 +101,7 @@
           <tbody>
             <tr
               *ngFor="
-                let code of items
+                let act of items
                   | paginate
                     : {
                         itemsPerPage: selectedSize,
@@ -100,41 +113,43 @@
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
             >
-              <td>{{ code?.codification | uppercase }}</td>
-              <td>{{ code?.name }}</td>
-              <td>{{ code?.actCategory }}</td>
-              <td>{{ code?.actGroup }}</td>
-              <td>{{ code?.actCode }}</td>
+              <td>{{ act?.codification | uppercase }}</td>
+              <td>{{ act?.name }}</td>
+              <td>{{ act?.actCategory }}</td>
+              <td>{{ act?.actGroup }}</td>
+              <td>{{ act?.actCode }}</td>
+              <td class="text-center text-nowrap">{{ act?.coefficient }}</td>
+               <td class="text-center text-nowrap">{{ act?.amount }}</td>
               <td>
                 <nb-icon
-                  *ngIf="code.active == true"
+                  *ngIf="act.active == true"
                   style="color: green"
                   icon="checkmark-circle-2"
                 ></nb-icon>
                 <nb-icon
-                  *ngIf="code.active == false"
+                  *ngIf="act.active == false"
                   style="color: red"
                   icon="close-circle"
                 ></nb-icon>
               </td>
-              <td>{{ code?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+              <td>{{ act?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
               <td>
                 {{
-                  code.createdByFirstName + " " + code.createdByLastName
+                  act.createdByFirstName + " " + act.createdByLastName
                     | uppercase
                 }}
               </td>
-              <td>{{ code?.updatedAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+              <td>{{ act?.updatedAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
               <td>
                 {{
-                  code.UpdatedByFirstName
-                    ? code.UpdatedByFirstName + " " + code.UpdatedByLastName
+                  act.UpdatedByFirstName
+                    ? act.UpdatedByFirstName + " " + act.UpdatedByLastName
                     : ("" | uppercase)
                 }}
               </td>
               <td style="font-size: 30px">
                 <nb-icon
-                  (click)="openUpdateForm(updateFormContent, code)"
+                  (click)="openUpdateForm(updateFormContent, act)"
                   class="mx-2 pointer"
                   style="cursor: pointer"
                   icon="edit-outline"

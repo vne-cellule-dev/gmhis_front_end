@@ -30,7 +30,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NgxPaginationModule,
     FontAwesomeModule,
     NgbTooltipModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+
   ]
 })
 export class UserModule { }

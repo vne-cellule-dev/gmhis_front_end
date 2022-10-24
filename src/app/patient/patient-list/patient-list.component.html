@@ -19,7 +19,7 @@
   </nb-card-header>
   <nb-card-body>
         <form [formGroup]="searchForm">
-          <div class="row d-flex justify-content-between align-items-center">
+          <div class="row d-flex justify-content-between align-items-end mb-2">
             <div class="col-lg-8 col-md-9 col-sm-12 row">
               <div class="col-lg-11 row">
                 <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
@@ -69,8 +69,7 @@
                     formControlName="cellPhone"
                     placeholder="N° Tel"
                   />
-                </div>
-             
+                </div>         
               </div>
               <div class="col-lg-1">
                 <span
@@ -160,9 +159,13 @@
                    ngbDropdownItem>
                    Modifier
                   </button>
-                  <button class="text-center" ngbDropdownItem>Dossier</button>
+                  <button 
+                  class="text-center" 
+                  ngbDropdownItem>Dossier</button>
                   <button class="text-center" ngbDropdownItem>Constante</button>
-                  <button class="text-center" ngbDropdownItem>Nv.admiss</button>
+                  <button class="text-center"
+                  (click)="openAdmissionForm(admissionFormContent, patient)"
+                  ngbDropdownItem>Nv.admiss</button>
                   <button class="text-center" ngbDropdownItem>Etiquette</button>
                 </div>
               </div>
@@ -209,6 +212,27 @@
   </div>
   <div class="modal-body">
     <app-patient-formm (addPatient)="addPatient()"></app-patient-formm>
+  </div>
+</ng-template>
+
+<!-- update modal -->
+<ng-template #admissionFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+      Nouvelle Admission
+    </h4>
+    <nb-icon
+      style="cursor: pointer"
+      (click)="d('Cross click')"
+      class="h4"
+      icon="close-circle-outline"
+    ></nb-icon>
+  </div>
+  <div class="modal-body">
+    <app-admission-form
+      [patient]="patient"
+      (addAdmission)="addAdmission()"
+    ></app-admission-form>
   </div>
 </ng-template>
 

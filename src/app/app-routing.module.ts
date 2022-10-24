@@ -24,6 +24,13 @@ const routes: Routes = [
         loadChildren: () => import('./act/act.module').then((m) => m.ActModule),
       },
       {
+        path: 'admission',
+        loadChildren: () =>
+          import('./admission/admission.module').then(
+            (m) => m.AdmissionModule
+          ),
+      },
+      {
         path: 'antecedent',
         loadChildren: () =>
           import('./antecedent/antecedent.module').then(
@@ -70,6 +77,11 @@ const routes: Routes = [
         path: 'patient',
         loadChildren: () =>
           import('./patient/patient.module').then((m) => m.PatientModule),
+      },
+      {
+        path: 'waiting-room',
+        loadChildren: () =>
+          import('./waiting-room/waiting-room.module').then((m) => m.WaitingRoomModule),
       },
     ],
   },

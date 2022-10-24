@@ -142,7 +142,7 @@
 
       <!-- Numero de sécurité -->
       <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
-        <label for="cnamNumber" class="form-label text-capitalize">Numero CNAM</label>
+        <label for="cnamNumber" class="form-label text-capitalize">N° de sécurité social</label>
         <input type="text" id="cnamNumber" class="form-control" formControlName="cnamNumber"
           [ngClass]="{ 'is-invalid': formsErrors['cnamNumber'] }" />
 
@@ -175,8 +175,16 @@
       <!-- N° Correspondant -->
       <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
         <label for="correspondantCellPhone" class="form-label text-capitalize">Contact du correspondant</label>
-        <input type="number" id="correspondantCellPhone" class="form-control" formControlName="correspondantCellPhone"
-          [ngClass]="{ 'is-invalid': formsErrors['correspondantCellPhone'] }" />
+        <div class="row ">
+          <div class="col">
+            <input type="number" id="emergencyContact" class="form-control" formControlName="emergencyContact">
+          </div>
+          <div class="col">
+            <input type="number" id="emergencyContact2" class="form-control" formControlName="emergencyContact2">
+          </div>
+        </div>
+        <!-- <input type="number" id="correspondantCellPhone" class="form-control" formControlName="correspondantCellPhone"
+          [ngClass]="{ 'is-invalid': formsErrors['correspondantCellPhone'] }" /> -->
 
       </div>
 
@@ -197,21 +205,28 @@
 
       </div>
 
-      <!-- Contact d'urgence -->
+        <!-- Contact d'urgence -->
       <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+        <label for="emergencyContact" class="form-label text-capitalize">Nom du père</label>
+        <input type="text" id="emergencyContact" class="form-control" formControlName="fatherName"/>
+
+      </div>
+
+      <!-- Contact d'urgence -->
+      <!-- <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
         <label for="emergencyContact" class="form-label text-capitalize">Contact d'urgence</label>
         <input type="number" id="emergencyContact" class="form-control" formControlName="emergencyContact"
           [ngClass]="{ 'is-invalid': formsErrors['emergencyContact'] }" />
 
-      </div>
+      </div> -->
 
       <!-- Contact d'urgence 2 -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <!-- <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
         <label for="emergencyContact2" class="form-label text-capitalize">Contact d'urgence 2</label>
         <input type="number" id="emergencyContact2" class="form-control" formControlName="emergencyContact2"
           [ngClass]="{ 'is-invalid': formsErrors['emergencyContact2'] }" />
 
-      </div>
+      </div> -->
 
       <!-- Nombre d'enfant -->
       <div class="col-lg-4 col-md-4 col-sm-12 mb-1">

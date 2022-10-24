@@ -1,0 +1,90 @@
+<form [formGroup]="admissionForm" (ngSubmit)="save()">
+    <div
+      *ngIf="showloading == true"
+      class="overlay d-flex justify-content-center align-items-center"
+    >
+      <div class="d-flex w-100 justify-content-center">
+        <div
+          class="spinner-border"
+          style="width: 5rem; height: 5rem; color: #623508"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <small  class="mb-2 fw-bold"
+      >Nb: Tous les champs marqués par <span class="text-danger">*</span> sont
+      obligatoires</small
+    >
+    <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
+    <div class="row mb-2">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label for="name" class="form-label text-capitalize">Numero Patient</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          formControlName="patientExternalId"
+        />
+        <span style="color: red">
+        </span>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label for="code" class="form-label text-capitalize">Nom du patient</label>
+        <input
+          type="text"
+          id="code"
+          class="form-control"
+          formControlName="patientName"
+        />
+        <span style="color: red">
+        </span>
+      </div>
+
+   
+      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">Acte d'admission</label>
+        <ng-select placeholder="Acte d'admission" formControlName="act">
+          <ng-option *ngFor="let act of actsNameAndId" [value]="act.id">{{
+            act.name
+          }}</ng-option>
+        </ng-select>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+        <label for="code" class="form-label text-capitalize">Date d'admission
+          <span  class="text-danger">*</span>
+        </label>
+        <input nbInput formControlName="createdAt" placeholder="Date et heure d'admission" class="form-control" [nbDatepicker]="dateTimePicker">
+        <nb-date-timepicker withSeconds #dateTimePicker></nb-date-timepicker>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">Service</label>
+        <ng-select placeholder="Service" formControlName="service">
+          <ng-option *ngFor="let service of servicesNameAndId" [value]="service.id">{{
+            service.name
+          }}</ng-option>
+        </ng-select>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">Medecin</label>
+        <ng-select placeholder="Medecin" formControlName="practician">
+          <!-- <ng-option *ngFor="let service of servicesNameAndId" [value]="service.id">{{
+            service.name
+          }}</ng-option> -->
+        </ng-select>
+      </div>
+    </div>
+    <div  class="mt-3 col">
+      <div class="">
+        <button
+          style="background-color: #14a2b8"
+          type="submit"
+          class="btn text-capitalize bg-biblos justify-content-center text-white rounded px-4 py-2 fw-bold"
+        >
+          VALIDER
+        </button>
+      </div>
+    </div>
+  </form>
+  

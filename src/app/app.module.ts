@@ -7,7 +7,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { LOCALE_ID } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbIconModule, NbSearchModule, NbSidebarModule, NbMenuModule, NbCardModule, NbDatepickerModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbIconModule, NbSearchModule, NbSidebarModule, NbMenuModule, NbCardModule, NbDatepickerModule, NbTimepickerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LayoutModule } from './layout/layout.module';
 import { RouterModule } from '@angular/router';
@@ -57,12 +57,14 @@ registerLocaleData(localFr, 'fr');
     FontAwesomeModule,
     NgxDropzoneModule,
     NbDatepickerModule.forRoot(),
+    NbTimepickerModule.forRoot(),
     NbDateFnsDateModule.forRoot({format: 'dd/MM/yyyy' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     
     ],
   providers: [NotificationService,AuthenticationGuard, AuthenticationService, UserService, WebsocketService,
-  {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, {provide: LOCALE_ID, useValue: 'fr'} ],
+  {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, {provide: LOCALE_ID, useValue: 'fr'},
+ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

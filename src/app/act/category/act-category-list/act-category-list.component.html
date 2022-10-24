@@ -1,7 +1,7 @@
 <nb-card class="nbCardList"  >
     <nb-card-header class="row d-flex justify-content-between align-items-center">
       <div class="col-lg-7 col-md-3 col-sm-12">
-        <h4 class="text-capitalize d-flex justify-content-start w-100 text-center">LISTE DES CATEGORIES D'ACTES</h4>
+        <h4 class="text-capitalize d-flex justify-content-start w-100 text-center">LISTE DES SPÉCIALITÉS D'ACTES</h4>
       </div>
       <div class="col-lg-2 col-md-3 col-sm-12  justify-content-end">
         <button (click)="openAddForm(addFormContent)" 
@@ -44,10 +44,10 @@
           <tr class="pb-3">
               <th>Catégorie d'actes</th>
               <th>Etat</th>
-              <th>crée le </th>
+              <!-- <th>crée le </th>
               <th scope="col">crée par</th>
               <th scope="col">Dernière modif.</th>
-              <th scope="col">Modifié par</th>
+              <th scope="col">Modifié par</th> -->
               <th scope="col">Action</th>
            <tr>
         </thead>
@@ -62,10 +62,10 @@
                     <nb-icon *ngIf="category.active == true" style="color: green;" icon="checkmark-circle-2"></nb-icon>
                     <nb-icon *ngIf="category.active == false" style="color: red;" icon="close-circle"></nb-icon>
                 </td>
-                 <td>{{category?.createdAt | date: "dd/MM/yyyy hh:mm:ss"}}</td>
+                 <!-- <td>{{category?.createdAt | date: "dd/MM/yyyy hh:mm:ss"}}</td>
                  <td>{{category.createdByFirstName +' '+ category.createdByLastName | uppercase}}</td>
                  <td>{{category?.updatedAt | date: "dd/MM/yyyy hh:mm:ss"}}</td>
-                 <td>{{category.UpdatedByFirstName ? category.UpdatedByFirstName +' '+ category.UpdatedByLastName : '' | uppercase}}</td>
+                 <td>{{category.UpdatedByFirstName ? category.UpdatedByFirstName +' '+ category.UpdatedByLastName : '' | uppercase}}</td> -->
                 <td style="font-size: 30px;">
                     <nb-icon  (click)="openUpdateForm(updateFormContent, category)" class="mx-2 pointer" style=" cursor: pointer;" icon="edit-outline"></nb-icon>
                     <!-- <nb-icon (click)="openDetailsForm(detailFormContent, commune)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon> -->

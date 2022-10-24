@@ -169,6 +169,12 @@ export class PatientListComponent implements OnInit {
     this.modalService.open(updateFormContent, { size: 'xl' });
   }
 
+  openAdmissionForm(admissionFormContent, item?) {
+    this.patient = item;
+    console.log(this.patient);
+    this.modalService.open(admissionFormContent, { size: 'lg' });
+  }
+
   addPatient() {
     this.modalService.dismissAll();
     this.notificationService.notify(
@@ -183,6 +189,15 @@ export class PatientListComponent implements OnInit {
     this.notificationService.notify(
       NotificationType.SUCCESS,
       'Patient modifié avec succès'
+    );
+    this.getPatient();
+  }
+
+  addAdmission() {
+    this.modalService.dismissAll();
+    this.notificationService.notify(
+      NotificationType.SUCCESS,
+      'admission ajoutée avec succès'
     );
     this.getPatient();
   }

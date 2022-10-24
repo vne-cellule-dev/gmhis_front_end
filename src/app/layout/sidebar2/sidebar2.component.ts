@@ -36,7 +36,14 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       hidden: !this.canAccessBasicFiles(),
       children: [
         {
-          title: 'Categories des actes',
+          title: 'Liste des actes',
+          link: '/act/list',
+          icon: 'minus-outline',
+          // hidden : !this.canAccessEditor()
+        },
+        {
+          // title: 'Categories des actes',
+          title: 'Spécialités des actes',
           link: '/act/category',
           icon: 'minus-outline',
         },
@@ -49,12 +56,6 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'codes des actes',
           link: '/act/code',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Liste des actes',
-          link: '/act/list',
-          icon: 'minus-outline',
-          // hidden : !this.canAccessEditor()
         },
       ],
     },
@@ -134,7 +135,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       ],
     },
     {
-      title: 'CONVENTION',
+      title: 'NOS CONVENTIONS',
       icon: 'folder-outline',
       hidden: !this.canAccessBasicFiles(),
       children: [
@@ -182,36 +183,14 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       ],
     },
     {
-      title: 'CONSTANTE MEDICALE',
-      icon: 'folder-outline',
-      children: [
-        {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
-          icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-      ],
-    },
-    {
       title: 'NOS ETABLISSEMENT',
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des établissement',
+          // link: '/constant/domain',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }
       ],
     },
     {
@@ -219,16 +198,10 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des pathologies',
+          link: '/pathology/list',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }  
       ],
     },
     {
@@ -236,33 +209,46 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Medicaments',
+          // link: '/constant/domain',
           icon: 'minus-outline',
         },
         {
-          title: 'Constante type type',
-          link: '/constant/type',
+          title: 'DCI',
+          // link: '/constant/type',
           icon: 'minus-outline',
         },
-        
+        {
+          title: 'Classe therapeutique',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Forme pharmcologique',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Laboratoire',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Unite de conditionnement',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        }
       ],
     },
     {
-      title: 'PRATICIENS',
+      title: 'PRACTICIENS',
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des practiciens',
+          // link: '/constant/domain',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }    
       ],
     },
     {
@@ -270,16 +256,10 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Salles d\'attente',
+          link: '/waiting-room/list',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }
       ],
     },
     {
@@ -287,16 +267,10 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des service',
+          link: '/service/list',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }       
       ],
     },
     {
@@ -304,16 +278,35 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Gestion de de kits',
+          // link: '/constant/domain',
           icon: 'minus-outline',
         },
         {
-          title: 'Constante type type',
-          link: '/constant/type',
+          title: 'Articles',
+          // link: '/constant/type',
           icon: 'minus-outline',
         },
-        
+        {
+          title: 'Détails des entrées en stocks',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Emplacement d\'article',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Famille d\'article',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Fournisseur',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        }  
       ],
     },
     {
@@ -321,16 +314,10 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des spécialités',
+          // link: '/constant/domain',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }     
       ],
     },
     {
@@ -338,16 +325,30 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Pays',
+          // link: '/constant/domain',
           icon: 'minus-outline',
         },
         {
-          title: 'Constante type type',
-          link: '/constant/type',
+          title: 'Villes',
+          // link: '/constant/type',
           icon: 'minus-outline',
         },
-        
+        {
+          title: 'Regions',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Districts',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Localités',
+          // link: '/constant/type',
+          icon: 'minus-outline',
+        }
       ],
     },
     {
@@ -355,16 +356,10 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des symptômes',
+          // link: '/constant/domain',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }       
       ],
     },
     {
@@ -372,16 +367,10 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des types de payements',
+          // link: '/constant/domain',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }
       ],
     },
     {
@@ -389,16 +378,10 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Groupe de constante',
-          link: '/constant/domain',
+          title: 'Liste des unités de mesures',
+          // link: '/constant/domain',
           icon: 'minus-outline',
-        },
-        {
-          title: 'Constante type type',
-          link: '/constant/type',
-          icon: 'minus-outline',
-        },
-        
+        }      
       ],
     },
     {

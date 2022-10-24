@@ -93,7 +93,15 @@ export class ActFormComponent implements OnInit {
    
     this.initForm();
     if (this.act) {
-      this.actForm.patchValue(this.act);
+      console.log(this.act);
+      this.actService.getActById(this.act.id).subscribe(
+        (response : any) => {
+          console.log(response);
+          this.actForm.patchValue(response);
+          console.log(this.actForm.value);
+          
+        }
+      )
     }
     this.findActiveActCategoryNameAndId();
     this.findActiveActCodeNameAndId();

@@ -26,6 +26,7 @@ export class ActService {
       .set('page', data['page'])
       .set('size', data['size'] ?? '')
       .set('name', data['name'])
+      .set('category', data['category'])
       .set('active', data['active'] ?? '')
       .set('sort', data['sort'])
     }
