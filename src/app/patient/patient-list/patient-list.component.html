@@ -18,86 +18,82 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-        <form [formGroup]="searchForm">
-          <div class="row d-flex justify-content-between align-items-end mb-2">
-            <div class="col-lg-8 col-md-9 col-sm-12 row">
-              <div class="col-lg-11 row">
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="lastName"
-                    placeholder="Nom"
-                  />
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="firstName"
-                    placeholder="Prenom"
-                  />
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="patientExternalId"
-                    placeholder="N° Patient"
-                  />
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="idCardNumber"
-                    placeholder="N° carte d'identité"
-                  />
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="cnamNumber"
-                    placeholder="N° CNAM"
-                  />
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="cellPhone"
-                    placeholder="N° Tel"
-                  />
-                </div>         
-              </div>
-              <div class="col-lg-1">
-                <span
-                  (click)="onSearchValueChange()"
-                  style="
-                    background-color: #ededed;
-                    color: #14a2b8;
-                    cursor: pointer;
-                  "
-                  class="material-icons px-2 p-1 rounded"
-                >
-                  search
-                </span>
-              </div>
+    <form [formGroup]="searchForm">
+      <div class="row d-flex justify-content-between align-items-end mb-2">
+        <div class="col-lg-8 col-md-9 col-sm-12 row">
+          <div class="col-lg-11 row">
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="lastName"
+                placeholder="Nom"
+              />
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-12">
-              <ng-select
-                [(ngModel)]="selectedSize"
-                formControlName="size"
-                (change)="onSearchValueChange()"
-              >
-                <ng-option *ngFor="let size of sizes" [value]="size.id">{{
-                  size.value
-                }}</ng-option>
-              </ng-select>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="firstName"
+                placeholder="Prenom"
+              />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="patientExternalId"
+                placeholder="N° Patient"
+              />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="idCardNumber"
+                placeholder="N° carte d'identité"
+              />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="cnamNumber"
+                placeholder="N° CNAM"
+              />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="cellPhone"
+                placeholder="N° Tel"
+              />
             </div>
           </div>
-        </form>   
+          <div class="col-lg-1">
+            <span
+              (click)="onSearchValueChange()"
+              style="background-color: #ededed; color: #14a2b8; cursor: pointer"
+              class="material-icons px-2 p-1 rounded"
+            >
+              search
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12">
+          <ng-select
+            [(ngModel)]="selectedSize"
+            formControlName="size"
+            (change)="onSearchValueChange()"
+          >
+            <ng-option *ngFor="let size of sizes" [value]="size.id">{{
+              size.value
+            }}</ng-option>
+          </ng-select>
+        </div>
+      </div>
+    </form>
     <div class="">
       <table class="table table-bordered table-hover table-md align-middle">
         <thead class="pb-3 text-capitalize">
@@ -110,10 +106,10 @@
             <th>Civilité</th>
             <th>profession</th>
             <th>Contact 1</th>
-            <th>Type Carte ID</th> 
-            <th>N° carte ID</th>  
-            <th>N° CNAM</th> 
-            <th>Actions</th>        
+            <th>Type Carte ID</th>
+            <th>N° carte ID</th>
+            <th>N° CNAM</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -132,40 +128,52 @@
             [class.active]="i == currentIndex"
             (click)="rowSelected(commune, i)"
           >
-          <td>{{patient?.patientExternalId | uppercase }}</td>
+            <td>{{ patient?.patientExternalId | uppercase }}</td>
             <td>
               {{ patient?.lastName | uppercase }}
             </td>
             <td>
-              {{ patient?.firstName| uppercase  }}
+              {{ patient?.firstName | uppercase }}
             </td>
-            <td> {{ patient?.birthDate | date  }}</td>
-            <td> {{ patient?.gender   }}</td>
-            <td> {{ patient?.civility   }}</td>
-            <td> {{ patient?.profession }}</td>
+            <td>{{ patient?.birthDate | date }}</td>
+            <td>{{ patient?.gender }}</td>
+            <td>{{ patient?.civility }}</td>
+            <td>{{ patient?.profession }}</td>
             <td>{{ patient?.cellPhone1 }} / {{ patient?.cellPhone2 }}</td>
-            <td class="text-nowrap">{{patient.idcardType}}</td>
-            <td class="text-nowrap">{{patient.idCardNumber}}</td>
-            <td class="text-nowrap">{{patient.cnamNumber}}</td>
+            <td class="text-nowrap">{{ patient.idcardType }}</td>
+            <td class="text-nowrap">{{ patient.idCardNumber }}</td>
+            <td class="text-nowrap">{{ patient.cnamNumber }}</td>
             <td>
               <div ngbDropdown class="d-inline-block">
-                <button type="button" class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>
+                <button
+                  type="button"
+                  class="btn btn-outline-info"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
                   ...
                 </button>
-                <div class="text" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <div
+                  class="text"
+                  ngbDropdownMenu
+                  aria-labelledby="dropdownBasic1"
+                >
                   <button
-                  (click)="openUpdateForm(updateFormContent, patient)"
-                   class="text-center" 
-                   ngbDropdownItem>
-                   Modifier
+                    (click)="openUpdateForm(updateFormContent, patient)"
+                    class="text-center"
+                    ngbDropdownItem
+                  >
+                    Modifier
                   </button>
-                  <button 
-                  class="text-center" 
-                  ngbDropdownItem>Dossier</button>
+                  <button class="text-center" ngbDropdownItem>Dossier</button>
                   <button class="text-center" ngbDropdownItem>Constante</button>
-                  <button class="text-center"
-                  (click)="openAdmissionForm(admissionFormContent, patient)"
-                  ngbDropdownItem>Nv.admiss</button>
+                  <button
+                    class="text-center"
+                    (click)="openAdmissionForm(admissionFormContent, patient)"
+                    ngbDropdownItem
+                  >
+                    Nv.admiss
+                  </button>
                   <button class="text-center" ngbDropdownItem>Etiquette</button>
                 </div>
               </div>
