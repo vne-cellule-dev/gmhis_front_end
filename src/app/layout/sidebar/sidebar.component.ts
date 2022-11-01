@@ -176,9 +176,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.menuItem = 'avance';
         localStorage.setItem('menuItem', menuItem);
         break;
-        case 'owner':
-          this.menuItem = 'owner';
-          localStorage.setItem('menuItem', menuItem);
+        case 'constantWaitingRoom':
+        this.menuItem = 'constantWaitingRoom';
+        localStorage.setItem('menuItem', menuItem);
+        break;
+        case 'waitingRoom':
+        this.menuItem = 'waitingRoom';
+        localStorage.setItem('menuItem', menuItem);
       default:
         break;
     }

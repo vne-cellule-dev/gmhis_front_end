@@ -58,10 +58,10 @@
   ><span class="fw-bold">Caisse</span>
 </p>
 <p
-  [ngClass]="{ menuActive: menuItem == 'release' }"
-  (click)="menuItemFunction('release')"
+  [ngClass]="{ menuActive: menuItem == 'constantWaitingRoom' }"
+  (click)="menuItemFunction('constantWaitingRoom')"
   [hidden]="!canAccessLocal"
-  routerLink="/waiting-room/waitingRoom"
+  routerLink="/waiting-room/constantWaitingRoom"
   class="dashboard py-3"
 >
   <fa-icon
@@ -69,11 +69,11 @@
     ngbTooltip=""
     style="font-size: 1rem; margin-right: 10px"
   ></fa-icon
-  ><span class="fw-bold">File d'attentes de prise de constante</span>
+  ><span class="fw-bold">Salle de prise de constante</span>
 </p>
 <p
-  [ngClass]="{ menuActive: menuItem == 'release' }"
-  (click)="menuItemFunction('release')"
+  [ngClass]="{ menuActive: menuItem == 'waitingRoom' }"
+  (click)="menuItemFunction('waitingRoom')"
   [hidden]="!canAccessLocal"
   routerLink="/waiting-room/waitingRoom"
   class="dashboard py-3"
@@ -83,7 +83,7 @@
     ngbTooltip=""
     style="font-size: 1rem; margin-right: 10px"
   ></fa-icon
-  ><span class="fw-bold">File d'attentes</span>
+  ><span class="fw-bold">Salle d'attentes</span>
 </p>
 <p
   [ngClass]="{ menuActive: menuItem == 'avance' }"
