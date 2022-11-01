@@ -42,7 +42,7 @@
     "file-saver": "^2.0.5",
     "iv-viewer": "^2.0.1",
     "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.5.14",
+    "jspdf-autotable": "^3.5.25",
     "material-icons": "^1.11.11",
     "net": "^1.0.2",
     "ng2-charts": "^2.4.3",

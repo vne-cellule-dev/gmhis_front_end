@@ -41,7 +41,14 @@
         <span style="color: red">
         </span>
       </div>
-
+      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">Spécialité</label>
+        <ng-select  placeholder="Specialite d'acte" formControlName="act">
+          <ng-option *ngFor="let actCategory of actCategories" [value]="actCategory.id">{{
+            actCategory.name
+          }}</ng-option>
+        </ng-select>
+      </div>
    
       <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Acte d'admission</label>
@@ -69,9 +76,8 @@
       <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Medecin</label>
         <ng-select placeholder="Medecin" formControlName="practician">
-          <!-- <ng-option *ngFor="let service of servicesNameAndId" [value]="service.id">{{
-            service.name
-          }}</ng-option> -->
+          <ng-option *ngFor="let practician of practicians" [value]="practician.id">
+            {{practician.userFirstName}}  {{ practician.userLastName}}</ng-option>
         </ng-select>
       </div>
     </div>

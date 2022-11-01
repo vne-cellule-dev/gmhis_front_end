@@ -2,8 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActService } from 'src/app/act/act/service/act.service';
+import { ActCategoryService } from 'src/app/act/category/service/act-category.service';
 import { IPatient } from 'src/app/patient/patient';
+import { PracticianService } from 'src/app/practician/practician.service';
 import { ServiceService } from 'src/app/service/service/service.service';
+import { INameAndId } from 'src/app/shared/models/name-and-id';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
@@ -47,21 +50,47 @@ admissionDto : IAdmissionDto;
     showloading: boolean = false;
   actsNameAndId: any;
   servicesNameAndId: any;
+  actCategories: any;
+  practicians: INameAndId[];
   constructor(private serviceService : ServiceService,
                private actService : ActService,
                private admissionService : AdmissionService,
-               private notificationService : NotificationService
+               private actCategorieService : ActCategoryService,
+               private notificationService : NotificationService,
+               private practicianService : PracticianService,
+              
                ) { }
 
   ngOnInit(): void {
     console.log(this.patient);
+    console.log(this.admission);
     this.initForm();
-    this.admissionForm.get('patient').setValue(this.patient.id);
+    if (this.admission) {      
+      this.admissionService.getAdmissionDetail(this.admission).subscribe(
+        (response : any) => {
+          console.log(response);
+          this.admissionForm.get('id').setValue(response.id);
+          this.admissionForm.get('patient').setValue(response.patientId);
+          this.admissionForm.get('patientName').setValue(response.patientName);
+          this.admissionForm.get('patientExternalId').setValue(response.patientExternalId);
+          this.admissionForm.get('createdAt').setValue(new Date(response.admissionDate));
+          this.admissionForm.get('act').setValue(response.act);
+          this.admissionForm.get('service').setValue(response.service);
+          this.admissionForm.get('practician').setValue(response.practician);
+        }
+      )
+    }
+    if (this.patient) {
+      this.admissionForm.get('patient').setValue(this.patient.id);
     this.admissionForm.get('patientName').setValue(this.patient.firstName);
-    this.admissionForm.get('patientExternalId').setValue(this.patient.patientExternalId);
+    this.admissionForm.get('patientExternalId').setValue(this.patient.patientExternalId)
+    }
+  
 
     this.findActiveActNameAndId();
-    this.findActiveServiceNameAndId()
+    this.findActiveServiceNameAndId();
+    this.findActCategorieNameAndId();
+    this.findActPracticiainNameAndId();
   }
 
   initForm() {
@@ -83,18 +112,20 @@ admissionDto : IAdmissionDto;
     if (this.admissionForm.valid) {
       this.showloading = true;
       this.admissionDto = this.admissionForm.value;
+      console.log(this.admissionDto);
+      
       if (this.admissionDto.id) {
         this.subs.add(
           this.admissionService.updateAdmission(this.admissionDto).subscribe(
             (response: IAdmission) => {
               this.showloading = false;
-              // this.updateAdmission.emit();
+              this.updateAdmission.emit();
             },
             (errorResponse: HttpErrorResponse) => {
               this.showloading = false;
               this.notificationService.notify(
                 NotificationType.ERROR,
-                errorResponse.error.message
+                errorResponse.error
               );
             }
           )
@@ -136,6 +167,16 @@ admissionDto : IAdmissionDto;
     )
   }
 
+  findActiveActByActCategoryId(categoryId : number){
+    this.actService.getActsByActCategoryId(categoryId).subscribe(
+      (res : any)=> {
+        this.actsNameAndId = res; 
+        console.log("this.actsNameAndId", this.actsNameAndId);
+        
+      }
+    )
+  }
+
   private findActiveServiceNameAndId(){
     this.serviceService.findActiveServiceNameAndId().subscribe(
       (response : any) => {
@@ -149,6 +190,27 @@ admissionDto : IAdmissionDto;
           NotificationType.ERROR,
           errorResponse.error.message
         ); 
+      }
+    )
+  }
+
+  private findActCategorieNameAndId(){
+    this.actCategorieService.findActiveActCategoryNameAndId().subscribe(
+      (response : INameAndId[])=> {
+        this.actCategories = response;
+        console.log("this.actCategories", this.actCategories);
+        
+      }
+    )
+  }
+
+
+  private findActPracticiainNameAndId(){
+    this.practicianService.findPracticianSimpleList().subscribe(
+      (response : INameAndId[])=> {
+        this.practicians = response;
+        console.log(this.practicians);
+        
       }
     )
   }

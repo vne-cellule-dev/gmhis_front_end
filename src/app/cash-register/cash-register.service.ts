@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { INameAndId } from '../shared/models/name-and-id';
 import { PageList } from '../_models/page-list.model';
 
 @Injectable({
@@ -29,8 +30,8 @@ export class CashRegisterService {
     );
   }
 
-  findCashRegisterSimpleList(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/cashRegister/list`);
+  findCashRegisternameAndIdList(): Observable<INameAndId[]> {
+    return this.http.get<INameAndId[]>(`${this.apiUrl}/cashRegister/active_cash_register_name`);
   }
 
   createCashRegister(cashRegister: any): Observable<any> {

@@ -30,7 +30,7 @@ export class ConventionService {
   }
 
   findConventionSimpleList(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/convention/list`);
+    return this.http.get<any[]>(`${this.apiUrl}/convention/active_convention_name_and_Id`);
   }
 
   createConvention(convention: any): Observable<any> {

@@ -4,7 +4,7 @@
         <h4
           class="text-capitalize d-flex justify-content-start w-100 text-center"
         >
-          LISTE DES ADMISSIONS
+        SALLE D'ATTENTE
         </h4>
       </div>
     </nb-card-header>
@@ -59,20 +59,20 @@
                   </div>
 
                   <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                    <ng-select formControlName="admissionStatus" placeholder="Statut">
-                        <ng-option *ngFor="let admissionStatu of admissionStatus" [value]="admissionStatu.id">
-                          {{admissionStatu.value}}
-                        </ng-option>
-                      </ng-select>
-                  </div>
-
-                  <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                     <ng-select formControlName="practician" placeholder="practicien">
                         <ng-option *ngFor="let practician of practicians" [value]="practician.userId">
                           {{practician.userFirstName +" "+ practician.userLastName}}
                         </ng-option>
                       </ng-select>
-                  </div> -->
+                  </div>
+
+                  <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                    <ng-select formControlName="waitingRoom" placeholder="Salle d'attentes">
+                        <ng-option *ngFor="let waitingRoom of waitingRooms" [value]="waitingRoom.id">
+                          {{waitingRoom.name}}
+                        </ng-option>
+                      </ng-select>
+                  </div>
 
                   <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                     <ng-select formControlName="service" placeholder="service">
@@ -170,25 +170,22 @@
                     ...
                   </button>
                   <div class="text" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button
+                    <!-- <button
                     (click)="openUpdateForm(updateFormContent, admission)"
                      class="text-center" 
                      ngbDropdownItem>
                      Modifier
-                    </button>
-                    <button 
+                    </button> -->
+                    <!-- <button 
                     class="text-center" 
-                    ngbDropdownItem>patienttèle</button>
-                    <button class="text-center" ngbDropdownItem>Supprimer</button>
-                    <button 
-                     class="text-center"
-                    (click)="openInvoiceForm(invoiceFormContent, admission)"
-                    ngbDropdownItem>Facture</button>
-                    <button class="text-center" ngbDropdownItem>Pharmacie</button>
-                    <button class="text-center"
+                    ngbDropdownItem>patienttèle</button> -->
+                    <button class="text-center" ngbDropdownItem>Constante</button>
+                    <button class="text-center"                  
+                    ngbDropdownItem>Dossier</button>
+                    <!-- <button class="text-center"
                     (click)="printInvoice(printContent)"
                      ngbDropdownItem
-                     >Edit PDF</button>
+                     >Edit PDF</button> -->
                   </div>
                 </div>
               </td>

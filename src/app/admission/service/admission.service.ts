@@ -18,6 +18,7 @@ export class AdmissionService {
       params: new HttpParams()
         .set('patientExternalId', data['patientExternalId'])
         .set('admissionNumber', data['admissionNumber'])
+        .set('admissionStatus', data['admissionStatus'])
         .set('firstName', data['firstName'] ?? '')
         .set('lastName', data['lastName'] ?? '')
         .set('cellPhone', data['cellPhone'] ?? '')
@@ -39,6 +40,34 @@ export class AdmissionService {
     );
   }
 
+  findAdmissionQueue(data: object): Observable<PageList> {
+
+    let queryParams = {};
+    queryParams = {
+      params: new HttpParams().set('admissionNumber', data['admissionNumber'])
+        .set('patientExternalId', data['patientExternalId'])
+        .set('admissionNumber', data['admissionNumber'])
+        .set('firstName', data['firstName'] ?? '')
+        .set('lastName', data['lastName'] ?? '')
+        .set('cellPhone', data['cellPhone'] ?? '')
+        .set('cnamNumber', data['cnamNumber'] ?? '')
+        .set('idCardNumber', data['idCardNumber'] ?? '')
+        .set('practician', data['practician'] ?? '')
+        .set('service', data['service'] ?? '')
+        .set('act', data['act'] ?? '')
+        .set('fromDate', data['fromDate'] ?? '')
+        .set('toDate', data['toDate'] ?? '')
+        .set('waitingRoom', data['waitingRoom'])
+        .set('page', data['page'])
+        .set('size', data['size'] ?? '')
+        .set('sort', data['sort'])
+       
+    };
+
+    return this.http.get<PageList>(environment.apiUrl + '/admission/queue/p_list', queryParams);
+
+  }
+
   findAdmission(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/admission/p_list`);
   }
@@ -57,7 +86,7 @@ export class AdmissionService {
   }
 
   getAdmissionDetail(admission: any): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/admission/detail/${admission.id}`);
+    return this.http.get<any>(`${this.apiUrl}/admission/get-detail/${admission.id}`);
   }
 
 

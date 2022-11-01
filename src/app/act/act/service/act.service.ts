@@ -70,4 +70,12 @@ export class ActService {
     return this.http.put<ActDto>(`${this.apiUrl}/act/update/${actDto.id}`, actDto)
   }
 
+  public getActsByBillId(BillId : number): Observable<any>{
+    return this.http.get(`${this.apiUrl}/act/find-by-bill/${BillId}`);
+  }
+
+  public getActsByActCategoryId(categoryId : number): Observable<any>{
+    return this.http.get(`${this.apiUrl}/act/active_acts_name_by_Category/${categoryId}`);
+  }
+
 }

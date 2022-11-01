@@ -4,7 +4,7 @@
         <h4
           class="text-capitalize d-flex justify-content-start w-100 text-center"
         >
-          LISTE DES ADMISSIONS
+          LISTE DES FACTURES
         </h4>
       </div>
     </nb-card-header>
@@ -13,6 +13,14 @@
             <div class="row d-flex justify-content-between align-items-end mb-2">
               <div class="col-lg-11 col-md-9 col-sm-12 row">
                 <div class="col-lg-11 row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="billNumber"
+                          placeholder="N° facture"
+                        />
+                      </div>
                   <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                     <input
                       type="text"
@@ -58,14 +66,15 @@
                     <nb-date-timepicker withSeconds #dateTimePicker></nb-date-timepicker>
                   </div>
 
+                
+
                   <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                    <ng-select formControlName="admissionStatus" placeholder="Statut">
-                        <ng-option *ngFor="let admissionStatu of admissionStatus" [value]="admissionStatu.id">
-                          {{admissionStatu.value}}
+                    <ng-select formControlName="billStatus" placeholder="Statut">
+                        <ng-option *ngFor="let billStatu of billStatus" [value]="billStatu.id">
+                          {{billStatu.value}}
                         </ng-option>
                       </ng-select>
                   </div>
-
                   <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                     <ng-select formControlName="practician" placeholder="practicien">
                         <ng-option *ngFor="let practician of practicians" [value]="practician.userId">
@@ -74,7 +83,7 @@
                       </ng-select>
                   </div> -->
 
-                  <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                  <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                     <ng-select formControlName="service" placeholder="service">
                         <ng-option *ngFor="let actServiceNameAndId of actServicesNameAndId" [value]="actServiceNameAndId.id">
                           {{actServiceNameAndId.name}}
@@ -88,7 +97,7 @@
                           {{act.name}}
                         </ng-option>
                       </ng-select>
-                  </div>
+                  </div> -->
                
                 </div>
                 <div class="col-lg-1">
@@ -122,16 +131,17 @@
         <table class="table table-bordered table-hover table-md align-middle">
           <thead class="pb-3 text-capitalize">
             <tr class="pb-3">
-              <th>N° Admission</th>
-              <th>Facturé</th>
+              <th>Date de facturation</th>
+              <th>N° Facture</th>
+              <th>Encaissé</th>
               <th>N° patient</th>
-              <th>Nom</th>
-              <th>prenom</th>
+              <th>Patient</th>
               <th>Date d'admission</th>
+              <th>N° Admission</th>
               <th>Acte</th>
-              <th>Service</th>
-              <th>Médecin</th> 
-              <th>Admis par</th>     
+              <th>Assurance</th> 
+              <th>Etablissement garant</th>     
+              <th>Total Facture</th>     
               <th>Actions</th>   
             </tr>
           </thead>
@@ -139,7 +149,7 @@
           <tbody>
             <tr
               *ngFor="
-                let admission of items
+                let invoice of items
                   | paginate
                     : {
                         itemsPerPage: selectedSize,
@@ -151,19 +161,22 @@
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
             >
-              <td>{{admission?.admissionNumber | uppercase }}</td>
+            <td class="text-nowrap">{{invoice.billDate | date: "dd/MM/yyyy"}}</td>
+              <td>{{invoice?.billNumber | uppercase }}</td>
               <td class="text-center">
-                <nb-icon *ngIf="admission.admissionStatus == 'B'" style="color: green;" icon="checkmark-circle-2"></nb-icon>
-                <nb-icon *ngIf="admission.admissionStatus == 'R'" style="color: red;" icon="close-circle"></nb-icon>
+                <nb-icon *ngIf="invoice.billStatus == 'C'" style="color: green;" icon="checkmark-circle-2"></nb-icon>
+                <nb-icon *ngIf="invoice.billStatus == 'R'" style="color: red;" icon="close-circle"></nb-icon>
             </td>
-              <td class="text-nowrap">{{admission.patientExternalId}}</td>
-              <td class="text-nowrap">{{admission.patientFirstName}}</td>
-              <td class="text-nowrap">{{admission.patientLastName}}</td>
-              <td class="text-nowrap">{{admission.admissionDate | date: "dd/MM/yyyy"}}</td>
-              <td class="text-nowrap">{{admission.act}}</td>
-              <td class="text-nowrap">{{admission.service}}</td>
-              <td>{{admission.createdByFirstName}}</td>
-              <td>{{admission.createdByFirstName}}</td>
+              <td class="text-nowrap">{{invoice?.patient?.patientExternalId}}</td>
+              <td class="text-nowrap">{{invoice?.patient?.firstName}} {{invoice.patient.lastName}}</td>
+              <td class="text-nowrap">{{invoice?.admission?.admissionStartDate | date: "dd/MM/yyyy"}}</td>
+              <td class="text-nowrap">{{invoice?.admission?.admissionNumber}}</td>
+              <td></td>
+              <!-- <td class="text-nowrap">{{invoice.billActs[0].act.name}}</td> -->
+              <!-- <td class="text-nowrap">{{invoicie?.patientType}}</td> -->
+              <td class="text-nowrap">{{invoice.insurance?.name}}</td>
+              <td>{{invoice?.subscriber?.name}}</td>
+              <td>{{invoice?.totalAmount | currency:'FCFA' : 'symbol' : '1.0-0'}}</td>
               <td>
                 <div ngbDropdown class="d-inline-block">
                   <button type="button" class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>
@@ -174,21 +187,18 @@
                     (click)="openUpdateForm(updateFormContent, admission)"
                      class="text-center" 
                      ngbDropdownItem>
-                     Modifier
-                    </button>
+                     Modifier </button>
+                     <button class="text-center" ngbDropdownItem>Supprimer</button>
                     <button 
                     class="text-center" 
-                    ngbDropdownItem>patienttèle</button>
-                    <button class="text-center" ngbDropdownItem>Supprimer</button>
-                    <button 
-                     class="text-center"
-                    (click)="openInvoiceForm(invoiceFormContent, admission)"
-                    ngbDropdownItem>Facture</button>
-                    <button class="text-center" ngbDropdownItem>Pharmacie</button>
+                    ngbDropdownItem
+                    (click)="openPaymentForm(paymentFormContent, invoice)"
+                    >Encaisser</button>
                     <button class="text-center"
-                    (click)="printInvoice(printContent)"
-                     ngbDropdownItem
-                     >Edit PDF</button>
+                    ngbDropdownItem 
+                    *ngIf="invoice.billStatus == 'C'"
+                    (click)="printInvoice(printContent, invoice)"
+                    >Impression</button>
                   </div>
                 </div>
               </td>
@@ -255,14 +265,13 @@
     </div>
     <div class="modal-body">
       <app-invoice-form
-        [admission]="admission"
-        [makeInvoice]="makeInvoice"
+        [invoice]="invoice"
         (addInvoice)="addInvoice()"
       ></app-invoice-form>
     </div>
   </ng-template>
 
-    <!-- ngx-extended-pdf-viewer -->
+  <!-- ngx-extended-pdf-viewer -->
 <ng-template #printContent let-c="close" let-d="dismiss">
   <div class="modal-header bg-gray">
     <h4 class="text-capitalize modal-title" id="update-form-modal">IMPRIMER</h4>
@@ -271,6 +280,27 @@
   <div class="modal-body bg-gray">
     <ngx-extended-pdf-viewer *ngIf='docSrc' [src]="docSrc" useBrowserLocale="true" height="80vh">
     </ngx-extended-pdf-viewer>
+  </div>
+</ng-template>
+
+<ng-template #paymentFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+     Encaisser une Facture
+    </h4>
+    <nb-icon
+      style="cursor: pointer"
+      (click)="d('Cross click')"
+      class="h4"
+      icon="close-circle-outline"
+    ></nb-icon>
+  </div>
+  <div class="modal-body">
+    <app-invoice-form
+      [invoice]="invoice"
+      [makeInvoice]="makeInvoice"
+      (addPayment)="addPayment()"
+    ></app-invoice-form>
   </div>
 </ng-template>
   

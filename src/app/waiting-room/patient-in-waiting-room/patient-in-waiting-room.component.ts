@@ -3,21 +3,24 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ActService } from 'src/app/act/act/service/act.service';
+import { IAdmission } from 'src/app/admission/model/admission';
+import { AdmissionService } from 'src/app/admission/service/admission.service';
 import { InvoiceDocumentService } from 'src/app/invoice/service/document/invoice-document.service';
+import { PracticianService } from 'src/app/practician/practician.service';
 import { ServiceService } from 'src/app/service/service/service.service';
 import { PageList } from 'src/app/_models/page-list.model';
+import { User } from 'src/app/_models/user.model';
 import { NotificationService } from 'src/app/_services/notification.service';
+import { UserService } from 'src/app/_services/user.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
-import { IAdmission } from '../model/admission';
-import { AdmissionService } from '../service/admission.service';
-
+import { WaitingRoomService } from '../service/waiting-room.service';
 @Component({
-  selector: 'app-admission-list',
-  templateUrl: './admission-list.component.html',
-  styleUrls: ['./admission-list.component.scss']
+  selector: 'app-patient-in-waiting-room',
+  templateUrl: './patient-in-waiting-room.component.html',
+  styleUrls: ['./patient-in-waiting-room.component.scss']
 })
-export class AdmissionListComponent implements OnInit {
+export class PatientInWaitingRoomComponent implements OnInit {
 
   private subs = new SubSink();
 
@@ -53,11 +56,6 @@ export class AdmissionListComponent implements OnInit {
     { id: false, value: 'Inactif' },
   ];
 
-  admissionStatus =  [
-    {id: 'R' , value: 'Non Facturée'},
-    {id: 'B' , value: 'Facturée'},
-  ]
-
   showloading: boolean = false;
   currentIndex: number;
 
@@ -65,6 +63,9 @@ export class AdmissionListComponent implements OnInit {
   actServicesNameAndId: any;
   activeActNameAndId: any;
   docSrc: string;
+  waitingRooms: any;
+  practicians: any;
+  user: User;
   constructor(
     private admissionService: AdmissionService,
     private notificationService: NotificationService,
@@ -72,15 +73,22 @@ export class AdmissionListComponent implements OnInit {
     private modalService: NgbModal,
     private serviceService : ServiceService,
     private actService : ActService,
-    private invoiceDocumentService : InvoiceDocumentService
+    private invoiceDocumentService : InvoiceDocumentService,
+    private waitingRoomService : WaitingRoomService,
+    private practicianService : PracticianService,
+    private userService : UserService
+
 
   ) {}
 
   ngOnInit(): void {
-   
+    this.user = this.userService.getUserFromLocalCache();
+
     this.initform();
     this.findActiveAServiceNameAndId();
     this.findActiveActNameAndId();
+    this.findActiveWaitingRoomNameAndId();
+    this.findActivePracticianNameAndId();
     console.log(this.actServicesNameAndId);
     this.getPatient();
   }
@@ -88,18 +96,18 @@ export class AdmissionListComponent implements OnInit {
   initform() {
     this.searchForm = new FormGroup({
       admissionNumber: new FormControl(''),
-      admissionStatus: new FormControl('R'),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       patientExternalId: new FormControl(''),
       cellPhone: new FormControl(''),
       cnamNumber: new FormControl(''),
       idCardNumber: new FormControl(''),
-      practician: new FormControl(null),
+      practician: new FormControl(1),
       service: new FormControl(null),
       act: new FormControl(null),
       dpFromDate: new FormControl(null),
       dpToDate: new FormControl(null),
+      waitingRoom: new FormControl(1),
       page: new FormControl(0),
       size: new FormControl(50),
       sort: new FormControl('id,desc'),
@@ -113,7 +121,7 @@ export class AdmissionListComponent implements OnInit {
   public getPatient() {
     this.showloading = true;
     this.subs.add(
-      this.admissionService.findAll(this.searchForm.value).subscribe(
+      this.admissionService.findAdmissionQueue(this.searchForm.value).subscribe(
         (response: PageList) => {
           console.log(response);
           this.showloading = false;
@@ -230,6 +238,38 @@ addInvoice(){
     // this.docSrc = doc.output('datauristring');
 
   
+  }
+
+  public findActiveWaitingRoomNameAndId(){
+    this.waitingRoomService.findActivewaitingRoomNameAndId().subscribe(
+      (response : any) => {
+        this.waitingRooms = response; 
+      },
+      (errorResponse : HttpErrorResponse) => {
+        this.showloading = false;
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          errorResponse.error.message
+        ); 
+      }
+    )
+  }
+
+  public findActivePracticianNameAndId(){
+    this.practicianService.findPracticianSimpleList().subscribe(
+      (response : any) => {
+        this.practicians = response; 
+        console.log(this.practicians);
+        
+      },
+      (errorResponse : HttpErrorResponse) => {
+        this.showloading = false;
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          errorResponse.error.message
+        ); 
+      }
+    )
   }
 
 }

@@ -1,0 +1,386 @@
+<form [formGroup]="invoiceForm">
+    <div class="card">
+        <div class="card-header">
+            <div class="row d-flex justify-content-end">
+                <div class="col-md-6" *ngIf="!makeInvoice">
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <ng-select formControlName="cashRegister"
+                                placeholder="Caisse">
+                                <ng-option *ngFor="let cashRegister of cashRegisters"
+                                    [value]="cashRegister.id">
+                                    {{cashRegister.name}}
+                                </ng-option>
+                            </ng-select>
+                        
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <ng-select formControlName="paymentType"
+                                placeholder="Type de payement">
+                                <ng-option *ngFor="let type of paymentTypes"
+                                    [value]="type.id">
+                                    {{type.name}}
+                                </ng-option>
+                            </ng-select>
+                            <!-- <span class="text-danger"
+                                    *ngIf="invalidFormControls && invalidFormControls.paymentType">
+                                    ce champ doit renseigné
+                                </span> -->
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-12 ">
+                            <button (click)="onInvoice()" *ngIf="makeInvoice" class="btn btn-block btn-success btn-sm font-weight-bold text-white text-nowrap"
+                               >
+                                Valider
+                            </button>
+                            
+                                <button
+                                (click)="collectAmount()"
+                                *ngIf="!makeInvoice"
+                                class="btn btn-block btn-success btn-sm font-weight-bold text-white text-nowrap"
+                               >
+                                Encaisser
+                            </button>
+                            
+                           
+                        </div>
+                        <!-- <div class="col-lg-4 col-md-6 col-sm-12" >
+                            <div class="btn btn-block btn-primary btn-sm font-weight-bold text-white text-nowrap"
+                                data-toggle="modal" data-target=".bd-example-modal-lg">
+                                Editer
+                            </div>
+                        </div> -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 ">
+                                <div class="form-check form-check-inline ">
+                                    <input class="form-check-input" type="radio" formControlName="invoiceEdition"
+                                        id="invoiceEdition1" value="courtier" checked>
+                                    <label class="form-check-label" for="invoiceEdition1">
+                                        Edition courtier
+                                    </label>
+                                </div>                                               
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 ">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="invoiceEdition"
+                                    id="invoiceEdition2" value="adherant">
+                                <label class="form-check-label" for="invoiceEdition2">
+                                    Edition adherant
+                                </label>
+                            </div>   
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card card-outline card-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="invoiceDate">Date Facture:</label>
+                                <div class="input-group  input-group-sm">
+                                    <input formControlName="invoiceDate" class="form-control" placeholder="jj-mm-AAAA"
+                                        ngbDatepicker  >
+                                    <!-- <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt" ></i>
+                                        </span>
+                                    </div> -->
+                                </div>
+                                <!-- <span class="text-danger"
+                                    *ngIf="invalidFormControls && invalidFormControls.invoiceDate">
+                                    ce champ doit renseigné au format jj/mm/aaaa
+                                </span> -->
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="admissionNumber">N° Admission</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" formControlName="admissionNumber" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="patientExternalId">N° Patient</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" formControlName="patientExternalId" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="patientName">Nom du Patient</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" formControlName="patientName"
+                                        class="form-control text-capitalize">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-md-3">
+                            <div class="form-group">
+                                <div class="input-group-sm">
+                                    <label for="service">Service</label>
+                                    <input type="text" class="form-control text-capitalize" formControlName="service">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3">
+                            <div class="input-group-sm">
+                                <label for="patientType">Type de patient</label>
+                                <span class="text-danger">*</span>
+                                <ng-select formControlName="patientType" >
+                                    <ng-option *ngFor="let type of patientTypes" [value]="type.id">
+                                        {{type.value}}
+                                    </ng-option>
+                                </ng-select>
+                                <!-- <div class="form-group" >
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control" formControlName="patientType"
+                                            disabled="true">
+                                    </div>
+                                </div> -->
+                                <!-- <span class="text-danger"
+                                    *ngIf="invalidFormControls && invalidFormControls.patientType">ce
+                                    champ doit être renseigné
+                                </span> -->
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group-sm">
+                                <label for="insurance">Assurance / mutuelle</label>
+                                <ng-select formControlName="insurance" 
+                                (change)="setInsuranceData()"
+                                    >
+                                    <ng-option  *ngFor="let insurance of patientInsurances"
+                                        [value]="insurance.insuranceId">
+                                        {{insurance.insuranceName}}
+                                    </ng-option>
+                                </ng-select>
+                                <!-- <div class="form-group" >
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control" formControlName="insurance"
+                                            disabled="true">
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="input-group-sm">
+                                    <label for="subscriber">Etablissement garant</label>
+                                    <input type="text" class="form-control" formControlName="subscriber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-md-3">
+                            <div class="form-group">
+                                <label for="coverRate">T. couv (%)</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" formControlName="coverRate" class="form-control"
+                                        [attr.disabled]="cashRegisterComponent? true: null">
+                                    <!-- <span class="text-danger"
+                                        *ngIf="invalidFormControls && invalidFormControls.coverRate">
+                                        le taux de couverture doit être un nombre entier <=100 </span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-md-3">
+                            <div class="form-group">
+                                <label for="consumableRate">T. cons (%)</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" formControlName="consumableRate" class="form-control text-bold "
+                                    disabled="true">
+                                    <!-- <input type="text" formControlName="consumableRate" class="form-control text-bold "
+                                        disabled="true" value="{{calculConsommableRate()}}"> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" >
+                                <label for="convention">Convention</label>
+                                <ng-select formControlName="convention" data-placeholder="Selectionner une convention">
+                                    <ng-option *ngFor="let convention of conventions" [value]="convention.id">
+                                        {{convention.name}}</ng-option>
+                                </ng-select>
+                            </div>
+<!-- 
+                            <div class="form-group" >
+                                <label for="convention"> Convention </label>
+                                <div class="input-group-sm">
+                                    <input type="text" class="form-control" formControlName="convention"
+                                        disabled="true">
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="row mt-3" >
+                        <div class="col-md-7">
+                            <div formArrayName="acts">
+                                <div class="form-group  mb-2" *ngFor="let act of acts.controls; let i = index">
+                                  <div formGroupName="{{i}}" class="row">
+                                    
+                                    <div class="col-md-3">
+                                        <ng-select formControlName="act"
+                                        placeholder="Selectionner un acte"
+                                        (change)="onActSelect(i)">
+                                        <ng-option *ngFor="let act of actsList" [value]="act.id">
+                                            {{act.name}}</ng-option>
+                                    </ng-select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <ng-select 
+                                        placeholder="Selectionner un practicien">
+                                        <ng-option *ngFor="let practician of practicians"
+                                            [value]="practician.userId">
+                                            {{practician.userFirstName+" "+ practician.userLastName}}
+                                        </ng-option>
+                                    </ng-select>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <input 
+                                       formControlName="cost"
+                                       type="number"
+                                       name="{{'cost' + i}}"
+                                        id="{{'cost' + i}}"
+                                        >
+                                    </div>
+                                    <div class="col-md-1">
+                                     <span
+                                       (click)="deleteAct(i)" 
+                                       style=" color: red; cursor: pointer;"
+                                       class="material-icons px-2 p-1 rounded"
+                                     >
+                                       delete
+                                     </span>
+                                    </div>
+                                  </div>
+                               
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 mb-2">
+                                        <button type="button" (click)="addActs()" class="btn btn-outline-primary btn-sm">
+                                            ajouter Act
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2 mb-2">
+                                        <button type="button" (click)="calculInvoiceCost()" class="btn btn-secondary btn-sm">
+                                            Calculer Part
+                                        </button>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group">
+                                        <label for="discountInPercentage">Remise en %</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" formControlName="discountInPercentage"
+                                                class="form-control"
+                                                [attr.disabled]="cashRegisterComponent? true: null">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group">
+                                        <label for="discountInCfa">Remise en fcfa</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" formControlName="discountInCfa" class="form-control"
+                                                [attr.disabled]="cashRegisterComponent? true: null">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="partTakenCareOfNumber">N° PEC</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" formControlName="partTakenCareOfNumber"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="partTakenCareOf">Part PEC</label>
+                                        <div class="input-group input-group-sm">
+                                            <input *ngIf="!invoiceId" type="text" formControlName="partTakenCareOf"
+                                                class="form-control text-bold " disabled="true">
+                                            <input *ngIf="invoiceId" type="text" formControlName="partTakenCareOf"
+                                                class="form-control text-bold " disabled="true">
+                                            <span class="ml-2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="patientPart">Part adherant</label>
+                                        <div class="input-group input-group-sm">
+                                            <input *ngIf="!invoiceId" type="text" formControlName="patientPart"
+                                                class="form-control text-bold text-success " disabled="true">
+                                            <input *ngIf="invoiceId" type="text" formControlName="patientPart"
+                                                class="form-control text-bold text-success " disabled="true">
+                                            <span class="ml-2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="partTakenCareOfDate">Date PEC</label>
+                                        <div class="input-group  input-group-sm">
+                                            <input formControlName="partTakenCareOfDate" class="form-control"
+                                                placeholder="jj-mm-AAAA">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                            <span class="text-danger"
+                                                *ngIf="invalidFormControls && invalidFormControls.partTakenCareOfDate">
+                                                ce champ doit renseigné au format jj/mm/aaaa
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="accountNumber">N° compte comptable</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" formControlName="accountNumber" class="form-control">
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="total">Total (fcfa)</label>
+                                        <div class="input-group input-group-sm">
+                                            <input *ngIf="!invoiceId" type="text" formControlName="total"
+                                                class="form-control text-bold text-danger" disabled="true">
+                                            <input *ngIf="invoiceId" type="text" formControlName="total"
+                                                class="form-control text-bold text-danger" disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- hidden area -->
+    </div>
+</form>

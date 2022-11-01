@@ -47,7 +47,7 @@
   [ngClass]="{ menuActive: menuItem == 'leases' }"
   (click)="menuItemFunction('leases')"
   [hidden]="!canAccessLocal"
-  routerLink="/location/list"
+  routerLink="/invoice/list"
   class="dashboard py-3"
 >
   <fa-icon
@@ -57,12 +57,25 @@
   ></fa-icon
   ><span class="fw-bold">Caisse</span>
 </p>
-
 <p
   [ngClass]="{ menuActive: menuItem == 'release' }"
   (click)="menuItemFunction('release')"
   [hidden]="!canAccessLocal"
-  routerLink="/release/list"
+  routerLink="/waiting-room/waitingRoom"
+  class="dashboard py-3"
+>
+  <fa-icon
+    [icon]="falOGOUT"
+    ngbTooltip=""
+    style="font-size: 1rem; margin-right: 10px"
+  ></fa-icon
+  ><span class="fw-bold">File d'attentes de prise de constante</span>
+</p>
+<p
+  [ngClass]="{ menuActive: menuItem == 'release' }"
+  (click)="menuItemFunction('release')"
+  [hidden]="!canAccessLocal"
+  routerLink="/waiting-room/waitingRoom"
   class="dashboard py-3"
 >
   <fa-icon

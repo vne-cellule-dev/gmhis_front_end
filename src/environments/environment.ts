@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  logo: 'assets/img/medical-logo-design.jpeg',
   production: false,
   apiUrl: 'http://localhost:8080',
   tvaRate: 18,

@@ -1,2 +1,21 @@
 export interface IAdmission {
+ UpdatedByFirstName: string,
+ UpdatedByLastName : string,
+ UpdatedByLogin : string,
+ act : string,
+ admissionDate: Date,
+ admissionNumber : string,
+ admissionStatus : string,
+ createdAt : Date,
+ createdByFirstName : string,
+ createdByLastName : string,
+ createdByLogin : string,
+ id : number,
+patientExternalId : number,
+patientFirstName : string,
+patientId : number,
+patientLastName : string,
+patientMaidenName : string,
+service : string,
+updatedAt : Date
 }
