@@ -11,10 +11,10 @@
 }
 
 .modal-content{
-    height: 90vh!important;
-    overflow: auto;
-  }
+  min-height: 90vh!important;
+  overflow: auto;
+}
   
-  .modal.show .modal-dialog{
-    height: 95vh!important;
-  }
+.modal.show .modal-dialog{
+  height: 95vh!important;
+}
