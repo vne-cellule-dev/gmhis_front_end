@@ -51,7 +51,7 @@ export class PatientService {
   }
 
   getPatientDetail(patient: any): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/patient/detail/${patient.id}`);
+    return this.http.get<any>(`${this.apiUrl}/patient/detail/${patient}`);
   }
 
   getCountry(): Observable<any[]> {

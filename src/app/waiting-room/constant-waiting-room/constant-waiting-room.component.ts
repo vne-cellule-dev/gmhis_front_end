@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ActService } from 'src/app/act/act/service/act.service';
 import { IAdmission } from 'src/app/admission/model/admission';
@@ -76,12 +77,11 @@ export class ConstantWaitingRoomComponent implements OnInit {
     private invoiceDocumentService : InvoiceDocumentService,
     private waitingRoomService : WaitingRoomService,
     private practicianService : PracticianService,
-    private userService : UserService
-
-
+    private userService : UserService,
   ) {}
 
   ngOnInit(): void {
+     
     this.user = this.userService.getUserFromLocalCache();
 
     this.initform();

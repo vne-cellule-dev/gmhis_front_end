@@ -1,25 +1,29 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { IPatient } from 'src/app/patient/patient';
+import { PatientService } from 'src/app/patient/patient.service';
 import { PageList } from 'src/app/_models/page-list.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
-import { IConstantType } from '../constant-type.model';
-import { ConstantTypeService } from '../constant-type.service';
+import { IPatientConstant } from './models/patient-constant';
+import { PatientConstantService } from './service/patient-constant.service';
 
 @Component({
-  selector: 'app-constant-type-list',
-  templateUrl: './constant-type-list.component.html',
-  styleUrls: ['./constant-type-list.component.scss'],
+  selector: 'app-patient-constant',
+  templateUrl: './patient-constant.component.html',
+  styleUrls: ['./patient-constant.component.scss']
 })
-export class ConstantTypeListComponent implements OnInit {
+export class PatientConstantComponent implements OnInit {
+
   private subs = new SubSink();
 
   public searchForm: FormGroup;
 
-  public constantType: IConstantType;
+  // public constantDomain: IConstant;
 
   currentPage: number;
   empty: boolean;
@@ -36,40 +40,48 @@ export class ConstantTypeListComponent implements OnInit {
     { id: 10, value: 10 },
     { id: 25, value: 25 },
     { id: 50, value: 50 },
-    { id: 100, value: 100 },
-    { id: 250, value: 250 },
-    { id: 500, value: 500 },
-    { id: 1000, value: 1000 },
   ];
 
-  actives = [
-    { id: true, value: 'Actif' },
-    { id: false, value: 'Inactif' },
-  ];
 
   showloading: boolean = false;
   currentIndex: number;
+  PatientconstantDomain: any;
+  patient: IPatient;
   constructor(
-    private constantTypeService: ConstantTypeService,
+    private route : ActivatedRoute,
+    private patientConstantService : PatientConstantService,
     private notificationService: NotificationService,
     config: NgbModalConfig,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    private patientService : PatientService
+
+    ) { }
 
   ngOnInit(): void {
     this.initform();
-    this.getConstantType();
-    const actGroup = {
-      active: false,
-      id: 0,
-      name: 'FAMILLE5',
-    };
+    this.route.paramMap.subscribe(
+      params => {
+        const id = Number(params.get('patientId'));
+        console.log(id);
+        this.searchForm.get("patientId").setValue(id);
+        this.getPatientConstant();
+        this.patientService.getPatientDetail(id).subscribe(
+          (response : any) => {
+            this.patient = response;
+            console.log(this.patient);
+            
+          }
+        )
+      }
+      ) 
+
+    
   }
 
   initform() {
     this.searchForm = new FormGroup({
-      name: new FormControl(''),
-      active: new FormControl(null),
+      patientId: new FormControl(null),
+      date: new FormControl(""),
       page: new FormControl(0),
       size: new FormControl(10),
       sort: new FormControl('id,desc'),
@@ -77,20 +89,27 @@ export class ConstantTypeListComponent implements OnInit {
   }
 
   onSearchValueChange(): void {
-    this.getConstantType();
+    this.getPatientConstant();
   }
 
-  public getConstantType() {
+  public getPatientConstant() {
     this.showloading = true;
     this.subs.add(
-      this.constantTypeService.findAll(this.searchForm.value).subscribe(
+      this.patientConstantService.findAll(this.searchForm.value).subscribe(
         (response: PageList) => {
-          console.log(response);
           this.showloading = false;
           this.currentPage = response.currentPage + 1;
           this.empty = response.empty;
           this.firstPage = response.firstPage;
-          this.items = response.content;
+          this.items = response.items;
+          this.items.forEach(el => {
+              el.values = JSON.parse(el.values);
+              el.constant = Object.keys(el.values);
+              el.value = Object.values(el.values);
+              console.log(el.constant);
+          });
+          console.log(this.items);
+          
           this.lastPage = response.lastPage;
           this.selectedSize = response.size;
           this.totalItems = response.totalItems;
@@ -108,12 +127,12 @@ export class ConstantTypeListComponent implements OnInit {
   }
 
   onIsActiveChange() {
-    this.getConstantType();
+    this.getPatientConstant();
   }
 
   onPageChange(event) {
     this.searchForm.get('page').setValue(event - 1);
-    this.getConstantType();
+    this.getPatientConstant();
   }
 
   openAddForm(addFormContent) {
@@ -121,31 +140,32 @@ export class ConstantTypeListComponent implements OnInit {
   }
 
   openUpdateForm(updateFormContent, item?) {
-    this.constantType = item;
-    console.log(this.constantType);
+    this.PatientconstantDomain = item;
+    console.log(this.PatientconstantDomain);
     this.modalService.open(updateFormContent, { size: 'lg' });
   }
 
-  addConstantType() {
+  addConstantDomain() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
       'Constante ajoutée avec succès'
     );
-    this.getConstantType();
+    this.getPatientConstant();
   }
 
-  updateConstantType() {
+  updateConstantDomain() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
       'Constante modifieé avec succès'
     );
-    this.getConstantType();
+    this.getPatientConstant();
   }
 
-  rowSelected(constant: IConstantType, index: number) {
+  rowSelected(constant: IPatientConstant, index: number) {
     this.currentIndex = index;
-    this.constantType = constant;
+    this.PatientconstantDomain = constant;
   }
+
 }
