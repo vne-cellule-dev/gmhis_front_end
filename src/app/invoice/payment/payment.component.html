@@ -1,0 +1,130 @@
+<div class="main-payment">
+  <form class="row mb-3">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Code Caisse" />
+    </div>
+    <div class="col-md-4">
+      <ng-select
+        [(ngModel)]="selectedSize"
+        formControlName="size"
+        placeholder="Type de payement"
+      >
+        <ng-option
+          *ngFor="let paymentType of paymentTypeList"
+          [value]="paymentType.id"
+        >
+          {{ paymentType.value }}
+        </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-4">
+      <button type="button" class="btn-encaissement">ENCAISSER</button>
+    </div>
+  </form>
+  <!-- payment section -->
+  <div class="payment-section">
+    <h5 class="payment-section__title">Information</h5>
+    <div class="card-payment">
+      <div class="flex-item">
+        <div class="">Date Facture:</div>
+        <div class="strong">strong</div>
+      </div>
+      <div class="flex-item">
+        <div class="">N° Admission</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">N° Patient</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Nom du patient</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Service</div>
+        <div class="strong">azerty</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- payment section -->
+  <div class="payment-section">
+    <h5 class="payment-section__title">Assurance</h5>
+    <div class="card-payment">
+      <div class="flex-item">
+        <div class="">Type de patient:</div>
+        <div class="strong">strong</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Assurance / Mutuelle</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Etablissemnt garant</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">T. couv (%)</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">T. cons (%)</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Convention</div>
+        <div class="strong">azerty</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- payment section -->
+  <div class="payment-section">
+    <h5 class="payment-section__title">Act</h5>
+    <div class="card-payment p-3">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Act</th>
+            <th scope="col">Practicien</th>
+            <th scope="col">Coût</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Convention</td>
+            <td>Soum</td>
+            <td>10.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="payment-section">
+    <h5 class="payment-section__title">Montant</h5>
+    <div class="card-payment">
+      <div class="flex-item">
+        <div class="">Remise en %</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Remise en fcfa</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Part PEC</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Part adherant</div>
+        <div class="strong">azerty</div>
+      </div>
+      <div class="flex-item">
+        <div class="">Total (fcfa)</div>
+        <div class="strong">azerty</div>
+      </div>
+    </div>
+  </div>
+</div>
