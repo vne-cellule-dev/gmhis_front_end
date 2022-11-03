@@ -57,7 +57,7 @@
                                 Editer
                             </div>
                         </div> -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 ">
+                        <!-- <div class="col-lg-4 col-md-6 col-sm-12 ">
                                 <div class="form-check form-check-inline ">
                                     <input class="form-check-input" type="radio" formControlName="invoiceEdition"
                                         id="invoiceEdition1" value="courtier" checked>
@@ -74,7 +74,7 @@
                                     Edition adherant
                                 </label>
                             </div>   
-                        </div>
+                        </div> -->
                     </div>
                 
                 </div>
@@ -240,10 +240,11 @@
                                             {{act.name}}</ng-option>
                                     </ng-select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <ng-select 
+                                        formControlName="pratician"
                                         placeholder="Selectionner un practicien">
-                                        <ng-option *ngFor="let practician of practicians"
+                                        <ng-option *ngFor="let practician of practicians "
                                             [value]="practician.userId">
                                             {{practician.userFirstName+" "+ practician.userLastName}}
                                         </ng-option>
@@ -270,7 +271,7 @@
                                
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-2 mb-2">
+                                    <div class="col-md-2 mb-2" *ngIf="showActAddButton === true">
                                         <button type="button" (click)="addActs()" class="btn btn-outline-primary btn-sm">
                                             ajouter Act
                                         </button>

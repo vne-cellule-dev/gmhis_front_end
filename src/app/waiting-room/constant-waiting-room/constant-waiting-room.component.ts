@@ -16,13 +16,13 @@ import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
 import { WaitingRoomService } from '../service/waiting-room.service';
 @Component({
-  selector: 'app-patient-in-waiting-room',
-  templateUrl: './patient-in-waiting-room.component.html',
-  styleUrls: ['./patient-in-waiting-room.component.scss']
+  selector: 'app-constant-waiting-room',
+  templateUrl: './constant-waiting-room.component.html',
+  styleUrls: ['./constant-waiting-room.component.scss']
 })
-export class PatientInWaitingRoomComponent implements OnInit {
+export class ConstantWaitingRoomComponent implements OnInit {
 
-  private subs = new SubSink();
+ private subs = new SubSink();
 
   public searchForm: FormGroup;
 
@@ -166,7 +166,7 @@ export class PatientInWaitingRoomComponent implements OnInit {
 
   openInvoiceForm(invoiceFormContent, item?) {
     this.admission = item;
-    this.makeInvoice = false;
+    this.makeInvoice = true;
     console.log(this.admission);
     this.modalService.open(invoiceFormContent, { size: 'xl' });
   }
@@ -271,5 +271,6 @@ addInvoice(){
       }
     )
   }
+
 
 }

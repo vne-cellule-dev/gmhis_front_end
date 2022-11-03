@@ -6,10 +6,11 @@ import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { InvoiceFormComponent } from './invoice-form/invoice-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
-  declarations: [InvoiceListComponent, InvoiceFormComponent],
+  declarations: [InvoiceListComponent, InvoiceFormComponent, PaymentComponent],
   imports: [
     CommonModule,
     InvoiceRoutingModule,

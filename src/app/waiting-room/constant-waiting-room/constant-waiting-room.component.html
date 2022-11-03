@@ -4,7 +4,7 @@
         <h4
           class="text-capitalize d-flex justify-content-start w-100 text-center"
         >
-          LISTE DES ADMISSIONS
+        SALLE DE PRISE DE CONSTANTE
         </h4>
       </div>
     </nb-card-header>
@@ -59,20 +59,20 @@
                   </div>
 
                   <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                    <ng-select formControlName="admissionStatus" placeholder="Statut">
-                        <ng-option *ngFor="let admissionStatu of admissionStatus" [value]="admissionStatu.id">
-                          {{admissionStatu.value}}
-                        </ng-option>
-                      </ng-select>
-                  </div>
-
-                  <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                     <ng-select formControlName="practician" placeholder="practicien">
                         <ng-option *ngFor="let practician of practicians" [value]="practician.userId">
                           {{practician.userFirstName +" "+ practician.userLastName}}
                         </ng-option>
                       </ng-select>
-                  </div> -->
+                  </div>
+
+                  <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                    <ng-select [clearable]="false" formControlName="waitingRoom" placeholder="Salle d'attentes">
+                        <ng-option *ngFor="let waitingRoom of waitingRooms" [value]="waitingRoom.id">
+                          {{waitingRoom.name}}
+                        </ng-option>
+                      </ng-select>
+                  </div>
 
                   <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                     <ng-select formControlName="service" placeholder="service">
@@ -122,16 +122,16 @@
         <table class="table table-bordered table-hover table-md align-middle">
           <thead class="pb-3 text-capitalize">
             <tr class="pb-3">
-              <th>Date d'admission</th>
               <th>N° Admission</th>
+              <th>Facturé</th>
               <th>N° patient</th>
               <th>Nom</th>
               <th>prenom</th>
+              <th>Date d'admission</th>
+              <th>Acte</th>
               <th>Service</th>
-              <th>Motif d'admission</th>
               <th>Médecin</th> 
-              <!-- <th>Admis par</th>      -->
-              <th>Facturé</th>
+              <th>Admis par</th>     
               <th>Actions</th>   
             </tr>
           </thead>
@@ -150,45 +150,42 @@
               "
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
-              >
-              <td class="text-nowrap">{{admission.admissionDate | date: "medium"}}</td>
+            >
               <td>{{admission?.admissionNumber | uppercase }}</td>
-              <td class="text-nowrap">{{admission.patientExternalId}}</td>
-              <td class="text-nowrap">{{admission.patientFirstName}}</td>
-              <td class="text-nowrap">{{admission.patientLastName}}</td>
-              <td class="text-nowrap">{{admission.service}}</td>
-              <td class="text-nowrap">{{admission.act}}</td>
-              <td>Dr {{admission.practicianFirstName}} {{admission.practicianLastName}}</td>
               <td class="text-center">
                 <nb-icon *ngIf="admission.admissionStatus == 'B'" style="color: green;" icon="checkmark-circle-2"></nb-icon>
                 <nb-icon *ngIf="admission.admissionStatus == 'R'" style="color: red;" icon="close-circle"></nb-icon>
             </td>
-              <!-- <td>{{admission.createdByFirstName}}</td> -->
+              <td class="text-nowrap">{{admission.patientExternalId}}</td>
+              <td class="text-nowrap">{{admission.patientFirstName}}</td>
+              <td class="text-nowrap">{{admission.patientLastName}}</td>
+              <td class="text-nowrap">{{admission.admissionDate | date: "dd/MM/yyyy"}}</td>
+              <td class="text-nowrap">{{admission.act}}</td>
+              <td class="text-nowrap">{{admission.service}}</td>
+              <td>Dr {{admission.practicianFirstName}} {{admission.practicianLastName}}</td>
+              <td>{{admission.createdByFirstName}}</td>
               <td>
                 <div ngbDropdown class="d-inline-block">
                   <button type="button" class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>
                     ...
                   </button>
                   <div class="text" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button
+                    <!-- <button
                     (click)="openUpdateForm(updateFormContent, admission)"
                      class="text-center" 
                      ngbDropdownItem>
                      Modifier
-                    </button>
-                    <button 
+                    </button> -->
+                    <!-- <button 
                     class="text-center" 
-                    ngbDropdownItem>patienttèle</button>
-                    <button class="text-center" ngbDropdownItem>Supprimer</button>
-                    <button 
-                     class="text-center"
-                    (click)="openInvoiceForm(invoiceFormContent, admission)"
-                    ngbDropdownItem>Facture</button>
-                    <button class="text-center" ngbDropdownItem>Pharmacie</button>
-                    <button class="text-center"
+                    ngbDropdownItem>patienttèle</button> -->
+                    <button class="text-center" ngbDropdownItem>Constante</button>
+                    <button class="text-center"                  
+                    ngbDropdownItem>Dossier</button>
+                    <!-- <button class="text-center"
                     (click)="printInvoice(printContent)"
                      ngbDropdownItem
-                     >Edit PDF</button>
+                     >Edit PDF</button> -->
                   </div>
                 </div>
               </td>

@@ -13,20 +13,22 @@
       </div>
     </div>
   </div>
-  <small *ngIf="!details" class="mb-1"
+  <small *ngIf="!details" class="mb-2"
     >Nb: Tous les champs marqués par <span class="text-danger">*</span> sont
     obligatoires</small
   >
   <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
+  <div *ngIf=" invalidInsuranceFom" class="alert alert-danger">Le formulaire de l'assurance est invalid</div>
 
-  <div class="row mb-1">
+  <div class="col-md-6">
+    <h3>Informations Patient</h3>
+  </div>
+  <div class="row mb-2">
     <div *ngIf="patientInfo" class="patientInfo row">
-      <div class="col-md-12">
-        <h3>Informations Patient</h3>
-      </div>
+      
       <input type="text" [hidden]="true" />
       <!-- Numero patient -->
-      <!-- <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="patientExternalId" class="form-label text-capitalize">N° patient</label>
         <span *ngIf="!details" class="text-danger">*</span>
         <input type="text" id="patientExternalId" class="form-control" formControlName="patientExternalId"
@@ -36,7 +38,7 @@
         </div>
       </div> -->
       <!-- Nom -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="name" class="form-label text-capitalize">Nom</label>
         <span *ngIf="!details" class="text-danger">*</span>
         <input
@@ -59,7 +61,7 @@
       </div>
 
       <!-- Prenom -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="firstName" class="form-label text-capitalize"
           >Prenoms</label
         >
@@ -84,7 +86,7 @@
       </div>
 
       <!-- E-mail -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="email" class="form-label text-capitalize">E-mail</label>
         <input
           type="text"
@@ -95,7 +97,7 @@
       </div>
 
       <!-- Téléphone 1 -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="cellPhone1" class="form-label text-capitalize"
           >Contact</label
         >
@@ -120,7 +122,7 @@
       </div>
 
       <!-- Téléphone 2 -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="cellPhone2" class="form-label text-capitalize"
           >Second Contact</label
         >
@@ -133,7 +135,7 @@
       </div>
 
       <!-- Date de naissance -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="birthDate" class="form-label text-capitalize"
           >Date de naissance</label
         >
@@ -158,7 +160,7 @@
       </div>
 
       <!-- Sexe -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1 rounded-pill">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2 rounded-pill">
         <label for="gender" class="form-label text-capitalize">Sexe</label>
         <span *ngIf="!details" class="text-danger">*</span>
         <ng-select
@@ -183,7 +185,7 @@
       </div>
 
       <!-- Civilité -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1 rounded-pill">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2 rounded-pill">
         <label for="civility" class="form-label text-capitalize"
           >Civilité</label
         >
@@ -210,7 +212,7 @@
       </div>
 
       <!-- Type de pièce -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1 rounded-pill">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2 rounded-pill">
         <label for="idcardType" class="form-label text-capitalize"
           >Type de pièce</label
         >
@@ -237,7 +239,7 @@
       </div>
 
       <!-- N° de pièce -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="idCardNumber" class="form-label text-capitalize"
           >N° de pièce</label
         >
@@ -250,7 +252,7 @@
       </div>
 
       <!-- Numero de sécurité -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="cnamNumber" class="form-label text-capitalize"
           >N° de sécurité social</label
         >
@@ -277,7 +279,7 @@
       </div>
 
       <!-- Profession -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="profession" class="form-label text-capitalize"
           >Profession</label
         >
@@ -302,7 +304,7 @@
       </div>
 
       <!-- Correspondant -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="correspondant" class="form-label text-capitalize"
           >Correspondant</label
         >
@@ -327,7 +329,7 @@
       </div>
 
       <!-- N° Correspondant -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="correspondantCellPhone" class="form-label text-capitalize"
           >Contact du correspondant</label
         >
@@ -356,7 +358,7 @@
       </div>
 
       <!-- Statut Matrimonial -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1 rounded-pill">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2 rounded-pill">
         <label for="maritalStatus" class="form-label text-capitalize"
           >Etat Matrimonial</label
         >
@@ -373,7 +375,7 @@
       </div>
 
       <!-- Nom Epous(e) -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="maidenName" class="form-label text-capitalize"
           >Nom de jeune fille</label
         >
@@ -387,7 +389,7 @@
       </div>
 
       <!-- Contact d'urgence -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="emergencyContact" class="form-label text-capitalize"
           >Nom du père</label
         >
@@ -400,7 +402,7 @@
       </div>
 
       <!-- Contact d'urgence -->
-      <!-- <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="emergencyContact" class="form-label text-capitalize">Contact d'urgence</label>
         <input type="number" id="emergencyContact" class="form-control" formControlName="emergencyContact"
           [ngClass]="{ 'is-invalid': formsErrors['emergencyContact'] }" />
@@ -408,7 +410,7 @@
       </div> -->
 
       <!-- Contact d'urgence 2 -->
-      <!-- <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="emergencyContact2" class="form-label text-capitalize">Contact d'urgence 2</label>
         <input type="number" id="emergencyContact2" class="form-control" formControlName="emergencyContact2"
           [ngClass]="{ 'is-invalid': formsErrors['emergencyContact2'] }" />
@@ -416,7 +418,7 @@
       </div> -->
 
       <!-- Nombre d'enfant -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="numberOfChildren" class="form-label text-capitalize"
           >Nombre d'enfant</label
         >
@@ -430,7 +432,7 @@
       </div>
 
       <!-- Pays -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1 rounded-pill">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2 rounded-pill">
         <label for="country" class="form-label text-capitalize">Pays</label>
         <ng-select
           id="country"
@@ -445,7 +447,7 @@
       </div>
 
       <!-- Ville -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1 rounded-pill">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2 rounded-pill">
         <label for="cityId" class="form-label text-capitalize">Ville</label>
         <ng-select id="cityId" placeholder="Ville" formControlName="cityId">
           <ng-option *ngFor="let city of cityList" [value]="city.id">{{
@@ -455,7 +457,7 @@
       </div>
 
       <!-- Nom de la mère -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="motherLastName" class="form-label text-capitalize"
           >Nom de la mère</label
         >
@@ -480,7 +482,7 @@
       </div>
 
       <!-- Prenom(s) -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="motherFirstName" class="form-label text-capitalize"
           >Prenom(s) de la mère</label
         >
@@ -506,7 +508,7 @@
       </div>
 
       <!-- Profession de la mère -->
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="motherProfession" class="form-label text-capitalize"
           >Profession de la mère</label
         >
@@ -519,7 +521,7 @@
         />
       </div>
 
-      <div class="text-center fw-bold mb-1">le Patient est t-il assuré ?</div>
+      <div class="text-center fw-bold mb-2">le Patient est t-il assuré ?</div>
       <div class="insurance_choise d-flex justify-content-center">
         <button
           style="background-color: rgb(91, 216, 91)"
@@ -540,16 +542,16 @@
     </div>
 
     <div *ngIf="!patientInfo" style="height: max">
-      <div class="col-md-12 mt-4">
+      <div class="col-md-6 mt-4">
         <h3>Assurance</h3>
       </div>
       <div
-        class="row mb-1"
+        class="row mb-2"
         *ngFor="let insurance of insuranceFormGroup.controls; let i = index"
       >
         <ng-container [formGroup]="insurance">
           <!-- insurance -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label for="insurance-{{ i }}" class="form-label text-capitalize"
               >Assurance</label
             >
@@ -565,10 +567,61 @@
                 >{{ insurance.name }}</ng-option
               >
             </ng-select>
+            <div *ngIf="formSubmitted && !insurance.controls.insurance.valid">
+              <small *ngIf="insurance.controls.insurance.errors.required"
+                  class="text-danger">
+                  Veuillez choisir une assurance garant</small>
+          </div>
+          </div>
+
+                           <!-- insuranceSuscriber -->
+                           <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+                            <label
+                              for="insuranceSuscriber-{{ i }}"
+                              class="form-label text-capitalize"
+                              >Etab. garant</label
+                            >
+                            <span *ngIf="!details" class="text-danger">*</span>
+                            <ng-select id="insurance" formControlName="insuranceSuscriber">
+                              <ng-option
+                                *ngFor="let subscriber of insurancesSubscribers"
+                                [value]="subscriber.id"
+                                >{{ subscriber.name }}</ng-option
+                              >
+                            </ng-select>
+                            <div *ngIf="formSubmitted && !insurance.controls.insuranceSuscriber.valid">
+                              <small *ngIf="insurance.controls.insuranceSuscriber.errors.required"
+                                  class="text-danger">
+                                  Veuillez choisir un Etablissement garant</small>
+                          </div>
+                          </div>
+
+           <!-- principalInsuredContact -->
+           <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+            <label
+              for="principalInsuredContact-{{ i }}"
+              class="form-label text-capitalize"
+              >Société</label
+            >
+            <span *ngIf="!details" class="text-danger">*</span>
+            <input
+              type="text"
+              id="principalInsuredContact-{{ i }}"
+              class="form-control"
+              formControlName="principalInsuredContact"
+              [ngClass]="{
+                'is-invalid': formsErrors['principalInsuredContact']
+              }"
+            />
+            <div *ngIf="formSubmitted && !insurance.controls.principalInsuredContact.valid">
+              <small *ngIf="insurance.controls.principalInsuredContact.errors.required"
+                  class="text-danger">
+                  Veuillez renseigner la société</small>
+          </div>
           </div>
 
           <!-- cardNumber -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label for="cardNumber-{{ i }}" class="form-label text-capitalize"
               >N° carte Assurance</label
             >
@@ -580,42 +633,38 @@
               formControlName="cardNumber"
               [ngClass]="{ 'is-invalid': formsErrors['cardNumber'] }"
             />
+            <div *ngIf="formSubmitted && !insurance.controls.cardNumber.valid">
+              <small *ngIf="insurance.controls.cardNumber.errors.required"
+                  class="text-danger">
+                  Veuillez renseigner le N° de la Carte Assurance</small>
+          </div>
           </div>
 
           <!-- coverage -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label for="coverage-{{ i }}" class="form-label text-capitalize"
-              >Taux (%)</label
+              >Taux de couverture (%)</label
             >
             <span *ngIf="!details" class="text-danger">*</span>
-            <input
-              type="number"
-              id="coverage-{{ i }}"
-              class="form-control"
-              formControlName="coverage"
-              [ngClass]="{ 'is-invalid': formsErrors['coverage'] }"
-            />
-          </div>
-
-          <!-- insuranceSuscriber -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
-            <label
-              for="insuranceSuscriber-{{ i }}"
-              class="form-label text-capitalize"
-              >Etab. garant</label
+            <ng-select
+            class=""
+            formControlName="coverage"
+          >
+            <ng-option
+              *ngFor="let coverageRate of coverageRates"
+              [value]="coverageRate.id"
+              >{{ coverageRate.value }}</ng-option
             >
-            <span *ngIf="!details" class="text-danger">*</span>
-            <ng-select id="insurance" formControlName="insuranceSuscriber">
-              <ng-option
-                *ngFor="let subscriber of insurancesSubscribers"
-                [value]="subscriber.id"
-                >{{ subscriber.name }}</ng-option
-              >
-            </ng-select>
+          </ng-select>
+          <div *ngIf="formSubmitted && !insurance.controls.cardNumber.valid">
+            <small *ngIf="insurance.controls.cardNumber.errors.required"
+                class="text-danger">
+                Veuillez selectionner un taux de couverture</small>
+        </div>
           </div>
 
           <!-- isPrincipalInsured -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
               for="isPrincipalInsured-{{ i }}"
               class="form-label text-capitalize"
@@ -637,13 +686,13 @@
 
           <!-- patient -->
           <!-- principalInsuredAffiliation -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
               for="principalInsuredAffiliation-{{ i }}"
               class="form-label text-capitalize"
               >Lien de parenté</label
             >
-            <span *ngIf="!details" class="text-danger">*</span>
+            <!-- <span *ngIf="!details" class="text-danger">*</span> -->
             <input
               type="text"
               id="principalInsuredAffiliation-{{ i }}"
@@ -654,34 +703,14 @@
               }"
             />
           </div>
-
-          <!-- principalInsuredContact -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
-            <label
-              for="principalInsuredContact-{{ i }}"
-              class="form-label text-capitalize"
-              >Contact de l'AP</label
-            >
-            <span *ngIf="!details" class="text-danger">*</span>
-            <input
-              type="text"
-              id="principalInsuredContact-{{ i }}"
-              class="form-control"
-              formControlName="principalInsuredContact"
-              [ngClass]="{
-                'is-invalid': formsErrors['principalInsuredContact']
-              }"
-            />
-          </div>
-
           <!-- principalInsuredName -->
-          <div class="col-lg-4 col-md-4 col-sm-12 mb-1">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
               for="principalInsuredName-{{ i }}"
               class="form-label text-capitalize"
               >Nom Assuré principal</label
             >
-            <span *ngIf="!details" class="text-danger">*</span>
+            <!-- <span *ngIf="!details" class="text-danger">*</span> -->
             <input
               type="text"
               id="principalInsuredName-{{ i }}"
@@ -692,7 +721,7 @@
           </div>
 
           <!-- Remove insurance -->
-          <div class="col-md-12">
+          <div class="col-md-6">
             <button (click)="removeInsurance(i)" class="deleteInsurance">
               <fa-icon [icon]="AddIcon"></fa-icon>
             </button>
@@ -700,7 +729,7 @@
         </ng-container>
       </div>
       <div class="row d-flex justify-content-center">
-        <div class="col-md-12 text-center">
+        <div class="col-md-6 text-center">
           <button type="button" (click)="addInsurance()" class="addInsurance">
             Ajouter une assurance
           </button>

@@ -43,7 +43,7 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Spécialité</label>
-        <ng-select  placeholder="Specialite d'acte" formControlName="act">
+        <ng-select (change)="findActiveActByActCategoryId($event)" placeholder="Specialite d'acte" formControlName="act">
           <ng-option *ngFor="let actCategory of actCategories" [value]="actCategory.id">{{
             actCategory.name
           }}</ng-option>
@@ -51,7 +51,7 @@
       </div>
    
       <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
-        <label for="active" class="form-label text-capitalize">Acte d'admission</label>
+        <label for="active" class="form-label text-capitalize">Motif d'admission</label>
         <ng-select placeholder="Acte d'admission" formControlName="act">
           <ng-option *ngFor="let act of actsNameAndId" [value]="act.id">{{
             act.name
@@ -76,7 +76,7 @@
       <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Medecin</label>
         <ng-select placeholder="Medecin" formControlName="practician">
-          <ng-option *ngFor="let practician of practicians" [value]="practician.id">
+          <ng-option *ngFor="let practician of practicians" [value]="practician.userId">
             {{practician.userFirstName}}  {{ practician.userLastName}}</ng-option>
         </ng-select>
       </div>

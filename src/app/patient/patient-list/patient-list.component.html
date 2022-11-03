@@ -99,16 +99,16 @@
         <thead class="pb-3 text-capitalize">
           <tr class="pb-3">
             <th>N° Patient</th>
+            <th>Civilité</th>
             <th>Nom</th>
             <th>Prénom(s)</th>
             <th>Date de naissance</th>
             <th>Sexe</th>
-            <th>Civilité</th>
             <th>profession</th>
             <th>Contact 1</th>
             <th>Type Carte ID</th>
-            <th>N° carte ID</th>
             <th>N° CNAM</th>
+            <th>N° carte ID</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -129,6 +129,7 @@
             (click)="rowSelected(commune, i)"
           >
             <td>{{ patient?.patientExternalId | uppercase }}</td>
+            <td>{{ patient?.civility }}</td>
             <td>
               {{ patient?.lastName | uppercase }}
             </td>
@@ -137,12 +138,11 @@
             </td>
             <td>{{ patient?.birthDate | date }}</td>
             <td>{{ patient?.gender }}</td>
-            <td>{{ patient?.civility }}</td>
             <td>{{ patient?.profession }}</td>
             <td>{{ patient?.cellPhone1 }} / {{ patient?.cellPhone2 }}</td>
             <td class="text-nowrap">{{ patient.idcardType }}</td>
-            <td class="text-nowrap">{{ patient.idCardNumber }}</td>
             <td class="text-nowrap">{{ patient.cnamNumber }}</td>
+            <td class="text-nowrap">{{ patient.idCardNumber }}</td>
             <td>
               <div ngbDropdown class="d-inline-block">
                 <button
