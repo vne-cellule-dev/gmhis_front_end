@@ -71,7 +71,7 @@ admissionDto : IAdmissionDto;
           console.log(response);
           this.admissionForm.get('id').setValue(response.id);
           this.admissionForm.get('patient').setValue(response.patientId);
-          this.admissionForm.get('patientName').setValue(response.patientName);
+          this.admissionForm.get('patientName').setValue(response.patientName );
           this.admissionForm.get('patientExternalId').setValue(response.patientExternalId);
           this.admissionForm.get('createdAt').setValue(new Date(response.admissionDate));
           this.admissionForm.get('act').setValue(response.act);
@@ -81,13 +81,14 @@ admissionDto : IAdmissionDto;
       )
     }
     if (this.patient) {
+      console.log(this.patient);
       this.admissionForm.get('patient').setValue(this.patient.id);
-    this.admissionForm.get('patientName').setValue(this.patient.firstName);
+    this.admissionForm.get('patientName').setValue(this.patient.firstName +" " + this.patient.lastName);
     this.admissionForm.get('patientExternalId').setValue(this.patient.patientExternalId)
     }
   
 
-    this.findActiveActNameAndId();
+    // this.findActiveActNameAndId();
     this.findActiveServiceNameAndId();
     this.findActCategorieNameAndId();
     this.findActPracticiainNameAndId();
@@ -102,7 +103,7 @@ admissionDto : IAdmissionDto;
       patient: new FormControl(true),
       service: new FormControl(null),
       act: new FormControl(null),
-      practician: new FormControl(1),
+      practician: new FormControl(null),
     });
   }
 
@@ -168,6 +169,7 @@ admissionDto : IAdmissionDto;
   }
 
   findActiveActByActCategoryId(categoryId : number){
+    console.log(categoryId);
     this.actService.getActsByActCategoryId(categoryId).subscribe(
       (res : any)=> {
         this.actsNameAndId = res; 

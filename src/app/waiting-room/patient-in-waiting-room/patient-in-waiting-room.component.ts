@@ -107,7 +107,7 @@ export class PatientInWaitingRoomComponent implements OnInit {
       act: new FormControl(null),
       dpFromDate: new FormControl(null),
       dpToDate: new FormControl(null),
-      waitingRoom: new FormControl(""),
+      waitingRoom: new FormControl(1),
       page: new FormControl(0),
       size: new FormControl(50),
       sort: new FormControl('id,desc'),
@@ -166,7 +166,7 @@ export class PatientInWaitingRoomComponent implements OnInit {
 
   openInvoiceForm(invoiceFormContent, item?) {
     this.admission = item;
-    this.makeInvoice = true;
+    this.makeInvoice = false;
     console.log(this.admission);
     this.modalService.open(invoiceFormContent, { size: 'xl' });
   }

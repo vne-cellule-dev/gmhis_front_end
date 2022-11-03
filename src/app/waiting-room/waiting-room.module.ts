@@ -7,6 +7,7 @@ import { WaitingRoomFormComponent } from './waiting-room-form/waiting-room-form.
 import { SharedModule } from '../shared/shared.module';
 import { PatientInWaitingRoomComponent } from './patient-in-waiting-room/patient-in-waiting-room.component';
 import { ConstantWaitingRoomComponent } from './constant-waiting-room/constant-waiting-room.component';
+import { InvoiceModule } from '../invoice/invoice.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ConstantWaitingRoomComponent } from './constant-waiting-room/constant-w
   imports: [
     CommonModule,
     WaitingRoomRoutingModule,
-    SharedModule
+    SharedModule,
+    InvoiceModule
   ]
 })
 export class WaitingRoomModule { }

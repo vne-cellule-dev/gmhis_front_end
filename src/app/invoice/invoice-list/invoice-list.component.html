@@ -133,15 +133,15 @@
             <tr class="pb-3">
               <th>Date de facturation</th>
               <th>N° Facture</th>
-              <th>Encaissé</th>
               <th>N° patient</th>
               <th>Patient</th>
               <th>Date d'admission</th>
               <th>N° Admission</th>
-              <th>Acte</th>
+              <!-- <th>Acte</th> -->
               <th>Assurance</th> 
               <th>Etablissement garant</th>     
               <th>Total Facture</th>     
+              <th>Encaissé</th>
               <th>Actions</th>   
             </tr>
           </thead>
@@ -161,22 +161,22 @@
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
             >
-            <td class="text-nowrap">{{invoice.billDate | date: "dd/MM/yyyy"}}</td>
+            <td class="text-nowrap">{{invoice.billDate | date: "medium"}}</td>
               <td>{{invoice?.billNumber | uppercase }}</td>
-              <td class="text-center">
-                <nb-icon *ngIf="invoice.billStatus == 'C'" style="color: green;" icon="checkmark-circle-2"></nb-icon>
-                <nb-icon *ngIf="invoice.billStatus == 'R'" style="color: red;" icon="close-circle"></nb-icon>
-            </td>
               <td class="text-nowrap">{{invoice?.patient?.patientExternalId}}</td>
               <td class="text-nowrap">{{invoice?.patient?.firstName}} {{invoice.patient.lastName}}</td>
               <td class="text-nowrap">{{invoice?.admission?.admissionStartDate | date: "dd/MM/yyyy"}}</td>
               <td class="text-nowrap">{{invoice?.admission?.admissionNumber}}</td>
-              <td></td>
+              <!-- <td></td> -->
               <!-- <td class="text-nowrap">{{invoice.billActs[0].act.name}}</td> -->
               <!-- <td class="text-nowrap">{{invoicie?.patientType}}</td> -->
               <td class="text-nowrap">{{invoice.insurance?.name}}</td>
               <td>{{invoice?.subscriber?.name}}</td>
               <td>{{invoice?.totalAmount | currency:'FCFA' : 'symbol' : '1.0-0'}}</td>
+              <td class="text-center">
+                <nb-icon *ngIf="invoice.billStatus == 'C'" style="color: green;" icon="checkmark-circle-2"></nb-icon>
+                <nb-icon *ngIf="invoice.billStatus == 'R'" style="color: red;" icon="close-circle"></nb-icon>
+            </td>
               <td>
                 <div ngbDropdown class="d-inline-block">
                   <button type="button" class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>
@@ -296,6 +296,11 @@
     ></nb-icon>
   </div>
   <div class="modal-body">
+    <!-- <app-payment
+    [invoice]="invoice"
+    >
+
+    </app-payment> -->
     <app-invoice-form
       [invoice]="invoice"
       [makeInvoice]="makeInvoice"

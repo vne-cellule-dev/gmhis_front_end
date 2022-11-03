@@ -122,16 +122,16 @@
         <table class="table table-bordered table-hover table-md align-middle">
           <thead class="pb-3 text-capitalize">
             <tr class="pb-3">
+              <th>Date d'admission</th>
               <th>N° Admission</th>
-              <th>Facturé</th>
               <th>N° patient</th>
               <th>Nom</th>
               <th>prenom</th>
-              <th>Date d'admission</th>
-              <th>Acte</th>
               <th>Service</th>
+              <th>Motif d'admission</th>
               <th>Médecin</th> 
-              <th>Admis par</th>     
+              <!-- <th>Admis par</th>      -->
+              <th>Facturé</th>
               <th>Actions</th>   
             </tr>
           </thead>
@@ -150,20 +150,20 @@
               "
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
-            >
+              >
+              <td class="text-nowrap">{{admission.admissionDate | date: "medium"}}</td>
               <td>{{admission?.admissionNumber | uppercase }}</td>
+              <td class="text-nowrap">{{admission.patientExternalId}}</td>
+              <td class="text-nowrap">{{admission.patientFirstName}}</td>
+              <td class="text-nowrap">{{admission.patientLastName}}</td>
+              <td class="text-nowrap">{{admission.service}}</td>
+              <td class="text-nowrap">{{admission.act}}</td>
+              <td>Dr {{admission.practicianFirstName}} {{admission.practicianLastName}}</td>
               <td class="text-center">
                 <nb-icon *ngIf="admission.admissionStatus == 'B'" style="color: green;" icon="checkmark-circle-2"></nb-icon>
                 <nb-icon *ngIf="admission.admissionStatus == 'R'" style="color: red;" icon="close-circle"></nb-icon>
             </td>
-              <td class="text-nowrap">{{admission.patientExternalId}}</td>
-              <td class="text-nowrap">{{admission.patientFirstName}}</td>
-              <td class="text-nowrap">{{admission.patientLastName}}</td>
-              <td class="text-nowrap">{{admission.admissionDate | date: "dd/MM/yyyy"}}</td>
-              <td class="text-nowrap">{{admission.act}}</td>
-              <td class="text-nowrap">{{admission.service}}</td>
-              <td>{{admission.createdByFirstName}}</td>
-              <td>{{admission.createdByFirstName}}</td>
+              <!-- <td>{{admission.createdByFirstName}}</td> -->
               <td>
                 <div ngbDropdown class="d-inline-block">
                   <button type="button" class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>

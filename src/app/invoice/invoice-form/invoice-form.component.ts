@@ -86,6 +86,8 @@ export class InvoiceFormComponent implements OnInit {
 
   public user : User;
 
+  showActAddButton : boolean = false;
+
   constructor(
      private fb : FormBuilder,
      private cashRegisterService : CashRegisterService,
@@ -101,13 +103,11 @@ export class InvoiceFormComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.user = this.userService.getUserFromLocalCache();
-    console.log(this.user);
-    
+    this.user = this.userService.getUserFromLocalCache();    
     this.initForm();
-
-  if (this.admission) {
     console.log(this.admission);
+    
+  if (this.admission) {      
       this.invoiceForm.get('admissionNumber').setValue(this.admission.admissionNumber);
       this.invoiceForm.get('admission').setValue(this.admission.id);
       this.invoiceForm.get('patientExternalId').setValue(this.admission.patientExternalId);
@@ -117,13 +117,27 @@ export class InvoiceFormComponent implements OnInit {
       this.insuredService.getInsuredByPatientId(this.admission.patientId).subscribe(
        ( response : any[]) => {
          this.patientInsurances = response;
+         console.log(this.patientInsurances);
+         if (this.patientInsurances.length != 0) {  
+          this.invoiceForm.get('patientType').setValue('A');  
+         this.setInsuranceData()
+         }else{
+           this.invoiceForm.get('patientType').setValue('C');
+         }
+        
        }
       )
+      if (this.makeInvoice) {
+        this.addActs();
+        this.acts.at(0).get('act').setValue(this.admission["actId"]);
+        this.acts.at(0).get('cost').setValue(this.admission["actCost"]);
+        console.log(this.admission["practicianId"]);
+        this.acts.at(0).get('pratician').setValue(this.admission["practicianId"]);
+      }
+    
   }  
   
-  if (this.invoice) {
-    console.log(this.invoice);
-    
+  if (this.invoice) {    
     this.invoice["billActs"].forEach((element, i) => {
       this.addActs();
       if (element["act"]) this.acts.at(i).get('act').setValue(element["act"]["id"]);
@@ -145,10 +159,12 @@ export class InvoiceFormComponent implements OnInit {
     this.insuredService.getInsuredByPatientId(this.invoice["patient"].id).subscribe(
       ( response : any[]) => {
         this.patientInsurances = response;
+        console.log(this.patientInsurances);
+        
         this.setInsuranceData()
       }
      )
-  
+  this.showActAddButton = true;
   }
     this.findCashRegisternameAndIdList();
     // this.findInsuranceNameAndIdList();
@@ -212,7 +228,7 @@ export class InvoiceFormComponent implements OnInit {
   private createActsGroups(): FormGroup {
     return this.fb.group({
       act: [null],
-      pratician: [1],
+      pratician: [null],
       admission : [ this.invoiceForm.get('admission').value],
       cost : [{ value: null, disabled: true }],
     })
@@ -228,8 +244,6 @@ export class InvoiceFormComponent implements OnInit {
 
   onInvoice(){
       this.actionToDo = "makeInvoice";
-      console.log(this.invoiceForm.value);
-    console.log(this.invoiceDto);
     this.invoiceDto.acts = this.invoiceForm.get('acts').value;
     this.invoiceDto.admission = this.invoiceForm.get('admission').value;
     this.invoiceDto.convention = this.invoiceForm.get('convention').value;
@@ -238,11 +252,8 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceDto.discountInPercentage = this.invoiceForm.get('discountInPercentage').value;
     this.invoiceDto.insured = this.insured;
     this.invoiceDto.patientType = this.invoiceForm.get('patientType').value;
-    console.log(this.invoiceDto);
-
     this.invoiceService.createInvoice(this.invoiceDto).subscribe(
       (response : any) => {
-        console.log(response); 
         this.addInvoice.emit();
       },
       (errorResponse: HttpErrorResponse) => {
@@ -278,9 +289,7 @@ export class InvoiceFormComponent implements OnInit {
   private findCashRegisternameAndIdList(){
     this.cashRegisterService.findCashRegisternameAndIdList().subscribe(
       (response : INameAndId[]) =>{
-       this.cashRegisters = response;
-        console.log(this.cashRegisters);
-        
+       this.cashRegisters = response;        
       }
     )
   }
@@ -289,7 +298,6 @@ export class InvoiceFormComponent implements OnInit {
   //   this.insuranceService.findInsuranceSimpleList().subscribe(
   //     (response : INameAndId[]) =>{
   //      this.patientInsurances = response;
-  //       console.log(this.patientInsurances);
         
   //     }
   //   )
@@ -299,7 +307,6 @@ export class InvoiceFormComponent implements OnInit {
     this.conventionService.findConventionSimpleList().subscribe(
       (response : INameAndId[]) =>{
        this.conventions = response;
-        console.log(this.conventions);
       }
     )
   }
@@ -308,7 +315,6 @@ export class InvoiceFormComponent implements OnInit {
     this.actService.getListOfActiveAct().subscribe(
       (response : INameAndId[]) =>{
        this.actsList = response;
-        console.log(this.conventions);
       }
     )
   }
@@ -317,9 +323,8 @@ export class InvoiceFormComponent implements OnInit {
   private findPracticianSimpleList(){
     this.practicianService.findPracticianSimpleList().subscribe(
       (response : any) => {
-        this.practicians = response;
-        console.log(this.practicians);
-        
+        this.practicians = response;    
+        console.log(this.practicians);   
       }
     )
   }
@@ -333,11 +338,7 @@ export class InvoiceFormComponent implements OnInit {
     )
   }
 
-  onActSelect(row) {
-    console.log(row);
-    
-    console.log(this.acts.value[row]["act"]);
-    
+  onActSelect(row) {        
     let data = {
       "act" : this.acts.value[row]["act"],
       "convention" : this.invoiceForm.get('convention').value
@@ -350,7 +351,6 @@ export class InvoiceFormComponent implements OnInit {
 
   calculInvoiceCost() {
     let data = this.invoiceDto;
-    console.log(data);
     this.invoiceDto.acts = this.invoiceForm.get('acts').value;
     this.invoiceDto.admission = this.invoiceForm.get('admission').value;
     this.invoiceDto.convention = this.invoiceForm.get('convention').value;
@@ -388,7 +388,6 @@ export class InvoiceFormComponent implements OnInit {
     }
     this.invoiceService.collectAmount(data).subscribe(
       (response : any) => {
-        console.log(response); 
         this.addPayment.emit();
       },
       (errorResponse: HttpErrorResponse) => {

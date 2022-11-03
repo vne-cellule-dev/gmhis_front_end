@@ -107,7 +107,7 @@ export class ConstantWaitingRoomComponent implements OnInit {
       act: new FormControl(null),
       dpFromDate: new FormControl(null),
       dpToDate: new FormControl(null),
-      waitingRoom: new FormControl(""),
+      waitingRoom: new FormControl(1),
       page: new FormControl(0),
       size: new FormControl(50),
       sort: new FormControl('id,desc'),

@@ -168,7 +168,7 @@ export class SubscriberListComponent implements OnInit {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "Souscription d'assurance ajoutée avec succès"
+      "Etablissement garant ajoutée avec succès"
     );
     this.getInsuranceSubscriber();
   }
@@ -177,7 +177,7 @@ export class SubscriberListComponent implements OnInit {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "Souscription d'assurance modifiée avec succès"
+      "Etablissement garant modifiée avec succès"
     );
     this.getInsuranceSubscriber();
   }

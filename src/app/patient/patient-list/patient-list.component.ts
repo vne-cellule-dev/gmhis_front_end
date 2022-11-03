@@ -68,7 +68,6 @@ export class PatientListComponent implements OnInit {
 
     // this.actGroupService.createActGroup(actGroup).subscribe(
     //   (res : any)=>{
-    //     console.log(res);
 
     //   },
     //   (error : HttpErrorResponse) =>{
@@ -83,7 +82,6 @@ export class PatientListComponent implements OnInit {
   //   this.subs.add(
   //     this.actCodeService.findAll(this.searchForm.value).subscribe(
   //       (response: PageList) => {
-  //         console.log(response);
   //         this.showloading = false;
   //         this.currentPage = response.currentPage + 1;
   //         this.empty = response.empty;
@@ -128,7 +126,6 @@ export class PatientListComponent implements OnInit {
     this.subs.add(
       this.patientService.findAll(this.searchForm.value).subscribe(
         (response: PageList) => {
-          console.log(response);
           this.showloading = false;
           this.currentPage = response.currentPage + 1;
           this.empty = response.empty;
@@ -165,13 +162,11 @@ export class PatientListComponent implements OnInit {
 
   openUpdateForm(updateFormContent, item?) {
     this.patient = item;
-    console.log(this.patient);
     this.modalService.open(updateFormContent, { size: 'xl' });
   }
 
   openAdmissionForm(admissionFormContent, item?) {
     this.patient = item;
-    console.log(this.patient);
     this.modalService.open(admissionFormContent, { size: 'lg' });
   }
 
