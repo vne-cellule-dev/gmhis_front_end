@@ -193,6 +193,7 @@ addPayment(){
   this.getPatient();
 }
 
+
   rowSelected(invoice: IInvoice, index: number) {
     this.currentIndex = index;
     this.invoice = invoice;

@@ -3,6 +3,7 @@ export interface IAdmission {
  UpdatedByLastName : string,
  UpdatedByLogin : string,
  act : string,
+ actCost : number,
  admissionDate: Date,
  admissionNumber : string,
  admissionStatus : string,
@@ -14,8 +15,12 @@ export interface IAdmission {
 patientExternalId : number,
 patientFirstName : string,
 patientId : number,
+//true : assuré , false : non assuré
+patientType : Boolean,
 patientLastName : string,
 patientMaidenName : string,
+practicianFirstName : string,
+practicianLastName : string,
 service : string,
 updatedAt : Date
 }

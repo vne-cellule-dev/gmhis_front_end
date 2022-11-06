@@ -87,7 +87,8 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           icon: 'minus-outline',
         },
         {
-          title: 'établissements garant',
+          // title: 'établissements garant',
+          title: 'Coutiers',
           link: '/insurance/subscriber-list',
           icon: 'minus-outline',
         },
