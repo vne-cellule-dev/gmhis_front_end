@@ -8,7 +8,7 @@ import { Invoice } from 'src/app/_models/invoice.model';
 })
 export class PaymentComponent implements OnInit {
   @Input()
-  invoice: Invoice;
+  invoice: any;
   selectedSize: number;
 
   paymentTypeList = [
