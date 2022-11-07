@@ -648,8 +648,8 @@
               >{{ coverageRate.value }}</ng-option
             >
           </ng-select>
-          <div *ngIf="formSubmitted && !insurance.controls.cardNumber.valid">
-            <small *ngIf="insurance.controls.cardNumber.errors.required"
+          <div *ngIf="formSubmitted && !insurance.controls.coverage.valid">
+            <small *ngIf="insurance.controls.coverage.errors.required"
                 class="text-danger">
                 Veuillez selectionner un taux de couverture</small>
         </div>

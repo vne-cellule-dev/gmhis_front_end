@@ -185,7 +185,7 @@
             <td class="text-nowrap">{{ invoice.insurance?.name }}</td>
             <td>{{ invoice?.subscriber?.name }}</td>
             <td>
-              {{ invoice?.totalAmount | currency: "FCFA":"symbol":"1.0-0" }}
+              {{ invoice?.patientPart | currency: "FCFA":"symbol":"1.0-0" }}
             </td>
             <td class="text-center">
               <nb-icon

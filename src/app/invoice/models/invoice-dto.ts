@@ -8,5 +8,7 @@ export interface IInvoiceDto {
       insured: number,
       patientType: string,
       acts: any[],
-      insuredList : any[]
+      insuredList : any[],
+      patientPart : number,
+      partTakenCareOf : number
 }

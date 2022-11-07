@@ -25,7 +25,7 @@ export class AdmissionListComponent implements OnInit {
 
   public admission: IAdmission;
 
-  public makeInvoice : boolean;
+  public makeInvoiceByAdmission : boolean;
 
   currentPage: number;
   empty: boolean;
@@ -158,7 +158,7 @@ export class AdmissionListComponent implements OnInit {
 
   openInvoiceForm(invoiceFormContent, item?) {
     this.admission = item;
-    this.makeInvoice = true;
+    this.makeInvoiceByAdmission = true;
     console.log(this.admission);
     this.modalService.open(invoiceFormContent, { size: 'xl' });
   }

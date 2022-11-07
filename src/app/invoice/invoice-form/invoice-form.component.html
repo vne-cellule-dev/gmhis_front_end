@@ -51,7 +51,7 @@
                         </ng-option>
                     </ng-select>
                 </div>
-                <div class="col-lg-3 col-md-12 col-sm-12">
+                <div class="col-lg-2 col-md-12 col-sm-12">
                     <div class="form-group">
                         <div class="input-group-sm">
                             <label for="{{'subscriber' + i}}">Courtier</label>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-12 col-sm-12">
+                <div class="col-lg-2 col-md-12 col-sm-12">
                     <div class="form-group">
                         <div class="input-group-sm">
                             <label for="{{'society' + i}}">Etablissement Garant</label>
@@ -69,9 +69,18 @@
                 </div>
                 <div class="col-lg-2  col-md-12 col-sm-12">
                     <div class="form-group">
-                        <label for="{{'insuredCcoverage' + i}}">Taux de couverture (%)</label>
+                        <label for="{{'insuredCoverage' + i}}">Taux de couverture (%)</label>
                         <div class="input-group input-group-sm">
-                            <input id="{{'insuredCcoverage' + i}}" name="{{'insuredCcoverage' + i}}" type="text" formControlName="insuredCcoverage" class="form-control text-bold " disabled="true">
+                            <input id="{{'insuredCoverage' + i}}" name="{{'insuredCoverage' + i}}" type="text" formControlName="insuredCoverage" class="form-control text-bold " disabled="true">
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2  col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="{{'insuredPart' + i}}">Part prise en charge</label>
+                        <div class="input-group input-group-sm">
+                            <input id="{{'insuredPart' + i}}" name="{{'insuredPart' + i}}" type="text" formControlName="insuredPart" class="form-control text-bold " disabled="true">
                          
                         </div>
                     </div>
@@ -91,6 +100,65 @@
         <button (click)="addInsured()" class="btn btn-info text-white ">
          ajouter une assurance
         </button>
+     </div>
+     <div class="acts container">
+<div *ngIf="this.admissionForTemplate.admissionStatus == 'B'">
+    <span class="subTitle mx-2">Actes</span><br>
+    <div class="" formArrayName="acts">
+        <div class="form-group" *ngFor="let act of acts.controls; let i = index">
+            <div formGroupName="{{i}}" class="row d-flex align-items-end">
+
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <label for="insurance">acte</label>
+                     <ng-select formControlName="act" placeholder="Selectionner un acte"
+                        (change)="onActSelect(i)">
+                        <ng-option *ngFor="let act of actsList" [value]="act.id">
+                            {{act.name}}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group-sm">
+                            <label for="{{'pratician' + i}}">Practician</label>
+                            <ng-select formControlName="pratician"
+                            placeholder="Selectionner un practicien">
+                            <ng-option *ngFor="let practician of practicians "
+                                [value]="practician.userId">
+                                {{practician.userFirstName+" "+ practician.userLastName}}
+                            </ng-option>
+                        </ng-select> 
+                    </div>
+                    </div>
+                </div> 
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="{{'cost' + i}}">Cout</label>
+                        <div class="input-group-sm">
+                            <input formControlName="cost" type="number" name="{{'cost' + i}}"
+                                id="{{'cost' + i}}"> 
+                    </div>
+                    </div>
+                </div>      
+                <div class="col-md-1">
+                    <label for=""></label>
+                    <span (click)="deleteAct(i)" style=" color: red; cursor: pointer;"
+                        class="material-icons px-2 p-1 rounded">
+                        delete
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="addInsuranceBtn  mt-2 mb-3">
+            <button type="button" (click)="addActs()"
+            class="btn btn-info btn-sm text-white">
+            ajouter Act
+        </button>
+         </div>
+    </div>
+  
+</div>
+       
      </div>
     <!-- <div class="row mb-5" *ngIf="admissionForTemplate?.patientType">
        
