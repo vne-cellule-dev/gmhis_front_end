@@ -29,7 +29,7 @@
           >Constante Domaine</label
         >
         <ng-select
-          placeholder="Constante domaine"
+          placeholder="Constante"
           id="constantDomain-{{ i }}"
           formControlName="constantDomain"
         >
@@ -57,12 +57,13 @@
           >Description</label
         >
         <span *ngIf="!details" class="text-danger">*</span>
-        <input
+        <textarea
           type="text"
           id="description-{{ i }}"
           class="form-control"
           formControlName="description"
-        />
+          rows="1"
+        ></textarea>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-12 d-flex align-items-end">
         <span
