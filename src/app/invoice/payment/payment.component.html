@@ -1,23 +1,25 @@
 <div class="main-payment">
   <form [formGroup]="paymentForm" class="row mb-3" (ngSubmit)="collectAmount()">
     <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="code" placeholder="Code Caisse" />
+      <input
+        type="text"
+        class="form-control"
+        formControlName="code"
+        placeholder="Code Caisse"
+      />
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <ng-select formControlName="paymentType"
-            placeholder="Type de payement">
-            <ng-option *ngFor="let type of paymentTypes"
-                [value]="type.id">
-                {{type.name}}
-            </ng-option>
+        <ng-select formControlName="paymentType" placeholder="Type de payement">
+          <ng-option *ngFor="let type of paymentTypes" [value]="type.id">
+            {{ type.name }}
+          </ng-option>
         </ng-select>
         <!-- <span class="text-danger"
                 *ngIf="invalidFormControls && invalidFormControls.paymentType">
                 ce champ doit renseigné
             </span> -->
-    </div>
-    
+      </div>
     </div>
     <div class="col-md-4">
       <button type="submit" class="btn-encaissement">ENCAISSER</button>
@@ -29,19 +31,28 @@
     <div class="card-payment">
       <div class="flex-item">
         <div class="">Date Facture:</div>
-        <div class="strong">{{patientInvoice?.billDate | date: "dd/MM/yyyy"}}</div>
+        <div class="strong">
+          {{ patientInvoice?.billDate | date: "dd/MM/yyyy" }}
+        </div>
       </div>
       <div class="flex-item">
         <div class="">N° Admission</div>
-        <div class="strong">{{patientInvoice?.admission?.admissionNumber}}</div>
+        <div class="strong">
+          {{ patientInvoice?.admission?.admissionNumber }}
+        </div>
       </div>
       <div class="flex-item">
         <div class="">N° Patient</div>
-        <div class="strong">{{patientInvoice?.patient?.patientExternalId}}</div>
+        <div class="strong">
+          {{ patientInvoice?.patient?.patientExternalId }}
+        </div>
       </div>
       <div class="flex-item">
         <div class="">Nom du patient</div>
-        <div class="strong">{{patientInvoice?.patient?.firstName}} {{patientInvoice?.patient?.lastName}}</div>
+        <div class="strong">
+          {{ patientInvoice?.patient?.firstName }}
+          {{ patientInvoice?.patient?.lastName }}
+        </div>
       </div>
       <div class="flex-item">
         <div class="">Service</div>
@@ -56,27 +67,29 @@
     <div class="card-payment">
       <div class="flex-item">
         <div class="">Type de patient:</div>
-        <div class="strong">{{patientInvoice?.patientType == "A" ? "Assuré" : "Comptant"}}</div>
+        <div class="strong">
+          {{ patientInvoice?.patientType == "A" ? "Assuré" : "Comptant" }}
+        </div>
       </div>
       <div class="flex-item">
         <div class="">Assurance / Mutuelle</div>
-        <div class="strong">{{patientInvoice?.insurance?.name}}</div>
+        <div class="strong">{{ patientInvoice?.insurance?.name }}</div>
       </div>
       <div class="flex-item">
         <div class="">Etablissemnt garant</div>
-        <div class="strong">{{patientInvoice?.subscriber?.name}}</div>
+        <div class="strong">{{ patientInvoice?.subscriber?.name }}</div>
       </div>
       <div class="flex-item">
         <div class="">T. couv (%)</div>
-        <div class="strong">{{patientInvoice?.insured?.coverage}}</div>
+        <div class="strong">{{ patientInvoice?.insured?.coverage }}</div>
       </div>
       <div class="flex-item">
         <div class="">T. cons (%)</div>
-        <div class="strong">{{100 - patientInvoice?.insured?.coverage}}</div>
+        <div class="strong">{{ 100 - patientInvoice?.insured?.coverage }}</div>
       </div>
       <div class="flex-item">
         <div class="">Convention</div>
-        <div class="strong">{{patientInvoice?.convention?.name}}</div>
+        <div class="strong">{{ patientInvoice?.convention?.name }}</div>
       </div>
     </div>
   </div>
@@ -94,10 +107,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let act of patientInvoice?.billActs ">
-          <td>{{act?.act?.name}}</td>
-            <td>{{act?.practician?.firstName}} {{act?.practician?.lastName}}</td>
-            <td>{{act?.actCost}}</td>
+          <tr *ngFor="let act of patientInvoice?.billActs">
+            <td>{{ act?.act?.name }}</td>
+            <td>
+              {{ act?.practician?.firstName }} {{ act?.practician?.lastName }}
+            </td>
+            <td>{{ act?.actCost }}</td>
           </tr>
         </tbody>
       </table>
@@ -109,23 +124,23 @@
     <div class="card-payment">
       <div class="flex-item">
         <div class="">Remise en %</div>
-        <div class="strong">{{patientInvoice?.discountInPercentage}}</div>
+        <div class="strong">{{ patientInvoice?.discountInPercentage }}</div>
       </div>
       <div class="flex-item">
         <div class="">Remise en fcfa</div>
-        <div class="strong">{{patientInvoice?.discountInCfa}}</div>
+        <div class="strong">{{ patientInvoice?.discountInCfa }}</div>
       </div>
       <div class="flex-item">
         <div class="">Part PEC</div>
-        <div class="strong">{{patientInvoice?.partTakenCareOf}}</div>
+        <div class="strong">{{ patientInvoice?.partTakenCareOf }}</div>
       </div>
       <div class="flex-item">
         <div class="">Part adherant</div>
-        <div class="strong">{{patientInvoice?.patientPart}}</div>
+        <div class="strong">{{ patientInvoice?.patientPart }}</div>
       </div>
       <div class="flex-item">
         <div class="">Total (fcfa)</div>
-        <div class="strong">{{patientInvoice?.totalAmount}}</div>
+        <div class="strong">{{ patientInvoice?.totalAmount }}</div>
       </div>
     </div>
   </div>

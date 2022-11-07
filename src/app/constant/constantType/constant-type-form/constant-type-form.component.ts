@@ -21,6 +21,7 @@ import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
 import { IConstant } from '../../constantDomain/constant.model';
+import { ConstantService } from '../../constantDomain/constant.service';
 import { IConstantType } from '../constant-type.model';
 import { ConstantTypeService } from '../constant-type.service';
 
@@ -104,7 +105,8 @@ export class ConstantTypeFormComponent implements OnInit {
 
   constructor(
     private constantTypeService: ConstantTypeService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private constanteDomainService : ConstantService
   ) {}
 
   // Unsubscribe when the component dies
@@ -165,7 +167,7 @@ export class ConstantTypeFormComponent implements OnInit {
       // resultType: new FormControl(null),
       shortName: new FormControl(null),
       significantDigits: new FormControl(null),
-      unitOfMesure: new FormControl(null),
+      unitOfMesure: new FormControl(1),
     });
   }
   get name() {
@@ -221,10 +223,12 @@ export class ConstantTypeFormComponent implements OnInit {
   }
 
   onGetPatientDomainActe() {
-    this.constantTypeService.getPatientDomainActe().subscribe(
+    this.constanteDomainService.getNameAndIdOfConstanteDomainActive().subscribe(
       (res) => {
-        console.log('Domaine acte ::', res);
+        console.log('Constante domaine ::', res);
         this.constantDomainList = res;
+        console.log(this.constantDomainList);
+        
       },
       (err) => {
         console.log(err);

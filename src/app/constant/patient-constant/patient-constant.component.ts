@@ -102,14 +102,7 @@ export class PatientConstantComponent implements OnInit {
           this.empty = response.empty;
           this.firstPage = response.firstPage;
           this.items = response.items;
-          this.items.forEach(el => {
-              el.values = JSON.parse(el.values);
-              el.constant = Object.keys(el.values);
-              el.value = Object.values(el.values);
-              console.log(el.constant);
-          });
-          console.log(this.items);
-          
+          console.log(this.items); 
           this.lastPage = response.lastPage;
           this.selectedSize = response.size;
           this.totalItems = response.totalItems;
@@ -145,7 +138,7 @@ export class PatientConstantComponent implements OnInit {
     this.modalService.open(updateFormContent, { size: 'lg' });
   }
 
-  addConstantDomain() {
+  addConstantType() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,

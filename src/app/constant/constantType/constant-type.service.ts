@@ -50,9 +50,9 @@ export class ConstantTypeService {
     );
   }
 
-  getPatientDomainActe(): Observable<any[]> {
+  getNameAndIdOfConstanteTypeActive(): Observable<any[]> {
     return this.http.get<any[]>(
-      `${this.apiUrl}/patient_constant_type/active_acts_name`
+      `${this.apiUrl}/patient_constant_type/active_constante_type_name`
     );
   }
 

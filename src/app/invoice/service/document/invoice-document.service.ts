@@ -119,7 +119,7 @@ var doc = new jsPDF('p', 'mm', 'a4');
   doc.setTextColor(0, 0, 0)
   doc.text("Total facture", 130, 170);
   doc.setTextColor(255, 0, 0)
-  doc.text(totalAmount.toString(), 176, 170);
+  doc.text(invoice["totalAmount"].toString(), 176, 170);
 
   doc.setTextColor(0, 0, 0)
       doc.text("Taux de couverture", 130, 180);
@@ -130,29 +130,29 @@ var doc = new jsPDF('p', 'mm', 'a4');
       doc.setTextColor(0, 0, 0)
       doc.text("Part prise en charge (PEC", 130, 190);
       doc.setTextColor(255, 0, 0)
-      doc.text((totalAmount*invoice["coverage"]/100).toString(), 176, 190);
+      doc.text(invoice["partTakenCareOf"].toString(), 176, 190);
 
-      doc.rect(25, 650, 330, 20);
-      doc.setTextColor(0, 0, 0)
-      doc.text("Remise", 130, 200);
-      doc.setTextColor(255, 0, 0)
-      doc.text(invoice["discountInCfa"].toString(), 176, 200);
+      // doc.rect(25, 650, 330, 20);
+      // doc.setTextColor(0, 0, 0)
+      // doc.text("Remise", 130, 200);
+      // doc.setTextColor(255, 0, 0)
+      // doc.text(invoice["discountInCfa"].toString(), 176, 200);
 
       doc.rect(25, 670, 330, 20);
       doc.setTextColor(0, 0, 0)
       doc.text("Part adhérent", 130, 210);
       doc.setTextColor(255, 0, 0)
-      doc.text((totalAmount*(100 - invoice["coverage"])/100).toString(), 176, 210);
+      doc.text(invoice["patientPart"].toString(), 176, 210);
 
       doc.rect(25, 690, 330, 20);
       doc.setTextColor(0, 0, 0)
       doc.text("Net à payer", 130, 220);
       doc.setTextColor(255, 0, 0)
-      doc.text((totalAmount*(100 - invoice["coverage"])/100).toString(), 176, 220);
+      doc.text(invoice["patientPart"].toString(), 176, 220);
 
       doc.setTextColor(0, 0, 0)
       doc.text("Arrêté la présente facture à la somme de : "  , 14, 240);
-      doc.text((totalAmount*(100 - invoice["coverage"])/100).toString() + " FCFA", 14, 245);
+      doc.text(invoice["patientPart"].toString() + " FCFA", 14, 245);
 
       doc.setTextColor(0, 0, 0)
       doc.text("VISA CLIENT" , 14, 260);

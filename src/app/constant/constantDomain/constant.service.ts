@@ -55,4 +55,10 @@ export class ConstantService {
       `${this.apiUrl}/constant_domain/get-detail/${constant.id}`
     );
   }
+
+  getNameAndIdOfConstanteDomainActive(): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/constant_domain/active_constante_domain_name_id`
+    );
+  }
 }

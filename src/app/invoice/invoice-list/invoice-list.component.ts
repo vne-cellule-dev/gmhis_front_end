@@ -209,7 +209,7 @@ addPayment(){
   printInvoice(printContent, invoice) {
     this.invoiceService.getInvoiceDetail(invoice.id).subscribe(
       (res : any) => {
-      console.log(res["billStatus"]);
+      console.log(res);
            this.actservice.getActsByBillId(res["billId"]).subscribe(
         (response : any) => {
           this.acts = response;
