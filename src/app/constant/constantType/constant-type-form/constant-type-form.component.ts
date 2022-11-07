@@ -162,7 +162,7 @@ export class ConstantTypeFormComponent implements OnInit {
       active: new FormControl(true),
       description: new FormControl(null),
       constantDomain: new FormControl(null),
-      resultType: new FormControl(null),
+      // resultType: new FormControl(null),
       shortName: new FormControl(null),
       significantDigits: new FormControl(null),
       unitOfMesure: new FormControl(null),

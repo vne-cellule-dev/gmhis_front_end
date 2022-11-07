@@ -99,7 +99,7 @@
       <!-- Téléphone 1 -->
       <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="cellPhone1" class="form-label text-capitalize"
-          >Contact</label
+          >N° de téléphone</label
         >
         <span *ngIf="!details" class="text-danger">*</span>
         <input
@@ -124,7 +124,7 @@
       <!-- Téléphone 2 -->
       <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="cellPhone2" class="form-label text-capitalize"
-          >Second Contact</label
+          >Second N° de téléphone</label
         >
         <input
           type="number"
@@ -252,7 +252,7 @@
       </div>
 
       <!-- Numero de sécurité -->
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="cnamNumber" class="form-label text-capitalize"
           >N° de sécurité social</label
         >
@@ -272,11 +272,8 @@
           <span *ngIf="!patientForm.get('cnamNumber')?.valid"
             >Ce champ requiet 13 caractères</span
           >
-          <!-- <span *ngIf="patientForm.get('cnamNumber')?.errors?.minlenght"
-            >Minimun 13 caractères</span
-          > -->
         </div>
-      </div>
+      </div> -->
 
       <!-- Profession -->
       <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
@@ -570,7 +567,7 @@
             <div *ngIf="formSubmitted && !insurance.controls.insurance.valid">
               <small *ngIf="insurance.controls.insurance.errors.required"
                   class="text-danger">
-                  Veuillez choisir une assurance garant</small>
+                  Veuillez choisir une assurance </small>
           </div>
           </div>
 
@@ -579,7 +576,7 @@
                             <label
                               for="insuranceSuscriber-{{ i }}"
                               class="form-label text-capitalize"
-                              >Etab. garant</label
+                              >Courtier</label
                             >
                             <span *ngIf="!details" class="text-danger">*</span>
                             <ng-select id="insurance" formControlName="insuranceSuscriber">
@@ -592,32 +589,27 @@
                             <div *ngIf="formSubmitted && !insurance.controls.insuranceSuscriber.valid">
                               <small *ngIf="insurance.controls.insuranceSuscriber.errors.required"
                                   class="text-danger">
-                                  Veuillez choisir un Etablissement garant</small>
+                                  Veuillez choisir un coutier</small>
                           </div>
                           </div>
 
-           <!-- principalInsuredContact -->
+           <!-- society -->
            <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
-              for="principalInsuredContact-{{ i }}"
+              for="society-{{ i }}"
               class="form-label text-capitalize"
-              >Société</label
+              >Etablissement garant</label
             >
-            <span *ngIf="!details" class="text-danger">*</span>
             <input
               type="text"
-              id="principalInsuredContact-{{ i }}"
+              id="society-{{ i }}"
               class="form-control"
-              formControlName="principalInsuredContact"
+              formControlName="society"
               [ngClass]="{
-                'is-invalid': formsErrors['principalInsuredContact']
+                'is-invalid': formsErrors['society']
               }"
             />
-            <div *ngIf="formSubmitted && !insurance.controls.principalInsuredContact.valid">
-              <small *ngIf="insurance.controls.principalInsuredContact.errors.required"
-                  class="text-danger">
-                  Veuillez renseigner la société</small>
-          </div>
+          
           </div>
 
           <!-- cardNumber -->
@@ -670,7 +662,6 @@
               class="form-label text-capitalize"
               >Assuré principal</label
             >
-            <span *ngIf="!details" class="text-danger">*</span>
             <ng-select
               class=""
               formControlName="isPrincipalInsured"
@@ -692,15 +683,11 @@
               class="form-label text-capitalize"
               >Lien de parenté</label
             >
-            <!-- <span *ngIf="!details" class="text-danger">*</span> -->
             <input
               type="text"
               id="principalInsuredAffiliation-{{ i }}"
               class="form-control"
               formControlName="principalInsuredAffiliation"
-              [ngClass]="{
-                'is-invalid': formsErrors['principalInsuredAffiliation']
-              }"
             />
           </div>
           <!-- principalInsuredName -->
@@ -710,13 +697,29 @@
               class="form-label text-capitalize"
               >Nom Assuré principal</label
             >
-            <!-- <span *ngIf="!details" class="text-danger">*</span> -->
             <input
               type="text"
               id="principalInsuredName-{{ i }}"
               class="form-control"
               formControlName="principalInsuredName"
-              [ngClass]="{ 'is-invalid': formsErrors['principalInsuredName'] }"
+            />
+          </div>
+          <!-- principalInsuredContact -->
+
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+            <label
+              for="principalInsuredContact-{{ i }}"
+              class="form-label text-capitalize"
+              >Contact de l'assuré principale</label
+            >
+            <input
+              type="text"
+              id="principalInsuredContact-{{ i }}"
+              class="form-control"
+              formControlName="principalInsuredContact"
+              [ngClass]="{
+                'is-invalid': formsErrors['principalInsuredContact']
+              }"
             />
           </div>
 

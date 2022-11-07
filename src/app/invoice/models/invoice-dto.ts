@@ -7,5 +7,6 @@ export interface IInvoiceDto {
       discountInPercentage: string,
       insured: number,
       patientType: string,
-      acts: any[]
+      acts: any[],
+      insuredList : any[]
 }
