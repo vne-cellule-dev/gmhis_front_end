@@ -158,7 +158,7 @@ export class PatientFormmComponent implements OnInit {
     this.initForm();
     if (this.patient) {
       this.patientService
-        .getPatientDetail(this.patient)
+        .getPatientDetail(this.patient.id)
         .subscribe((response: IPatient) => {
           this.patientForm.patchValue(response);
           this.patientForm.get('country').setValue(response['country']['id']);
@@ -169,6 +169,8 @@ export class PatientFormmComponent implements OnInit {
           this.insuredServiceService
             .getInsuredByPatientId(response.id)
             .subscribe((res: any) => {
+              console.log(res);
+              
               res.forEach((el, index) => {
                 this.addInsurance();
                 this.insuranceFormGroup.controls[index]
@@ -201,6 +203,9 @@ export class PatientFormmComponent implements OnInit {
                 this.insuranceFormGroup.controls[index]
                   .get('principalInsuredAffiliation')
                   .setValue(el.principalInsuredAffiliation);
+                  this.insuranceFormGroup.controls[index]
+                  .get('society')
+                  .setValue(el.society);
               });
             });
         });
@@ -208,6 +213,8 @@ export class PatientFormmComponent implements OnInit {
     }else{
       this.addInsurance();
     this.insuranceFormGroup.controls[0].get('insurance').setValue(3);
+    this.insuranceFormGroup.controls[0].get('insuranceSuscriber').setValue(3);
+    this.insuranceFormGroup.controls[0].get('society').setValue("CNAM");
     }
 
     this.initInsuranceForm();
@@ -231,7 +238,7 @@ export class PatientFormmComponent implements OnInit {
       civility: new FormControl('', [Validators.required]),
       idcardType: new FormControl('', [Validators.required]),
       idCardNumber: new FormControl(''),
-      cnamNumber: new FormControl('', [Validators.minLength(13)]),
+      // cnamNumber: new FormControl('', [Validators.minLength(13)]),
       profession: new FormControl('', [Validators.required]),
       correspondant: new FormControl('', [Validators.required]),
       correspondantCellPhone: new FormControl(''),
@@ -337,11 +344,12 @@ export class PatientFormmComponent implements OnInit {
       coverage: new FormControl(null, [Validators.required]),
       insurance: new FormControl(null, [Validators.required]),
       insuranceSuscriber: new FormControl(null, [Validators.required]),
-      isPrincipalInsured: new FormControl(true),
+      isPrincipalInsured: new FormControl(null),
       patient: new FormControl(null),
       principalInsuredAffiliation: new FormControl(''),
-      principalInsuredContact: new FormControl('', [Validators.required]),
+      principalInsuredContact: new FormControl(''),
       principalInsuredName: new FormControl(''),
+      society : new FormControl('')
     });
   }
 

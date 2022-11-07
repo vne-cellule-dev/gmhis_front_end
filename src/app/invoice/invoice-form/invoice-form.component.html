@@ -1,55 +1,220 @@
 <form [formGroup]="invoiceForm">
+    <div class=" mx-4 d-flex mb-3 mt-2 justify-content-center">
+
+        <div class="patient_infos row">
+            <span class="subTitle">Informations</span>
+            <div class="d-flex col-md-4 mb-3">
+                <div>N° Patient </div>
+                <div class="value strong">: {{admissionForTemplate?.patientExternalId}}</div>
+            </div>
+            <div class="d-flex col-md-4 mb-3">
+                <div>Nom du Patient </div>
+                <div class="value strong">: {{admissionForTemplate?.patientFirstName}}
+                    {{admissionForTemplate?.patientLastName}}</div>
+            </div>
+            <div class="d-flex col-md-4 mb-3">
+                <div>Service </div>
+                <div class="value strong">: {{admissionForTemplate?.service}}</div>
+            </div>
+            <div class="d-flex col-md-4 mb-3 ">
+                <div>Date Facture : </div>
+                <div class="value strong"> {{currentDate | date: "dd/MM/yyyy"}} </div>
+            </div>
+            <div class="d-flex col-md-4 mb-3 ">
+                <div>Motif d'admission : </div>
+                <div style="color: #14a2b8;" class="value strong"> {{admissionForTemplate?.act | uppercase}} </div>
+            </div>
+            <div class="d-flex col-md-4 mb-3">
+                <div>Médécin : </div>
+                <div class="value strong"> {{admissionForTemplate?.practicianFirstName}}
+                    {{admissionForTemplate?.practicianLastName}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <span class="subTitle mx-2">Assurance(s) et convention(s)</span><br>
+        <small class="mb-5">Par défaut l'assurance CNAM est appliquée à tout type de patient (assuré ou comptant).</small>
+
+    </div>
+   
+     <div class="mb-3" formArrayName="insuredList">
+        <div class="form-group  mb-2" *ngFor="let insured of insureds.controls; let i = index">
+            <div formGroupName="{{i}}" class="row d-flex align-items-end">
+
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <label for="insurance">Assurance / mutuelle</label>
+                    <ng-select  formControlName="insurrance" placeholder="Selectionner une assurance"
+                        (change)="onInsuredSelect(i,$event)">
+                        <ng-option *ngFor="let insurance of patientInsurances" [value]="insurance.insuranceId">
+                            {{insurance.insuranceName}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group-sm">
+                            <label for="{{'subscriber' + i}}">Courtier</label>
+                            <input id="{{'subscriber' + i}}" name="{{'subscriber' + i}}" type="text" class="form-control" formControlName="subscriber">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group-sm">
+                            <label for="{{'society' + i}}">Etablissement Garant</label>
+                            <input id="{{'society' + i}}" name="{{'society' + i}}" type="text" class="form-control" formControlName="society">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2  col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="{{'insuredCcoverage' + i}}">Taux de couverture (%)</label>
+                        <div class="input-group input-group-sm">
+                            <input id="{{'insuredCcoverage' + i}}" name="{{'insuredCcoverage' + i}}" type="text" formControlName="insuredCcoverage" class="form-control text-bold " disabled="true">
+                         
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="i != 0" class="col-md-1">
+                    <label for=""></label>
+                    <span (click)="deleteInsured(i)" style=" color: red; cursor: pointer;"
+                        class="material-icons px-2 p-1 rounded">
+                        delete
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="addInsuranceBtn text-center mb-3">
+        <button (click)="addInsured()" class="btn btn-info text-white ">
+         ajouter une assurance
+        </button>
+     </div>
+    <!-- <div class="row mb-5" *ngIf="admissionForTemplate?.patientType">
+       
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="input-group-sm">
+                <label for="insurance">Assurance / mutuelle</label>
+                <ng-select placeholder="choisir une assurance" formControlName="insurance"
+                    (change)="setInsuranceData()">
+                    <ng-option *ngFor="let insurance of patientInsurances" [value]="insurance.insuranceId">
+                        {{insurance.insuranceName}}
+                    </ng-option>
+                </ng-select>
+
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="form-group">
+                <div class="input-group-sm">
+                    <label for="subscriber">Courtier</label>
+                    <input type="text" class="form-control" formControlName="subscriber">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-lg-3 col-md-12 col-sm-12">
+            <div class="form-group">
+                <label for="society">Etablissement Garant</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" formControlName="society" class="form-control"
+                        [attr.disabled]="cashRegisterComponent? true: null">
+                  
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-lg-3 col-md-12 col-sm-12">
+            <div class="form-group">
+                <label for="consumableRate">Taux de couverture (%)</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" formControlName="coverRate" class="form-control text-bold " disabled="true">
+                  
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="montant row d-flex flex-colunm justify-content-end mb-5">
+        <div class="row col-lg-6 ">
+            <div class="d-flex row mb-3">
+                <div class="col">Total Facture</div>
+                <div class="col value strong">: {{totalInvoice | currency:'FCFA' : 'symbol' : '1.0-0'}} </div>
+            </div>
+            <div class="d-flex row mb-3">
+                <div class="col">Part Prise en charge par la CNAM </div>
+                <div class="col value strong">: {{partPecByCNAM | currency:'FCFA' : 'symbol' : '1.0-0'}} </div>
+            </div>
+            <div class="d-flex row mb-3">
+                <div class="col">Part Prise en charge par les assurances </div>
+                <div class="col value strong">: {{partPecByOthherInsurance | currency:'FCFA' : 'symbol' : '1.0-0'}} </div>
+            </div>
+            <div class="d-flex row mb-3">
+                <div class="col">Part total Prise en charge : </div>
+                <div class="col value strong">: {{partPecByCNAM + partPecByOthherInsurance | currency:'FCFA' : 'symbol' : '1.0-0'}} </div>
+            </div>
+            <div class="d-flex  mb-3">
+                <div class="col">Part adhérant </div>
+                <div class="col value strong">: {{partientPart | currency:'FCFA' : 'symbol' : '1.0-0'}}</div>
+            </div>
+            <div class="d-flex">
+                <div class="col">Montant à payer </div>
+                <div style="color: #14a2b8;" class="col value strong h2">: {{partientPart | currency:'FCFA' : 'symbol' : '1.0-0'}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="actionBtn d-flex justify-content-between container">
+        <button (click)="calculInvoiceCost()" class="btn btn-secondary">CALCULER LES PART</button>
+        <button (click)="onInvoice()" class="btn btn-success px-3 py-2">FACTURER</button>
+    </div>
+</form>
+
+<form [formGroup]="invoiceForm" *ngIf="false">
     <div class="card">
         <div class="card-header">
             <div class="row d-flex justify-content-end">
                 <div class="col-md-6" *ngIf="!makeInvoice">
-                  <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                            <ng-select formControlName="cashRegister"
-                                placeholder="Caisse">
-                                <ng-option *ngFor="let cashRegister of cashRegisters"
-                                    [value]="cashRegister.id">
-                                    {{cashRegister.name}}
-                                </ng-option>
-                            </ng-select>
-                        
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <ng-select formControlName="cashRegister" placeholder="Caisse">
+                                    <ng-option *ngFor="let cashRegister of cashRegisters" [value]="cashRegister.id">
+                                        {{cashRegister.name}}
+                                    </ng-option>
+                                </ng-select>
+
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                            <ng-select formControlName="paymentType"
-                                placeholder="Type de payement">
-                                <ng-option *ngFor="let type of paymentTypes"
-                                    [value]="type.id">
-                                    {{type.name}}
-                                </ng-option>
-                            </ng-select>
-                            <!-- <span class="text-danger"
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <ng-select formControlName="paymentType" placeholder="Type de payement">
+                                    <ng-option *ngFor="let type of paymentTypes" [value]="type.id">
+                                        {{type.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <!-- <span class="text-danger"
                                     *ngIf="invalidFormControls && invalidFormControls.paymentType">
                                     ce champ doit renseigné
                                 </span> -->
+                            </div>
                         </div>
-                      </div>
-                  </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12 ">
-                            <button (click)="onInvoice()" *ngIf="makeInvoice" class="btn btn-block btn-success btn-sm font-weight-bold text-white text-nowrap"
-                               >
+                            <button (click)="onInvoice()" *ngIf="makeInvoice"
+                                class="btn btn-block btn-success btn-sm font-weight-bold text-white text-nowrap">
                                 Valider
                             </button>
-                            
-                                <button
-                                (click)="collectAmount()"
-                                *ngIf="!makeInvoice"
-                                class="btn btn-block btn-success btn-sm font-weight-bold text-white text-nowrap"
-                               >
+
+                            <button (click)="collectAmount()" *ngIf="!makeInvoice"
+                                class="btn btn-block btn-success btn-sm font-weight-bold text-white text-nowrap">
                                 Encaisser
                             </button>
-                            
-                           
+
+
                         </div>
                         <!-- <div class="col-lg-4 col-md-6 col-sm-12" >
                             <div class="btn btn-block btn-primary btn-sm font-weight-bold text-white text-nowrap"
@@ -76,7 +241,7 @@
                             </div>   
                         </div> -->
                     </div>
-                
+
                 </div>
             </div>
         </div>
@@ -89,7 +254,7 @@
                                 <label for="invoiceDate">Date Facture:</label>
                                 <div class="input-group  input-group-sm">
                                     <input formControlName="invoiceDate" class="form-control" placeholder="jj-mm-AAAA"
-                                        ngbDatepicker  >
+                                        ngbDatepicker>
                                     <!-- <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar-alt" ></i>
@@ -118,7 +283,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-lg-3 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label for="patientName">Nom du Patient</label>
                                 <div class="input-group input-group-sm">
@@ -127,7 +292,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class=" col-md-3">
+                        <div class=" col-lg-3 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <div class="input-group-sm">
                                     <label for="service">Service</label>
@@ -137,11 +302,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-2 col-md-3">
+                        <div class="col-lg-2 col-lg-3 col-md-12 col-sm-12">
                             <div class="input-group-sm">
                                 <label for="patientType">Type de patient</label>
                                 <span class="text-danger">*</span>
-                                <ng-select formControlName="patientType" >
+                                <ng-select formControlName="patientType">
                                     <ng-option *ngFor="let type of patientTypes" [value]="type.id">
                                         {{type.value}}
                                     </ng-option>
@@ -158,13 +323,11 @@
                                 </span> -->
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-lg-3 col-md-12 col-sm-12">
                             <div class="input-group-sm">
                                 <label for="insurance">Assurance / mutuelle</label>
-                                <ng-select formControlName="insurance" 
-                                (change)="setInsuranceData()"
-                                    >
-                                    <ng-option  *ngFor="let insurance of patientInsurances"
+                                <ng-select formControlName="insurance" (change)="setInsuranceData()">
+                                    <ng-option *ngFor="let insurance of patientInsurances"
                                         [value]="insurance.insuranceId">
                                         {{insurance.insuranceName}}
                                     </ng-option>
@@ -185,7 +348,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-1 col-md-3">
+                        <div class="col-lg-1 col-lg-3 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label for="coverRate">T. couv (%)</label>
                                 <div class="input-group input-group-sm">
@@ -197,26 +360,26 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-1 col-md-3">
+                        <div class="col-lg-1 col-lg-3 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label for="consumableRate">T. cons (%)</label>
                                 <div class="input-group input-group-sm">
                                     <input type="text" formControlName="consumableRate" class="form-control text-bold "
-                                    disabled="true">
+                                        disabled="true">
                                     <!-- <input type="text" formControlName="consumableRate" class="form-control text-bold "
                                         disabled="true" value="{{calculConsommableRate()}}"> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group" >
+                        <div class="col-lg-3 col-md-12 col-sm-12">
+                            <div class="form-group">
                                 <label for="convention">Convention</label>
                                 <ng-select formControlName="convention" data-placeholder="Selectionner une convention">
                                     <ng-option *ngFor="let convention of conventions" [value]="convention.id">
                                         {{convention.name}}</ng-option>
                                 </ng-select>
                             </div>
-<!-- 
+                            <!-- 
                             <div class="form-group" >
                                 <label for="convention"> Convention </label>
                                 <div class="input-group-sm">
@@ -226,63 +389,56 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="row mt-3" >
+                    <div class="row mt-3">
                         <div class="col-md-7">
                             <div formArrayName="acts">
                                 <div class="form-group  mb-2" *ngFor="let act of acts.controls; let i = index">
-                                  <div formGroupName="{{i}}" class="row">
-                                    
-                                    <div class="col-md-3">
-                                        <ng-select formControlName="act"
-                                        placeholder="Selectionner un acte"
-                                        (change)="onActSelect(i)">
-                                        <ng-option *ngFor="let act of actsList" [value]="act.id">
-                                            {{act.name}}</ng-option>
-                                    </ng-select>
+                                    <div formGroupName="{{i}}" class="row">
+
+                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                            <ng-select formControlName="act" placeholder="Selectionner un acte"
+                                                (change)="onActSelect(i)">
+                                                <ng-option *ngFor="let act of actsList" [value]="act.id">
+                                                    {{act.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ng-select formControlName="pratician"
+                                                placeholder="Selectionner un practicien">
+                                                <ng-option *ngFor="let practician of practicians "
+                                                    [value]="practician.userId">
+                                                    {{practician.userFirstName+" "+ practician.userLastName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                            <input formControlName="cost" type="number" name="{{'cost' + i}}"
+                                                id="{{'cost' + i}}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span (click)="deleteAct(i)" style=" color: red; cursor: pointer;"
+                                                class="material-icons px-2 p-1 rounded">
+                                                delete
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <ng-select 
-                                        formControlName="pratician"
-                                        placeholder="Selectionner un practicien">
-                                        <ng-option *ngFor="let practician of practicians "
-                                            [value]="practician.userId">
-                                            {{practician.userFirstName+" "+ practician.userLastName}}
-                                        </ng-option>
-                                    </ng-select>
-                                    </div>
-                                    <div class="col-md-3">
-                                       <input 
-                                       formControlName="cost"
-                                       type="number"
-                                       name="{{'cost' + i}}"
-                                        id="{{'cost' + i}}"
-                                        >
-                                    </div>
-                                    <div class="col-md-1">
-                                     <span
-                                       (click)="deleteAct(i)" 
-                                       style=" color: red; cursor: pointer;"
-                                       class="material-icons px-2 p-1 rounded"
-                                     >
-                                       delete
-                                     </span>
-                                    </div>
-                                  </div>
-                               
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2 mb-2" *ngIf="showActAddButton === true">
-                                        <button type="button" (click)="addActs()" class="btn btn-outline-primary btn-sm">
+                                        <button type="button" (click)="addActs()"
+                                            class="btn btn-outline-primary btn-sm">
                                             ajouter Act
                                         </button>
                                     </div>
                                     <div class="col-md-2 mb-2">
-                                        <button type="button" (click)="calculInvoiceCost()" class="btn btn-secondary btn-sm">
+                                        <button type="button" (click)="calculInvoiceCost()"
+                                            class="btn btn-secondary btn-sm">
                                             Calculer Part
                                         </button>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div class="col-md-5">
