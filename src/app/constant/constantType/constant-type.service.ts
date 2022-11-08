@@ -52,7 +52,13 @@ export class ConstantTypeService {
 
   getPatientDomainActe(): Observable<any[]> {
     return this.http.get<any[]>(
-      `${this.apiUrl}/patient_constant_type/active_acts_name`
+      `${this.apiUrl}/patient_constant_type/active_constante_type_name`
+    );
+  }
+
+  getUniteMesure(): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/unit_of_measure/active_unitOfMeasures_name`
     );
   }
 

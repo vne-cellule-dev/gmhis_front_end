@@ -104,13 +104,24 @@
         >Unité de mesure</label
       >
       <span *ngIf="!details" class="text-danger">*</span>
-      <input
+      <!-- <input
         type="number"
         id="unitOfMesure"
         class="form-control"
         formControlName="unitOfMesure"
         [ngClass]="{ 'is-invalid': formsErrors['unitOfMesure'] }"
-      />
+      /> -->
+      <ng-select
+        placeholder="Unité de mesure"
+        id="unitOfMesure"
+        formControlName="unitOfMesure"
+      >
+        <ng-option
+          *ngFor="let uniteMesure of uniteMesureList"
+          [value]="uniteMesure.id"
+          >{{ uniteMesure.name }}</ng-option
+        >
+      </ng-select>
       <span style="color: red">
         {{ formsErrors["unitOfMesure"] }}
       </span>
@@ -118,7 +129,7 @@
     <!-- Constant domain -->
     <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
       <label for="constantDomain" class="form-label text-capitalize"
-        >Constante Domaine</label
+        >Constante Type</label
       >
       <ng-select
         placeholder="Constante domaine"

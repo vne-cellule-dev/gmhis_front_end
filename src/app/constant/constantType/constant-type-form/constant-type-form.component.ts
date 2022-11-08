@@ -17,6 +17,7 @@ import {
 import { fromEvent, merge, Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { GlobalGenerateValidator } from 'src/app/shared/validators/global-generic.validator';
+import { IUniteMesure } from 'src/app/unite-mesure/unite-mesure.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
@@ -76,6 +77,7 @@ export class ConstantTypeFormComponent implements OnInit {
     { id: false, value: 'Inactif' },
   ];
   constantDomainList: IConstant[];
+  uniteMesureList: IUniteMesure[];
 
   private validatiomMessage: { [key: string]: { [key: string]: string } } = {
     hotelName: {
@@ -118,8 +120,9 @@ export class ConstantTypeFormComponent implements OnInit {
     );
     this.initForm();
     this.onGetPatientDomainActe();
+    this.onGetUniteMesure();
     if (this.constantType) {
-      console.log(this.constantType);
+      console.log('bla', this.constantType);
       this.constantTypeForm.patchValue(this.constantType);
       // this.subs.add(
       //   this.communeService.getCommuneDetails(this.commune).subscribe(
@@ -225,6 +228,18 @@ export class ConstantTypeFormComponent implements OnInit {
       (res) => {
         console.log('Domaine acte ::', res);
         this.constantDomainList = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  onGetUniteMesure() {
+    this.constantTypeService.getUniteMesure().subscribe(
+      (res) => {
+        console.log('Unité mesure -----::>>', res);
+        this.uniteMesureList = res;
       },
       (err) => {
         console.log(err);

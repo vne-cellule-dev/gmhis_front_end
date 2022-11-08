@@ -103,10 +103,10 @@
           >
             <td>{{ constant?.name | uppercase }}</td>
             <td>{{ constant?.shortName }}</td>
-            <td>{{ constant?.constantDomain }}</td>
+            <td>{{ constant?.constantDomainName }}</td>
             <td>{{ constant?.description }}</td>
             <td>{{ constant?.significantDigits }}</td>
-            <td>{{ constant?.constantUnit }}</td>
+            <td>{{ constant?.unitOfMesureName }}</td>
             <td>
               <nb-icon
                 *ngIf="constant.active == true"
