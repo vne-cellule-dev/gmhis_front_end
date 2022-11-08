@@ -191,7 +191,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'Liste des établissement',
           // link: '/constant/domain',
           icon: 'minus-outline',
-        }
+        },
       ],
     },
     {
@@ -202,7 +202,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'Liste des pathologies',
           link: '/pathology/list',
           icon: 'minus-outline',
-        }  
+        },
       ],
     },
     {
@@ -238,7 +238,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'Unite de conditionnement',
           // link: '/constant/type',
           icon: 'minus-outline',
-        }
+        },
       ],
     },
     {
@@ -249,7 +249,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'Liste des practiciens',
           // link: '/constant/domain',
           icon: 'minus-outline',
-        }    
+        },
       ],
     },
     {
@@ -257,25 +257,25 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       icon: 'folder-outline',
       children: [
         {
-          title: 'Salles d\'attente',
+          title: "Salles d'attente",
           link: '/waiting-room/list',
           icon: 'minus-outline',
-        }
+        },
       ],
     },
     {
-      title: "SERVICES",
+      title: 'SERVICES',
       icon: 'folder-outline',
       children: [
         {
           title: 'Liste des service',
           link: '/service/list',
           icon: 'minus-outline',
-        }       
+        },
       ],
     },
     {
-      title: "STOCK",
+      title: 'STOCK',
       icon: 'folder-outline',
       children: [
         {
@@ -294,12 +294,12 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           icon: 'minus-outline',
         },
         {
-          title: 'Emplacement d\'article',
+          title: "Emplacement d'article",
           // link: '/constant/type',
           icon: 'minus-outline',
         },
         {
-          title: 'Famille d\'article',
+          title: "Famille d'article",
           // link: '/constant/type',
           icon: 'minus-outline',
         },
@@ -307,22 +307,22 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'Fournisseur',
           // link: '/constant/type',
           icon: 'minus-outline',
-        }  
+        },
       ],
     },
     {
-      title: "SPECIALITES",
+      title: 'SPECIALITES',
       icon: 'folder-outline',
       children: [
         {
           title: 'Liste des spécialités',
           // link: '/constant/domain',
           icon: 'minus-outline',
-        }     
+        },
       ],
     },
     {
-      title: "SUBDIVISION TERRITORIALE",
+      title: 'SUBDIVISION TERRITORIALE',
       icon: 'folder-outline',
       children: [
         {
@@ -349,40 +349,40 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           title: 'Localités',
           // link: '/constant/type',
           icon: 'minus-outline',
-        }
+        },
       ],
     },
     {
-      title: "SYMPTÔMES",
+      title: 'SYMPTÔMES',
       icon: 'folder-outline',
       children: [
         {
           title: 'Liste des symptômes',
           // link: '/constant/domain',
           icon: 'minus-outline',
-        }       
+        },
       ],
     },
     {
-      title: "TYPES DE PAYEMENT",
+      title: 'TYPES DE PAYEMENT',
       icon: 'folder-outline',
       children: [
         {
           title: 'Liste des types de payements',
           // link: '/constant/domain',
           icon: 'minus-outline',
-        }
+        },
       ],
     },
     {
-      title: "UNITE DE MESURES",
+      title: 'UNITE DE MESURES',
       icon: 'folder-outline',
       children: [
         {
           title: 'Liste des unités de mesures',
-          // link: '/constant/domain',
+          link: '/unite-mesure/list',
           icon: 'minus-outline',
-        }      
+        },
       ],
     },
     {
