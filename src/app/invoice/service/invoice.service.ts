@@ -46,6 +46,23 @@ export class InvoiceService {
     );
   }
 
+  findAllInsuranceBil(data): Observable<PageList> {
+    let queryParams = {};
+    queryParams = {
+      params: new HttpParams()
+        .set('insuranceId', data['insuranceId'])
+        .set('date', data['date'])
+        .set('page', data['page'])
+        .set('size', data['size'] ?? '')
+        .set('sort', data['sort']),
+    };
+
+    return this.http.get<PageList>(
+      `${this.apiUrl}/bill/BillHasInsure_p_list`,
+      queryParams
+    );
+  }
+
   getActCost(data: object): Observable<any[]> {
 
     let queryParams = {};

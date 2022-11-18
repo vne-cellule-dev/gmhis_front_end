@@ -15,4 +15,5 @@ export interface User {
     isNonLocked : boolean;
     profileImage : string;
     passwordMustBeChange:boolean;
+    facility : any;
 }

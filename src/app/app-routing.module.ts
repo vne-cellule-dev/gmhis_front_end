@@ -73,6 +73,13 @@ const routes: Routes = [
             (m) => m.DocumentTypeModule
           ),
       },
+        {
+        path: 'facility',
+        loadChildren: () =>
+          import('./facility/facility.module').then(
+            (m) => m.FacilityModule
+          ),
+      },
       {
         path: 'invoice',
         loadChildren: () =>
@@ -84,6 +91,11 @@ const routes: Routes = [
         path: 'patient',
         loadChildren: () =>
           import('./patient/patient.module').then((m) => m.PatientModule),
+      },
+      {
+        path : 'medical-folder',
+        loadChildren: () =>
+          import('./medical-folder/medical-folder.module').then((m) => m.MedicalFolderModule)
       },
       {
         path: 'waiting-room',

@@ -226,6 +226,7 @@
                     class="text-center"
                     ngbDropdownItem
                     (click)="openPaymentForm(paymentFormContent, invoice)"
+                    *ngIf="invoice.billStatus == 'R'"
                   >
                     Encaisser
                   </button>

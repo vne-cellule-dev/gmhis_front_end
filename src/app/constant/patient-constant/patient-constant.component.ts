@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -25,6 +25,7 @@ export class PatientConstantComponent implements OnInit {
 
   // public constantDomain: IConstant;
 
+  
   currentPage: number;
   empty: boolean;
   firstPage: boolean;
@@ -47,6 +48,10 @@ export class PatientConstantComponent implements OnInit {
   currentIndex: number;
   PatientconstantDomain: any;
   patient: IPatient;
+
+  @Input()
+  patientId: number;
+
   constructor(
     private route : ActivatedRoute,
     private patientConstantService : PatientConstantService,
@@ -59,6 +64,12 @@ export class PatientConstantComponent implements OnInit {
 
   ngOnInit(): void {
     this.initform();
+    if (this.patientId) {
+      console.log(this.patientId);
+      this.searchForm.get("patientId").setValue(this.patientId);
+      this.getPatientConstant();
+
+    }
     this.route.paramMap.subscribe(
       params => {
         const id = Number(params.get('patientId'));
@@ -136,6 +147,13 @@ export class PatientConstantComponent implements OnInit {
     this.PatientconstantDomain = item;
     console.log(this.PatientconstantDomain);
     this.modalService.open(updateFormContent, { size: 'lg' });
+  }
+
+  openDetailsForm(constantListFormContent,item){
+    this.PatientconstantDomain = item;
+    this.patientId = this.patient.id;
+    console.log(item);
+    this.modalService.open(constantListFormContent, { size: 'lg' });
   }
 
   addConstantType() {

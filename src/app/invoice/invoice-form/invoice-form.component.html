@@ -96,7 +96,7 @@
 
         </div>
     </div>
-    <div class="addInsuranceBtn text-center mb-3">
+    <div *ngIf="admissionForTemplate?.facilityType != 'Centre de sante public' " class="addInsuranceBtn text-center mb-3">
         <button (click)="addInsured()" class="btn btn-info text-white ">
          ajouter une assurance
         </button>
@@ -214,7 +214,7 @@
                 <div class="col value strong">: {{partPecByCNAM | currency:'FCFA' : 'symbol' : '1.0-0'}} </div>
             </div>
             <div class="d-flex row mb-3">
-                <div class="col">Part Prise en charge par les assurances </div>
+                <div class="col">Part Prise en charge par l'assurance </div>
                 <div class="col value strong">: {{partPecByOthherInsurance | currency:'FCFA' : 'symbol' : '1.0-0'}} </div>
             </div>
             <div class="d-flex row mb-3">

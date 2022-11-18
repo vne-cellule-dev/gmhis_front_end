@@ -56,4 +56,17 @@ export class PatientConstantService {
       `${this.apiUrl}/patient_constant/get-detail/${constant.id}`
     );
   }
+
+  getPatientConstantListByDate(data): Observable<any> {
+    let queryParams = {};
+    queryParams = {
+      params: new HttpParams()
+        .set('patientId', data['patientId'])
+        .set('takenAt', data['takenAt'])
+    };
+    return this.http.get<any>(
+      `${this.apiUrl}/patient_constant/patientConstantListBydate`,
+      queryParams
+    );
+  }
 }

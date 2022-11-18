@@ -4,12 +4,13 @@
       <nb-action (click)="toggleSidebar()" icon="menu-2-outline"></nb-action>
     </nb-actions>
   </div>
+  <span class="">{{user?.facility.shortName}} ({{user?.facility.name}})</span>
   <div class="d-flex align-items-center">
     <nb-actions size="medium">
       <!-- <nb-action [hidden]="!canAccessNotification" class="control-item" icon="bell-outline" badgeText="2"
       badgePosition="top right"
       badgeStatus="danger"></nb-action> -->
-      <nb-action  [hidden]="!canAccessSetting" (click)="showRightSideBarF()" class="control-item" icon="settings-outline" ></nb-action>
+      <nb-action   (click)="showRightSideBarF()" class="control-item" icon="settings-outline" ></nb-action>
       <nb-action class="control-item">
         <button class="" size="tiny" shape="round" (click)="logOut()" nbButton>Se deconnecter</button>
       </nb-action>
@@ -20,68 +21,5 @@
  
 </div>
 
-<div class="d-flex flex-column">
-  <div class="smAndMdHeader mb-2">
-    <div class="">
-      <nb-actions size="small">
-        <nb-action (click)="toggleSidebar()" icon="menu-2-outline"></nb-action>
-      </nb-actions>
-    </div>
-    <div class="d-flex align-items-center">
-      <nb-actions size="small">
-        <nb-action [hidden]="!canAccessOrderSearchBox" *ngIf="showModal == true" (click)="showModalForm()" icon="arrow-ios-upward-outline"></nb-action>
-        <nb-action [hidden]="!canAccessOrderSearchBox" *ngIf="showModal == false" (click)="showModalForm()" icon="arrow-ios-downward-outline"></nb-action>
-        <nb-action  [hidden]="!canAccessSetting" (click)="showRightSideBarF()" class="control-item" icon="settings-outline" ></nb-action>
-        <nb-action (click)="logOut()" icon="log-out-outline"></nb-action>
-      </nb-actions>
-      <nb-user size="small"  name="" picture="user?.profileImageUrl">
-      </nb-user>
-    </div>
-    </div>
-    <form *ngIf="showModal == true" [hidden]="!canAccessOrderSearchBox" [formGroup]="searchForm" class="form  d-flex justify-content-between w-100">
-      <input style="width: 48%;" formControlName="searchText" (keyup)="onsearching()"  type="text" class="form-control" id="inputEmail3" placeholder="Recherche par  N° de bon">
-      <div class="rounded text-center" style="background-color: white; width: 10%;">
-        <nb-icon *ngIf="voucherNumberFound === true" style="color: green; font-size: 2rem; font-weight: bolder;" icon="checkmark-circle-outline"></nb-icon>
-        <nb-icon *ngIf="voucherNumberFound === false" style="color: red; font-size: 2rem;" icon="close-outline"></nb-icon>
-      </div>
-      <ng-select  [clearable]= "false" (change)="onactionChange()"  formControlName="action" placeholder='choisir'  style="width: 38%;">
-            <ng-option *ngFor="let action of actions"  [value]="action.id">{{action.value}}</ng-option>
-        </ng-select>
-      </form>
-</div>
-<!-- modal -->
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header bg-gray d-flex  justify-content-between">
-    <h6 class="text-capitalize modal-title color-biblos" id="add-form-modal" *ngIf="tsContent === 'saleContent'"> {{delivery?.depot?.name}}</h6>
-    <div></div>
-    <nb-icon style="cursor: pointer; " (click)="closeModal()" class="h3"  icon="close-circle-outline"></nb-icon>
-  </div>
-  <div class="modal-body bg-gray">
-    <div *ngIf="tsContent === 'saleContent'">
-      <app-update-invoice [delivery]="delivery" (updateDeliveryInvoice)="updateDeliveryInvoice()"></app-update-invoice>
-    </div>
-    <div *ngIf="tsContent === 'transfertContent'">
-      <!-- <app-transfert-list [searchText]="searchText" ></app-transfert-list> -->
-      <app-transfert-form [searchText]="searchText"></app-transfert-form>
-    </div>
-    <div *ngIf="tsContent === 'cashEntryContent'">
-      <app-fundraising-form [searchText]="searchText"></app-fundraising-form>
-    </div>
-    <div *ngIf="tsContent === 'assetContent'">
-      <app-asset-list [searchText]="searchText" [objetToshared]="objetToshared" ></app-asset-list>
-    </div>
-    <div *ngIf="tsContent === 'stockEntryContent'">
-      <app-stockEntry-list [searchText]="searchText"></app-stockEntry-list>
-    </div>
-    <div *ngIf="tsContent === 'stockOutContent'">
-      <app-out-list [searchText]="searchText"></app-out-list>
-    </div>
-    <div *ngIf="tsContent === 'invoiceContent'">
-      <app-invoice-list [searchText]="searchText" ></app-invoice-list>
-    </div>
-    <div *ngIf="tsContent === 'expenseContent'">
-      <app-expense-form [searchText]="searchText"></app-expense-form>
-    </div> 
-  </div>
-  
-</ng-template>
+
+

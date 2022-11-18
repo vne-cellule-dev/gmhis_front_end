@@ -180,7 +180,8 @@
                     class="text-center" 
                     ngbDropdownItem>patienttèle</button> -->
                     <button routerLink="/constant/patient-constant/{{admission.patientId}}" class="text-center" ngbDropdownItem>Constante</button>
-                    <button class="text-center"                  
+                    <button class="text-center" 
+                    routerLink="/medical-folder/patient-folder/{{admission.id}}"               
                     ngbDropdownItem>Dossier</button>
                     <!-- <button class="text-center"
                     (click)="printInvoice(printContent)"

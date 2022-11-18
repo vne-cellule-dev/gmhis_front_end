@@ -7,7 +7,8 @@ import { WaitingRoomListComponent } from './waiting-room-list/waiting-room-list.
 const routes: Routes = [
   {path : 'list', component: WaitingRoomListComponent},
   {path : 'waitingRoom', component : PatientInWaitingRoomComponent},
-  {path : 'constantWaitingRoom', component : ConstantWaitingRoomComponent},
+  {path : 'constantWaitingRoom', 
+  component : ConstantWaitingRoomComponent},
 
 ];
 

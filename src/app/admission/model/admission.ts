@@ -22,5 +22,6 @@ patientMaidenName : string,
 practicianFirstName : string,
 practicianLastName : string,
 service : string,
-updatedAt : Date
+updatedAt : Date,
+facilityType : string,
 }

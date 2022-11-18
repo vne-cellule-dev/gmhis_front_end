@@ -1,0 +1,77 @@
+<nb-card>
+    <nb-card-header style="border-bottom: 1px solid #14a2b8;" class="py-3">
+        <div class="row">
+            <div class="col-lg-4">
+                <h1 style="color: #14a2b8;">Dossier Patient</h1>
+            </div>
+           <div class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-4"> 
+                    <div class="mb-2">
+                        <span class="spanDefault">nom et prénom(s) : </span>
+                        <span >{{patient?.firstName+' '+patient?.lastName | uppercase}}</span>
+                    </div>
+                    <div>
+                        <span class="spanDefault">date de naissance :</span>                     
+                       <span > {{patient?.birthDate | date : 'dd/MM/yyy'}}</span>
+                    </div>
+                     <!-- - né(e) le
+                    {{patient?.birthDate | date : 'dd/MM/yyy'}}
+                    14 ans -->
+                </div>
+                <div class="col-lg-4"> 
+                    <div class="mb-2">
+                        <span class="spanDefault">Téléphone: </span>
+                        <span >{{patient?.cellPhone1}}</span>
+                    </div>
+                    <div>
+                        <span class="spanDefault">Profession :</span>                      
+                       <span > {{patient?.profession}}</span>
+                    </div>
+
+                     <!-- - né(e) le
+                    {{patient?.birthDate | date : 'dd/MM/yyy'}}
+                    14 ans -->
+                </div>
+                <div class="col-lg-4"> 
+                    <div>
+                        <span class="spanDefault">correspondant :</span>                     
+                        <span> {{patient?.correspondant | uppercase}}  <span class="spanDefault"> :</span> {{patient?.correspondantCellPhone}}</span>
+                     </div>
+                    <div>
+                        <span class="spanDefault">Nombre d'enfant :</span>                       
+                        <span > {{patient?.numberOfChildren }}</span>
+                     </div>
+                     <!-- - né(e) le
+                    {{patient?.birthDate | date : 'dd/MM/yyy'}}
+                    14 ans -->
+                </div>
+                <!-- <div>175cm, 71kg</div> -->
+            </div>
+            <!-- <div class="col-lg-4 text-center">
+                <div><u>Correspondants</u></div>
+                <div>
+                    <div> {{patient?.correspondant}}: {{patient?.correspondantCellPhone}}</div>
+                </div>
+            </div> -->
+           </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-lg-2">
+                <nb-menu [items]="items2"  autoCollapse="true">
+                </nb-menu>
+            </div>      
+            <div *ngIf="showConsultationList==true" class="col-lg-10">
+                <h5 class="mb-4">LISTE DES CONSULTATIONS</h5>
+                <app-examination-list  (updateExaminationNuber)="updateExaminationNuber()" [admissionId]="admissionId" [patientId]="patientId"></app-examination-list>
+            </div>
+            <!-- <div class="col-lg-9"> 
+                <h5 class="mb-4">LISTE DES CONSTANTES</h5>
+                <app-patient-constant  *ngIf="showConstantList == true" [patientId]="patientId"></app-patient-constant>
+            </div> -->
+        </div>
+    </nb-card-body>
+</nb-card>
+

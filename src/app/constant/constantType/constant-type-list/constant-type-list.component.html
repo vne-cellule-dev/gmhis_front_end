@@ -70,10 +70,7 @@
         <thead class="pb-3 text-capitalize">
           <tr class="pb-3">
             <th>Nom constante</th>
-            <th>shortName</th>
-            <th>Constante Domaine</th>
-            <th>Description</th>
-            <th>significantDigits</th>
+            <th>Domaine </th>
             <th>Unité de mesure</th>
             <th>Etat</th>
             <th>crée le</th>
@@ -102,10 +99,7 @@
             (click)="rowSelected(commune, i)"
           >
             <td>{{ constant?.name | uppercase }}</td>
-            <td>{{ constant?.shortName }}</td>
             <td>{{ constant?.constantDomain }}</td>
-            <td>{{ constant?.description }}</td>
-            <td>{{ constant?.significantDigits }}</td>
             <td>{{ constant?.constantUnit }}</td>
             <td>
               <nb-icon

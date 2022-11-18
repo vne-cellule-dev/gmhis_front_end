@@ -7,14 +7,21 @@
         LISTE DES PATIENTS
       </h4>
     </div>
-    <div class="col-lg-2 col-md-3 col-sm-12 justify-content-end">
-      <button
+    <div class="col-lg-1 col-md-3 col-sm-12 justify-content-end">
+      <!-- <button
         (click)="openAddForm(addFormContent)"
         class="text-capitalize btn btn-block btn-success w-100 d-flex align-items-center justify-content-center text-white rounded"
       >
         <nb-icon icon="plus-outline"></nb-icon>
         <span class="fw-bold"> NOUVEAU</span>
-      </button>
+      </button> -->
+      <button
+      (click)="openAddForm(addFormContent)"
+      class="text-capitalize btn mb-2 btn-block  w-100 d-flex align-items-center justify-content-center text-white rounded"
+      style="background-color: #14a2b8;"
+    >
+      <nb-icon icon="plus-outline"></nb-icon>
+    </button>
     </div>
   </nb-card-header>
   <nb-card-body>

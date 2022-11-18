@@ -117,12 +117,14 @@ export class InvoiceListComponent implements OnInit {
     this.subs.add(
       this.invoiceService.findAll(this.searchForm.value).subscribe(
         (response: PageList) => {
-          console.log(response);
           this.showloading = false;
           this.currentPage = response.currentPage + 1;
           this.empty = response.empty;
           this.firstPage = response.firstPage;
           this.items = response.items;
+          this.items.forEach(element => {
+console.log(element["admission"]["facility"]["name"]);
+          });
           this.lastPage = response.lastPage;
           this.selectedSize = response.size;
           this.totalItems = response.totalItems;
@@ -207,6 +209,8 @@ addPayment(){
  
 
   printInvoice(printContent, invoice) {
+    console.log(invoice);
+    
     this.invoiceService.getInvoiceDetail(invoice.id).subscribe(
       (res : any) => {
       console.log(res);

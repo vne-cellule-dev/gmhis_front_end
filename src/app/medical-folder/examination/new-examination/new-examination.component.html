@@ -1,0 +1,85 @@
+<form [formGroup]='form' (submit)='save()'>
+    <div class="row">
+        <div class="row col-md-12 mb-2">
+           <div class="col">
+            <label class="fw-bold mb-2" for="date">Date : &nbsp;</label>
+            <input type="text" formControlName="date"
+                class="form-control" disabled>
+           </div>
+           <div class="col">
+               <label class="fw-bold mb-2" for="">Type de consult.</label>
+               <ng-select formControlName="examinationType" >
+                <ng-option *ngFor="let type of consultationTypes" [value]="type.id"> {{type.value}}
+                </ng-option>
+            </ng-select>
+            <span class="text-danger" *ngIf="invalidFormControls && invalidFormControls.examinationType">
+                ce champ doit être renseigné
+            </span>
+           </div>           
+        </div>
+
+        <div class="row col-md-12  mb-2">
+            <div class="col">
+                <label for="symptoms" class="fw-bold mb-2">Choix de symptômes</label>
+                <ng-select formControlName="symptoms"  [multiple]="true">
+                    <ng-option *ngFor="let symptom of symptoms" [value]="symptom.id" > {{symptom.name}}
+                    </ng-option>
+                </ng-select>
+            </div>
+            <div class="col">
+                <label for="pathologies" class="fw-bold mb-2">Choix de pathologies</label>
+                <ng-select formControlName="pathologies"  [multiple]="true">
+                    <ng-option *ngFor="let pathology of pathologies" [value]="pathology.id" > {{pathology.name}}
+                    </ng-option>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="row col-md-12 mb-2">
+        <div class="col-md-6">
+            <label class="fw-bold mb-2" for="reason">Motif de la consultation<span class="text-danger">*</span></label>
+            <textarea class="form-control" formControlName="examinationReasons" rows="8"
+            placeholder="Motif de la consultation"></textarea>
+            <span class="text-danger" *ngIf="invalidFormControls && invalidFormControls.examinationReasons">
+                ce champ doit être renseigné
+            </span>
+        </div>
+        <div class="col-md-6">
+            <label class="fw-bold mb-2" for="history">
+                   Histoire de la maladie
+                    <span class="text-danger">*</span>
+            </label>
+
+                <textarea class="form-control" formControlName="history" rows="8"
+                    placeholder="Histoire de la maladie"></textarea>
+            <span class="text-danger" *ngIf="invalidFormControls && invalidFormControls.history">
+                ce champ doit être renseigné
+            </span>
+        </div>
+    </div>
+    <div class="row col-md-12 mb-2">
+        <div class="col-md-6">
+            <label class="fw-bold mb-2" for="conclusion">            
+                    Conclusion de l'Interrogatoire
+                    <span class="text-danger">*</span>            
+            </label>
+                <textarea class="form-control " formControlName="conclusion" rows="8"
+                    placeholder="Conclusion l'Interrogatoire"></textarea>
+            <span class="text-danger" *ngIf="invalidFormControls && invalidFormControls.conclusion">
+                ce champ doit être renseigné
+            </span>
+        </div>
+        <div class="col-md-6">
+          <label class="fw-bold mb-2" for="conclusion" >
+              Interpretation des résultat d'Examens
+            </label>
+            <div class="form-group">
+                <textarea class="form-control" formControlName="conclusionExamResult" rows="8"
+                    placeholder="Interpretation des résultat d'Examens"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+    </div>
+</form>

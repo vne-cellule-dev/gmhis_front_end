@@ -1,1 +1,111 @@
-<p>facility-form works!</p>
+<form [formGroup]="facilityForm" (ngSubmit)="save()">
+    <div
+      *ngIf="showloading == true"
+      class="overlay d-flex justify-content-center align-items-center"
+    >
+      <div class="d-flex w-100 justify-content-center">
+        <div
+          class="spinner-border"
+          style="width: 5rem; height: 5rem; color: #623508"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <small *ngIf="!details" class="mb-2 fw-bold"
+      >Nb: Tous les champs marqués par <span class="text-danger">*</span> sont
+      obligatoires</small
+    >
+    <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
+    <div class="row mb-2">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <label for="code" class="form-label ">Type de centre de santé</label>
+            <span *ngIf="!details" class="text-danger">*</span>
+            <ng-select (change)="onFacilityTypeNameAndIdChange($event)" formControlName="facilityTypeId">
+                <ng-option *ngFor="let facilityType of facilityTypesNameAndId" [value]="facilityType.id">{{
+                    facilityType.name
+                }}</ng-option>
+              </ng-select>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <label for="code" class="form-label ">Catégorie de centre de santé</label>
+            <span *ngIf="!details" class="text-danger">*</span>
+            <ng-select  formControlName="facilityCategoryId">
+                <ng-option *ngFor="let facilityCategory of facilityCategoriesNameAndId" [value]="facilityCategory.id">{{
+                    facilityCategory.name
+                }}</ng-option>
+              </ng-select>
+          </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label for="name" class="form-label ">Nom du centre de santé</label>
+        <span *ngIf="!details" class="text-danger">*</span>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          formControlName="name"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label for="shortName" class="form-label text-capitalize">Abreviation</label>
+        <span *ngIf="!details" class="text-danger">*</span>
+        <input
+          type="string"
+          id="shortName"
+          class="form-control"
+          formControlName="shortName"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label for="dhisCode" class="form-label text-capitalize">DHIS CODE</label>
+        <span *ngIf="!details" class="text-danger">*</span>
+        <input
+          type="text"
+          id="dhisCode"
+          class="form-control"
+          formControlName="dhisCode"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label for="latitude" class="form-label text-capitalize">latitude</label>
+        <span *ngIf="!details" class="text-danger">*</span>
+        <input
+          type="number"
+          id="latitude"
+          class="form-control"
+          formControlName="latitude"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label for="longitude" class="form-label text-capitalize">Longitude</label>
+        <span *ngIf="!details" class="text-danger">*</span>
+        <input
+          type="number"
+          id="longitude"
+          class="form-control"
+          formControlName="longitude"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">Etat</label>
+        <ng-select placeholder="Etat" formControlName="active">
+          <ng-option *ngFor="let actif of actives" [value]="actif.id">{{
+            actif.value
+          }}</ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div *ngIf="!details" class="mt-3 col">
+      <div class="">
+        <button
+          style="background-color: #14a2b8"
+          type="submit"
+          class="btn text-capitalize bg-biblos justify-content-center text-white rounded px-4 py-2 fw-bold"
+        >
+          VALIDER
+        </button>
+      </div>
+    </div>
+  </form>
+  

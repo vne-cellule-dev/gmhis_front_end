@@ -1,7 +1,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'Dashboard' }"
   (click)="menuItemFunction('Dashboard')"
-  [hidden]="!canAccessDashBoard"
   routerLink="/home"
   class="dashboard py-3"
 >
@@ -15,9 +14,8 @@
 
 <p
   [routerLink]="['/patient/list']"
-  [ngClass]="{ menuActive: menuItem == 'local' }"
-  (click)="menuItemFunction('local')"
-  [hidden]="!canAccessLocal"
+  [ngClass]="{ menuActive: menuItem == 'patient' }"
+  (click)="menuItemFunction('patient')"
   class="dashboard py-3"
 >
   <fa-icon
@@ -29,9 +27,8 @@
 </p>
 
 <p
-  [ngClass]="{ menuActive: menuItem == 'locataire' }"
-  (click)="menuItemFunction('locataire')"
-  [hidden]="!canAccessLocal"
+  [ngClass]="{ menuActive: menuItem == 'admission' }"
+  (click)="menuItemFunction('admission')"
   routerLink="/admission/list"
   class="dashboard py-3"
 >
@@ -44,9 +41,8 @@
 </p>
 
 <p
-  [ngClass]="{ menuActive: menuItem == 'leases' }"
-  (click)="menuItemFunction('leases')"
-  [hidden]="!canAccessLocal"
+  [ngClass]="{ menuActive: menuItem == 'invoice' }"
+  (click)="menuItemFunction('invoice')"
   routerLink="/invoice/list"
   class="dashboard py-3"
 >
@@ -57,10 +53,23 @@
   ></fa-icon
   ><span class="fw-bold">Caisse</span>
 </p>
+
+<p
+  [ngClass]="{ menuActive: menuItem == 'insuranceBill' }"
+  (click)="menuItemFunction('insuranceBill')"
+  routerLink="/invoice/insuranceBill"
+  class="dashboard py-3"
+>
+  <fa-icon
+    [icon]="faKey"
+    ngbTooltip=""
+    style="font-size: 1rem; margin-right: 10px"
+  ></fa-icon
+  ><span class="fw-bold">Facture assurance</span>
+</p>
 <p
   [ngClass]="{ menuActive: menuItem == 'constantWaitingRoom' }"
   (click)="menuItemFunction('constantWaitingRoom')"
-  [hidden]="!canAccessLocal"
   routerLink="/waiting-room/constantWaitingRoom"
   class="dashboard py-3"
 >
@@ -74,7 +83,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'waitingRoom' }"
   (click)="menuItemFunction('waitingRoom')"
-  [hidden]="!canAccessLocal"
   routerLink="/waiting-room/waitingRoom"
   class="dashboard py-3"
 >
@@ -88,7 +96,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'avance' }"
   (click)="menuItemFunction('avance')"
-  [hidden]="!canAccessLocal"
   routerLink="/location/avance"
   class="dashboard py-3"
 >
@@ -103,7 +110,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"
-  [hidden]="!canAccessLocal"
   routerLink="/owner/list"
   class="dashboard py-3"
 >
@@ -117,7 +123,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"
-  [hidden]="!canAccessLocal"
   routerLink="/owner/list"
   class="dashboard py-3"
 >
@@ -131,7 +136,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"
-  [hidden]="!canAccessLocal"
   routerLink="/owner/list"
   class="dashboard py-3"
 >
@@ -145,7 +149,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"
-  [hidden]="!canAccessLocal"
   routerLink="/owner/list"
   class="dashboard py-3"
 >
@@ -159,7 +162,6 @@
 <p
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"
-  [hidden]="!canAccessLocal"
   routerLink="/owner/list"
   class="dashboard py-3"
 >

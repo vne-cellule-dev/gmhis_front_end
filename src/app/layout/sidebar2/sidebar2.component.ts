@@ -184,12 +184,12 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       ],
     },
     {
-      title: 'NOS ETABLISSEMENT',
+      title: 'NOS CENTRES DE SANTÉ',
       icon: 'folder-outline',
       children: [
         {
-          title: 'Liste des établissement',
-          // link: '/constant/domain',
+          title: 'Liste des centres de santé',
+          link: '/facility/list',
           icon: 'minus-outline',
         }
       ],
@@ -401,6 +401,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           link: '/role/list',
           icon: 'minus-outline',
           hidden: !this.canAccesUserRole(),
+          
         },
       ],
     },

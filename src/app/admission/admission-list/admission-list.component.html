@@ -53,13 +53,12 @@
                       placeholder="N° du Patient"
                     />
                   </div>
+                  <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-1 rounded-pill">
+                    <input [nbDatepicker]="datepicker" class="form-control" formControlName="date">
+                    <nb-rangepicker #datepicker ></nb-rangepicker>
+                  </div> -->
                   <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                    <input nbInput placeholder="Date et heure d'admission" class="form-control" [nbDatepicker]="dateTimePicker">
-                    <nb-date-timepicker withSeconds #dateTimePicker></nb-date-timepicker>
-                  </div>
-
-                  <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                    <ng-select formControlName="admissionStatus" placeholder="Statut">
+                    <ng-select formControlName="admissionStatus" placeholder="choisisez une date">
                         <ng-option *ngFor="let admissionStatu of admissionStatus" [value]="admissionStatu.id">
                           {{admissionStatu.value}}
                         </ng-option>

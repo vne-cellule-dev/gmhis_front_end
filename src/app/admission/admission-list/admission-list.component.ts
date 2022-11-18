@@ -65,6 +65,9 @@ export class AdmissionListComponent implements OnInit {
   actServicesNameAndId: any;
   activeActNameAndId: any;
   docSrc: string;
+
+  searchDateRange : string;
+
   constructor(
     private admissionService: AdmissionService,
     private notificationService: NotificationService,
@@ -97,9 +100,9 @@ export class AdmissionListComponent implements OnInit {
       idCardNumber: new FormControl(''),
       practician: new FormControl(null),
       service: new FormControl(null),
-      act: new FormControl(null),
-      dpFromDate: new FormControl(null),
-      dpToDate: new FormControl(null),
+      faciliTyId : new FormControl("2bd56b2f-80ed-4a8c-a496-cd7f8b676f42"),
+      act: new FormControl(""),
+      date: new FormControl(null),
       page: new FormControl(0),
       size: new FormControl(50),
       sort: new FormControl('id,desc'),
@@ -107,10 +110,19 @@ export class AdmissionListComponent implements OnInit {
   }
 
   onSearchValueChange(): void {
+    // let fromDate = this.searchForm.get('fromDate').value.toISOString().slice(0, 10);
+    // let toDate = this.searchForm.get('toDate').value.toISOString().slice(0, 10);
+    // this.searchForm.get('fromDate').setValue(new Date(fromDate));
+    // console.log(fromDate);
+    // console.log(toDate);
     this.getPatient();
   }
 
   public getPatient() {
+    let start = null;
+    let end = null;
+    let date = this.searchForm.get("date").value;
+  
     this.showloading = true;
     this.subs.add(
       this.admissionService.findAll(this.searchForm.value).subscribe(

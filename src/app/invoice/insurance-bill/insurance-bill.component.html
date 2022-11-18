@@ -1,0 +1,282 @@
+<nb-card class="nbCardList">
+    <nb-card-header class="row d-flex justify-content-between align-items-center">
+      <div class="col-lg-7 col-md-3 col-sm-12">
+        <h4
+          class="text-capitalize d-flex justify-content-start w-100 text-center"
+        >
+          LISTE DES FACTURES DES ASSURANCES
+        </h4>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="searchForm">
+        <div class="row d-flex justify-content-between align-items-end mb-2">
+          <div class="col-lg-11 col-md-9 col-sm-12 row">
+            <div class="col-lg-11 row">
+              <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <input
+                  nbInput
+                  placeholder="Date et heure d'admission"
+                  class="form-control"
+                  [nbDatepicker]="dateTimePicker"
+                />
+                <nb-date-timepicker
+                  withSeconds
+                  #dateTimePicker
+                ></nb-date-timepicker>
+              </div> -->
+  
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <ng-select formControlName="insuranceId" placeholder="Selectionner une assurance">
+                  <ng-option
+                    *ngFor="let insurance of insurances"
+                    [value]="insurance.id"
+                  >
+                    {{ insurance.name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-1 rounded-pill">
+                <input [nbDatepicker]="datepicker" class="form-control" formControlName="date">
+                <nb-rangepicker #datepicker (rangeChange)="onDateChange($event)"></nb-rangepicker>
+              </div>
+              <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                      <ng-select formControlName="practician" placeholder="practicien">
+                          <ng-option *ngFor="let practician of practicians" [value]="practician.userId">
+                            {{practician.userFirstName +" "+ practician.userLastName}}
+                          </ng-option>
+                        </ng-select>
+                    </div> -->
+  
+              <!-- <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                      <ng-select formControlName="service" placeholder="service">
+                          <ng-option *ngFor="let actServiceNameAndId of actServicesNameAndId" [value]="actServiceNameAndId.id">
+                            {{actServiceNameAndId.name}}
+                          </ng-option>
+                        </ng-select>
+                    </div>
+  
+                    <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                      <ng-select formControlName="act" placeholder="acte">
+                          <ng-option *ngFor="let act of activeActNameAndId" [value]="act.id">
+                            {{act.name}}
+                          </ng-option>
+                        </ng-select>
+                    </div> -->
+            </div>
+            <div class="col-lg-1">
+              <span
+                (click)="onSearchValueChange()"
+                style="background-color: #ededed; color: #14a2b8; cursor: pointer"
+                class="material-icons px-2 p-1 rounded"
+              >
+                search
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-1 col-md-3 col-sm-12">
+            <ng-select
+              [(ngModel)]="selectedSize"
+              formControlName="size"
+              (change)="onSearchValueChange()"
+            >
+              <ng-option *ngFor="let size of sizes" [value]="size.id">{{
+                size.value
+              }}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </form>
+      <div class="tableFixHead">
+        <table class="table table-bordered table-hover table-md align-middle">
+          <thead class="pb-3 text-capitalize">
+            <tr class="pb-3">
+              <th>Date de facturation</th>
+              <th>N° Facture</th>
+              <th>N° patient</th>
+              <th>N° Admission</th>
+              <th>Assurance</th>
+              <th>Total Facture</th>
+              <th>Part prise en charge </th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr
+              *ngFor="
+                let invoice of items
+                  | paginate
+                    : {
+                        itemsPerPage: selectedSize,
+                        currentPage: currentPage,
+                        totalItems: totalItems
+                      };
+                let i = index
+              "
+              [class.active]="i == currentIndex"
+              (click)="rowSelected(commune, i)"
+            >
+              <td class="text-nowrap">{{ invoice.billDate | date: "medium" }}</td>
+              <td>{{ invoice?.billNumber | uppercase }}</td>
+              <td class="text-nowrap">
+                  {{ invoice?.patientNumber }}
+                </td>
+                <td class="text-nowrap">
+                  {{ invoice?.admissionNumber }}
+                </td>
+              <td class="text-nowrap">
+                {{ invoice?.InsuranceName}}
+              </td>
+              <td class="text-nowrap">{{ invoice?.BillTotalAmount | currency: "FCFA":"symbol":"1.0-0" }}</td>
+              <td>
+                {{ invoice?.InsurancePart | currency: "FCFA":"symbol":"1.0-0" }}
+              </td>
+              <td>
+                <div ngbDropdown class="d-inline-block">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info"
+                    id="dropdownBasic1"
+                    ngbDropdownToggle
+                  >
+                    ...
+                  </button>
+                  <div
+                    class="text"
+                    ngbDropdownMenu
+                    aria-labelledby="dropdownBasic1"
+                  >
+                    <button
+                      (click)="openUpdateForm(updateFormContent, admission)"
+                      class="text-center"
+                      ngbDropdownItem
+                    >
+                      Modifier
+                    </button>
+                    <button class="text-center" ngbDropdownItem>Supprimer</button>
+                   
+                    <button
+                      class="text-center"
+                      ngbDropdownItem
+                      
+                      (click)="printInvoice(printContent, invoice)"
+                    >
+                      Impression
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex w-100 justify-content-center">
+        <div
+          style="color: #623508"
+          *ngIf="showloading"
+          class="spinner-border"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls
+          responsive="true"
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onPageChange($event)"
+        >
+        </pagination-controls>
+      </div>
+    </nb-card-body>
+    <!-- <app-payment></app-payment> -->
+  </nb-card>
+  
+  <!-- update modal -->
+  <ng-template #updateFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+        Modifer une admission
+      </h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body">
+      <app-admission-form
+        [admission]="admission"
+        (updateAdmission)="updateAdmission()"
+      ></app-admission-form>
+    </div>
+  </ng-template>
+  
+  <ng-template #invoiceFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+        Ajouter une Facture
+      </h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body">
+      <app-invoice-form
+        [invoice]="invoice"
+        (addInvoice)="addInvoice()"
+      ></app-invoice-form>
+    </div>
+  </ng-template>
+  
+  <!-- ngx-extended-pdf-viewer -->
+  <ng-template #printContent let-c="close" let-d="dismiss">
+    <div class="modal-header bg-gray">
+      <h4 class="text-capitalize modal-title" id="update-form-modal">IMPRIMER</h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body bg-gray">
+      <ngx-extended-pdf-viewer
+        *ngIf="docSrc"
+        [src]="docSrc"
+        useBrowserLocale="true"
+        height="80vh"
+      >
+      </ngx-extended-pdf-viewer>
+    </div>
+  </ng-template>
+  
+  <ng-template #paymentFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+        Encaisser une Facture
+      </h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body">
+      <app-payment  (addPayment)="addPayment()" [invoice]="invoice"> </app-payment>
+      <!-- <app-invoice-form
+        [invoice]="invoice"
+        [makeInvoice]="makeInvoice"
+        (addPayment)="addPayment()"
+      ></app-invoice-form> -->
+    </div>
+  </ng-template>
+  

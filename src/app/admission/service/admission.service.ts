@@ -13,6 +13,8 @@ export class AdmissionService {
   constructor(private http: HttpClient) {}
 
   findAll(data): Observable<PageList> {
+    console.log(data);
+    
     let queryParams = {};
     queryParams = {
       params: new HttpParams()
@@ -27,6 +29,7 @@ export class AdmissionService {
         .set('practician', data['practician'] ?? '')
         .set('service', data['service'] ?? '')
         .set('act', data['act'] ?? '')
+        .set('facilityId', data["faciliTyId"] ?? '')
         .set('fromDate', data['fromDate'] ?? '')
         .set('toDate', data['toDate'] ?? '')
         .set('page', data['page'])
@@ -87,6 +90,10 @@ export class AdmissionService {
 
   getAdmissionDetail(admission: any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/admission/get-detail/${admission.id}`);
+  }
+
+  getAdmissionDetailById(id: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/admission/get-detail/${id}`);
   }
 
 

@@ -116,64 +116,20 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.menuItem = 'Dashboard';
         localStorage.setItem('menuItem', menuItem);
         break;
-      case 'local':
-        this.menuItem = 'local';
+      case 'patient':
+        this.menuItem = 'patient';
         localStorage.setItem('menuItem', menuItem);
         break;
-        case 'locataire':
-        this.menuItem = 'locataire';
-        localStorage.setItem('menuItem', menuItem);
-        break;
-      case 'stock':
-        this.menuItem = 'stock';
-        localStorage.setItem('menuItem', menuItem);
-        break; 
-      case 'statistics':
-        this.menuItem = 'statistics';
-        localStorage.setItem('menuItem', menuItem);
-        break;
-      case 'depot':
-        this.menuItem = 'depot';
-        localStorage.setItem('menuItem', menuItem);
-        break; 
-      case 'inventory':
-        this.menuItem = 'inventory';
-      localStorage.setItem('menuItem', menuItem);
-        break;
-      case 'supplier':
-        this.menuItem = 'supplier';
-      localStorage.setItem('menuItem', menuItem);
-        break;
-      case 'achat':
-        this.menuItem = 'achat';
-      localStorage.setItem('menuItem', menuItem);
-        break;
-      case 'customer':
-        this.menuItem = 'customer';
-        localStorage.setItem('menuItem', menuItem);
-        break;
-      case 'customer-order':
-        this.menuItem = 'customer-order';
+        case 'admission':
+        this.menuItem = 'admission';
         localStorage.setItem('menuItem', menuItem);
         break;
       case 'invoice':
         this.menuItem = 'invoice';
         localStorage.setItem('menuItem', menuItem);
-        break;
-      case 'cash-register':
-        this.menuItem = 'cash-register';
-        localStorage.setItem('menuItem', menuItem);
-        break;
-        case 'release':
-        this.menuItem = 'release';
-        localStorage.setItem('menuItem', menuItem);
-        break;
-        case 'leases':
-        this.menuItem = 'leases';
-        localStorage.setItem('menuItem', menuItem);
-        break;
-        case 'avance':
-        this.menuItem = 'avance';
+        break; 
+      case 'insuranceBill':
+        this.menuItem = 'insuranceBill';
         localStorage.setItem('menuItem', menuItem);
         break;
         case 'constantWaitingRoom':

@@ -475,45 +475,58 @@ export class InvoiceFormComponent implements OnInit {
   calculInvoiceCost() {
     let invoiceFormValue = this.invoiceForm.getRawValue();
     let acts = invoiceFormValue["acts"];
-  console.log(acts);
+  console.log(invoiceFormValue);
   this.totalInvoice = 0;
     acts.forEach((el, index) => {
       this.totalInvoice = this.totalInvoice  + el["cost"];
     })
 
-    this.partPecByCNAM = (this.totalInvoice*this.cnamInsured["coverage"])/100;
-    this.insureds.controls[0].get('insuredPart').setValue(this.partPecByCNAM);
-    let remaingAfterCnamReduction = this.totalInvoice -  this.partPecByCNAM;
-    let partPecByOthherInsurance = remaingAfterCnamReduction; 
-    let totalpartPecByOthherInsurance = 0;    
-    for (let index = 1; index < invoiceFormValue["insuredList"].length; index++) {
-      this.insureds.controls[index].get('insuredPart').setValue(this.partPecByCNAM);
-      const element = invoiceFormValue["insuredList"][index];
-        partPecByOthherInsurance = (remaingAfterCnamReduction*element["insuredCoverage"])/100;
-        this.insureds.controls[index].get('insuredPart').setValue(partPecByOthherInsurance);
-        totalpartPecByOthherInsurance = totalpartPecByOthherInsurance + partPecByOthherInsurance;
-        remaingAfterCnamReduction = remaingAfterCnamReduction - partPecByOthherInsurance;
-    }
+    // this.partPecByCNAM = (this.totalInvoice*this.cnamInsured["coverage"])/100;
+    // this.insureds.controls[0].get('insuredPart').setValue(this.partPecByCNAM);
+    // let remaingAfterCnamReduction = this.totalInvoice -  this.partPecByCNAM;
+    // let partPecByOthherInsurance = remaingAfterCnamReduction; 
+    // let totalpartPecByOthherInsurance = 0;    
+    // for (let index = 1; index < invoiceFormValue["insuredList"].length; index++) {
+    //   this.insureds.controls[index].get('insuredPart').setValue(this.partPecByCNAM);
+    //   const element = invoiceFormValue["insuredList"][index];
+    //     partPecByOthherInsurance = (remaingAfterCnamReduction*element["insuredCoverage"])/100;
+    //     this.insureds.controls[index].get('insuredPart').setValue(partPecByOthherInsurance);
+    //     totalpartPecByOthherInsurance = totalpartPecByOthherInsurance + partPecByOthherInsurance;
+    //     remaingAfterCnamReduction = remaingAfterCnamReduction - partPecByOthherInsurance;
+    // }
 
-    this.partPecByOthherInsurance = totalpartPecByOthherInsurance;
-    this.partientPart = remaingAfterCnamReduction;
-    
-    // this.partPecByOthherInsurance = remaingAfterCnamReduction;
-    // let data = this.invoiceDto;
-    // this.invoiceDto.acts = this.invoiceForm.get('acts').value;
-    // this.invoiceDto.admission = this.invoiceForm.get('admission').value;
-    // this.invoiceDto.convention = this.invoiceForm.get('convention').value;
-    // this.invoiceDto.discountInCfa = this.invoiceForm.get('discountInCfa').value;
-    // this.invoiceDto.id = this.invoiceForm.get('id').value;
-    // this.invoiceDto.discountInPercentage = this.invoiceForm.get('discountInPercentage').value;
-    // this.invoiceDto.insured = this.insured;
-    // this.invoiceDto.insuredList = this.invoiceForm.get('insuredList').value;
-    // this.invoiceDto.patientType = this.invoiceForm.get('patientType').value;
-    // this.invoiceService.getCost(data).subscribe(res => {      
-    //   this.invoiceForm.get("partTakenCareOf").setValue(res.partTakenCareOf);
-    //   this.invoiceForm.get("patientPart").setValue(res.patientPart);
-    //   this.invoiceForm.get("total").setValue(res.totalAmount);
-    // })
+    // this.partPecByOthherInsurance = totalpartPecByOthherInsurance;
+    // this.partientPart = remaingAfterCnamReduction;
+
+    // this.partPecByCNAM = (this.totalInvoice*this.cnamInsured["coverage"])/100;
+    // this.insureds.controls[0].get('insuredPart').setValue(this.partPecByCNAM);
+    // let remaingAfterCnamReduction = this.totalInvoice -  this.partPecByCNAM;
+    let remaingAfterOtherInssuranceReduction = this.totalInvoice;
+    let partPecByOthherInsurance = 0; 
+    let totalpartPecByOthherInsurance = 0; 
+    if (invoiceFormValue["insuredList"].length > 1) {
+      for (let index = 1; index < invoiceFormValue["insuredList"].length; index++) {
+        this.insureds.controls[index].get('insuredPart').setValue(this.partPecByCNAM);
+        const element = invoiceFormValue["insuredList"][index];
+          partPecByOthherInsurance = (this.totalInvoice*element["insuredCoverage"])/100;
+          this.insureds.controls[index].get('insuredPart').setValue(partPecByOthherInsurance);
+          totalpartPecByOthherInsurance = totalpartPecByOthherInsurance + partPecByOthherInsurance;
+          remaingAfterOtherInssuranceReduction = remaingAfterOtherInssuranceReduction - partPecByOthherInsurance;
+          // remaingAfterCnamReduction = remaingAfterCnamReduction - partPecByOthherInsurance;
+      }
+      this.partPecByOthherInsurance = totalpartPecByOthherInsurance;
+       this.partPecByCNAM = (remaingAfterOtherInssuranceReduction*this.cnamInsured["coverage"])/100;
+       this.insureds.controls[0].get('insuredPart').setValue(this.partPecByCNAM);
+       this.partientPart = remaingAfterOtherInssuranceReduction -  this.partPecByCNAM;      
+    }  else{
+      this.partPecByCNAM = (this.totalInvoice*this.cnamInsured["coverage"])/100;
+    this.insureds.controls[0].get('insuredPart').setValue(this.partPecByCNAM);
+    this.partientPart = this.totalInvoice - this.partPecByCNAM;
+    } 
+ 
+
+   
+
   }
 
   collectAmount() {

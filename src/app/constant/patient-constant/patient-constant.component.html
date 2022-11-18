@@ -20,10 +20,10 @@
   </nb-card-header>
   <nb-card-body>
     <form [formGroup]="searchForm">
-      <div class="row d-flex justify-content-between align-items-center">
+      <div class="row d-flex justify-content-between align-items-center mb-2">
         <div class="col-lg-9 col-md-9 col-sm-12">
           <div class="row">
-            <div class="col-lg-2">
+            <!-- <div class="col-lg-2">
               <span
                 (click)="onSearchValueChange()"
                 style="
@@ -35,7 +35,7 @@
               >
                 search
               </span>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-12">
@@ -56,15 +56,15 @@
         <thead class="pb-3 text-capitalize">
           <tr class="pb-3">
             <th>Date</th>
-            <th>Contante</th>
-            <th>Valeur</th>
-            <th>Description</th>
+            <th>N° Contante</th>
+            <!-- <th>Valeur</th> -->
+            <!-- <th>Description</th> -->
             <!--              
               <th scope="col">crée par</th>
               <th scope="col">Dernière modif.</th>
               <th scope="col">Modifié par</th>
                -->
-            <!-- <th scope="col">Action</th> -->
+            <th scope="col">Action</th>
           </tr>
 
           <tr></tr>
@@ -72,6 +72,7 @@
 
         <tbody>
           <tr
+         
             *ngFor="
               let constant of items
                 | paginate
@@ -86,18 +87,17 @@
             (click)="rowSelected(commune, i)"
           >
             <td>{{ constant?.takenAt | date: "medium" }}</td>
-            <td>{{ constant?.constant | uppercase }}</td>
-            <td>{{ constant?.value }}</td>
-            <td></td>
-            <!-- <td style="font-size: 30px">
-              <nb-icon
+            <td>N° {{ i + 1 }}</td>
+            <!-- <td>{{ constant?.value }}</td> -->
+            <td style="font-size: 30px">
+              <!-- <nb-icon
                 (click)="openUpdateForm(updateFormContent, constant)"
                 class="mx-2 pointer"
                 style="cursor: pointer"
                 icon="edit-outline"
-              ></nb-icon>
-              <nb-icon (click)="openDetailsForm(detailFormContent, commune)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon>
-            </td> -->
+              ></nb-icon> -->
+              <nb-icon (click)="openDetailsForm(constantListFormContent, constant)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -171,5 +171,27 @@
       [constantType]="constantType"
       (updateConstantType)="updateConstantType()"
     ></app-patient-constant-form>
+  </div>
+</ng-template>
+
+
+<!-- constant modal list -->
+<ng-template #constantListFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+      Detail de la constante
+    </h4>
+    <nb-icon
+      style="cursor: pointer"
+      (click)="d('Cross click')"
+      class="h4"
+      icon="close-circle-outline"
+    ></nb-icon>
+  </div>
+  <div class="modal-body">
+ <app-constant-list
+ [patientId]="patientId"
+ [PatientconstantDomain]="PatientconstantDomain"
+ ></app-constant-list>
   </div>
 </ng-template>
