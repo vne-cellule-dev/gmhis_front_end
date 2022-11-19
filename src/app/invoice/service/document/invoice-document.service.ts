@@ -20,6 +20,7 @@ export class InvoiceDocumentService {
 
 getInvoiceDocument(invoice : any, acts : any){
   
+console.log(invoice);
 
 var doc = new jsPDF('p', 'mm', 'a4');
   // doc.setDrawColor(0);
@@ -30,7 +31,7 @@ var doc = new jsPDF('p', 'mm', 'a4');
 
 
   doc.setFontSize(16)
-  doc.text("POLYCLINIQUE II PLATEAUX " , 65, 10)
+  doc.text(invoice["facilityName"].toString().toUpperCase() , 65, 10)
   // doc.setFont("arial", "bold");
   doc.setFontSize(9)
   doc.text("Date   : " + this.datePipe.transform(invoice["billDate"], 'dd/MM/yyyy')  , 160, 47)

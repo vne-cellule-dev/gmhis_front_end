@@ -4,7 +4,7 @@
       <nb-action (click)="toggleSidebar()" icon="menu-2-outline"></nb-action>
     </nb-actions>
   </div>
-  <span class="">{{user?.facility.shortName}} ({{user?.facility.name}})</span>
+  <span class="">{{user?.facility.name}} ({{user?.facility.shortName}}) {{user?.facility?.facilityType?.name}} de {{user?.facility?.facilityCategory?.name}}</span>
   <div class="d-flex align-items-center">
     <nb-actions size="medium">
       <!-- <nb-action [hidden]="!canAccessNotification" class="control-item" icon="bell-outline" badgeText="2"

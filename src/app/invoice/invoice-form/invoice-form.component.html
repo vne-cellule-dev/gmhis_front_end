@@ -51,7 +51,7 @@
                         </ng-option>
                     </ng-select>
                 </div>
-                <div class="col-lg-2 col-md-12 col-sm-12">
+                <div class="col-lg-3 col-md-12 col-sm-12">
                     <div class="form-group">
                         <div class="input-group-sm">
                             <label for="{{'subscriber' + i}}">Courtier</label>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-12 col-sm-12">
+                <div class="col-lg-3 col-md-12 col-sm-12">
                     <div class="form-group">
                         <div class="input-group-sm">
                             <label for="{{'society' + i}}">Etablissement Garant</label>
@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label for="{{'insuredCoverage' + i}}">Taux de couverture (%)</label>
                         <div class="input-group input-group-sm">
-                            <input id="{{'insuredCoverage' + i}}" name="{{'insuredCoverage' + i}}" type="text" formControlName="insuredCoverage" class="form-control text-bold " disabled="true">
+                            <input id="{{'insuredCoverage' + i}}" name="{{'insuredCoverage' + i}}" type="text" formControlName="insuredCoverage" class="form-control text-bold ">
                          
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                     <div class="form-group">
                         <label for="{{'insuredPart' + i}}">Part prise en charge</label>
                         <div class="input-group input-group-sm">
-                            <input id="{{'insuredPart' + i}}" name="{{'insuredPart' + i}}" type="text" formControlName="insuredPart" class="form-control text-bold " disabled="true">
+                            <input id="{{'insuredPart' + i}}" name="{{'insuredPart' + i}}" type="text" formControlName="insuredPart" class="form-control text-bold " >
                          
                         </div>
                     </div>
@@ -96,7 +96,7 @@
 
         </div>
     </div>
-    <div *ngIf="admissionForTemplate?.facilityType != 'Centre de sante public' " class="addInsuranceBtn text-center mb-3">
+    <div *ngIf="admissionForTemplate?.facilityType != 'Centre de sante public' && showAddInsuredButton" class="addInsuranceBtn text-center mb-3">
         <button (click)="addInsured()" class="btn btn-info text-white ">
          ajouter une assurance
         </button>
