@@ -8,6 +8,8 @@ import { PatientFolderComponent } from './patient-folder/patient-folder.componen
 import { NbMenuModule } from '@nebular/theme';
 import { ExaminationListComponent } from './examination/examination-list/examination-list.component';
 import { ConstantModule } from '../constant/constant.module';
+import { ExamenModule } from '../examen/examen.module';
+import { PrescriptionModule } from '../prescription/prescription.module';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { ConstantModule } from '../constant/constant.module';
     MedicalFolderRoutingModule,
     SharedModule,
     NbMenuModule.forRoot(), 
-    ConstantModule
+    ConstantModule,
+    ExamenModule,
+    PrescriptionModule
   ]
 })
 export class MedicalFolderModule { }

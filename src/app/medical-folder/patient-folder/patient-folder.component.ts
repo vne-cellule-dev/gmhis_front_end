@@ -19,6 +19,7 @@ export class PatientFolderComponent implements OnInit {
   showConsultationList : boolean;
   examinationNumber: number = 0;
   showConstantList: boolean;
+  menuClick:string = 'Consultations';
   constructor(
     private route : ActivatedRoute,
     private patientService : PatientService,
@@ -59,21 +60,21 @@ export class PatientFolderComponent implements OnInit {
           },
         },
         {
-          title: 'Examens',
-          icon: 'minus-outline',
-          badge: {
-            text: '0',
-            status: 'warning',
-          },
-        } ,
-        {
           title: 'Ordonances',
           icon: 'minus-outline',
           badge: {
             text: '0',
             status: 'warning',
           },
-        } 
+        },
+        {
+          title: 'Examens',
+          icon: 'minus-outline',
+          badge: {
+            text: '0',
+            status: 'warning',
+          },
+        }
   ];
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -112,7 +113,14 @@ export class PatientFolderComponent implements OnInit {
     /* Subscribing to the patientService.getPatientDetail(id) method. */
    
       }
-      ) 
+      )
+      
+      this.menuService.onItemClick().subscribe(
+        (res : any) => {
+          console.log(res);
+          this.menuClick = res['item']['title'];
+        }
+      )
   }
 
   updateExaminationNuber(){
@@ -127,15 +135,7 @@ export class PatientFolderComponent implements OnInit {
     )
   }
 
-  menuClick(){
-    this.menuService.onItemClick().subscribe((data) => {
-      console.log(data);
-      if (data.item.link === undefined) {
-        const item = data.item as any;
-        item.click();
-      }
-    });
-  }
+
 
 
 }
