@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -52,6 +52,9 @@ export class PatientConstantComponent implements OnInit {
   @Input()
   patientId: number;
 
+
+  @Output('updatePattientConstantNumber') updatePattientConstantNumber: EventEmitter<any> =
+  new EventEmitter();
   constructor(
     private route : ActivatedRoute,
     private patientConstantService : PatientConstantService,
@@ -66,23 +69,14 @@ export class PatientConstantComponent implements OnInit {
     this.initform();
     if (this.patientId) {
       console.log(this.patientId);
-      this.searchForm.get("patientId").setValue(this.patientId);
-      this.getPatientConstant();
+      this.getPatientDetailsByPatientId(this.patientId);
 
     }
     this.route.paramMap.subscribe(
       params => {
         const id = Number(params.get('patientId'));
         console.log(id);
-        this.searchForm.get("patientId").setValue(id);
-        this.getPatientConstant();
-        this.patientService.getPatientDetail(id).subscribe(
-          (response : any) => {
-            this.patient = response;
-            console.log(this.patient);
-            
-          }
-        )
+        this.getPatientDetailsByPatientId(id);
       }
       ) 
 
@@ -105,6 +99,9 @@ export class PatientConstantComponent implements OnInit {
 
   public getPatientConstant() {
     this.showloading = true;
+    if (this.patientId) {
+      this.searchForm.get("patientId").setValue(this.patientId);
+    }
     this.subs.add(
       this.patientConstantService.findAll(this.searchForm.value).subscribe(
         (response: PageList) => {
@@ -151,8 +148,9 @@ export class PatientConstantComponent implements OnInit {
 
   openDetailsForm(constantListFormContent,item){
     this.PatientconstantDomain = item;
-    this.patientId = this.patient.id;
-    console.log(item);
+    if (this.patientId == null) {
+          this.patientId = this.patient.id;
+    }
     this.modalService.open(constantListFormContent, { size: 'lg' });
   }
 
@@ -163,6 +161,7 @@ export class PatientConstantComponent implements OnInit {
       'Constante ajoutée avec succès'
     );
     this.getPatientConstant();
+    this.updatePattientConstantNumber.emit();
   }
 
   updateConstantDomain() {
@@ -177,6 +176,17 @@ export class PatientConstantComponent implements OnInit {
   rowSelected(constant: IPatientConstant, index: number) {
     this.currentIndex = index;
     this.PatientconstantDomain = constant;
+  }
+
+  getPatientDetailsByPatientId(patientId : number){
+    this.searchForm.get("patientId").setValue(patientId);
+    this.getPatientConstant();
+    this.patientService.getPatientDetail(patientId).subscribe(
+      (response : any) => {
+        this.patient = response;
+        console.log(this.patient);
+      }
+    )
   }
 
 }

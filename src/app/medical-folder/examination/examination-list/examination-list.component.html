@@ -66,6 +66,7 @@
               <th>Observation</th>
               <th>Medecin</th>
               <th>Centre médical</th>
+              <th>Actions</th>
             </tr>
   
             <tr></tr>
@@ -89,7 +90,7 @@
               <td>{{ examination?.conclusion | uppercase }}</td>
               <td>{{ examination?.practicianFirstName  }} {{ examination?.practicianLastName}}</td>
               <td>{{ examination?.facility }}</td>
-
+              <td></td>
               <!-- <td style="font-size: 30px">
                 <nb-icon
                   (click)="openUpdateForm(updateFormContent, convention)"

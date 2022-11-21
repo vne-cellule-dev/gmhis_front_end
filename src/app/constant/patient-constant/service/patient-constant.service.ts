@@ -69,4 +69,8 @@ export class PatientConstantService {
       queryParams
     );
   }
+
+  getPatientConstantNumberByPatientId(patientId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/patient_constant/getPatientConstantNumber/${patientId}`);
+  }
 }

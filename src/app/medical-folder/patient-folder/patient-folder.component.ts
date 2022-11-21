@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbMenuItem, NbMenuService } from '@nebular/theme';
 import { AdmissionService } from 'src/app/admission/service/admission.service';
+import { PatientConstantService } from 'src/app/constant/patient-constant/service/patient-constant.service';
 import { IPatient } from 'src/app/patient/patient';
 import { PatientService } from 'src/app/patient/patient.service';
 import { ExaminationService } from '../examination/services/examination.service';
@@ -20,11 +21,13 @@ export class PatientFolderComponent implements OnInit {
   examinationNumber: number = 0;
   showConstantList: boolean;
   menuClick:string = 'Consultations';
+  patientConstantNumber: any;
   constructor(
     private route : ActivatedRoute,
     private patientService : PatientService,
     private admissionService : AdmissionService,
     private examinationService : ExaminationService,
+    private patientConstantService : PatientConstantService,
     private menuService : NbMenuService
 
     ) { }
@@ -52,7 +55,7 @@ export class PatientFolderComponent implements OnInit {
           }
         },
         {
-          title: 'Suivi des constantes',
+          title: 'Constantes',
           icon: 'minus-outline',
           badge: {
             text: "0",
@@ -81,61 +84,56 @@ export class PatientFolderComponent implements OnInit {
       params => {
         const id = Number(params.get('id'));
         this.admissionId = id;
-        console.log(this.admissionId);
-        
-       
-        console.log(id);
         this.admissionService.getAdmissionDetailById(id).subscribe(
           (response : any)=>{
-            console.log(response);
             this.patientId = response["patientId"];
-            console.log(this.patientId);
           this.patientService.getPatientDetail(this.patientId).subscribe(
           (response : any) => {
             this.patient = response;
             this.showConsultationList = true;
             this.showConstantList = true;
-            this.examinationService.getExaminationNumberByAdmissionId( this.patient.id).subscribe(
-              (response : number) => {
-                this.examinationNumber = response;
-                console.log(this.examinationNumber);
+            // this.examinationService.getExaminationNumberByAdmissionId( this.patient.id).subscribe(
+            //   (response : number) => {
+            //     this.examinationNumber = response;
                 
-                this.items2[0]["badge"]["text"] = this.examinationNumber.toString();
-                console.log(this.examinationNumber);
-              }
-            )
-
+            //     this.items2[0]["badge"]["text"] = this.examinationNumber.toString();
+            //   }
+            // )
+            this.updateExaminationNuber(this.patient.id);
+            this.updatePattientConstantNumber(this.patient.id);
           }
         )
           }
-        )
-        // this.searchForm.get("patientId").setValue(id);
-    /* Subscribing to the patientService.getPatientDetail(id) method. */
-   
+        ) 
       }
       )
       
       this.menuService.onItemClick().subscribe(
         (res : any) => {
-          console.log(res);
           this.menuClick = res['item']['title'];
         }
       )
   }
 
-  updateExaminationNuber(){
+  updateExaminationNuber(patientId?:number){
     this.examinationService.getExaminationNumberByAdmissionId( this.patient.id).subscribe(
       (response : number) => {
         this.examinationNumber = response;
-        console.log(this.examinationNumber);
-        
         this.items2[0]["badge"]["text"] = this.examinationNumber.toString();
-        console.log(this.examinationNumber);
       }
     )
   }
 
-
+  updatePattientConstantNumber(patientId?:number){
+    this.patientConstantService.getPatientConstantNumberByPatientId(this.patient.id).subscribe(
+      (response : any) => {
+        this.patientConstantNumber = response["PatientConstantNumber"];
+        console.log( this.patientConstantNumber);
+        
+        this.items2[1]["badge"]["text"] = this.patientConstantNumber.toString();
+      }
+    )
+  }
 
 
 }

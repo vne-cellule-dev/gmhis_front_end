@@ -53,6 +53,7 @@ export class PatientConstantFormComponent implements OnInit {
   @Output('updateConstantType') updateConstantType: EventEmitter<any> =
     new EventEmitter();
 
+
   /**
    * form
    */
