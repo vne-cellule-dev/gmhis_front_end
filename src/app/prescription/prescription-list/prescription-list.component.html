@@ -36,6 +36,8 @@
             <tr class="pb-3">
                 <th>Date</th>
               <th>N° Oronnance</th>
+              <th>Médecin</th>
+              <th>Centre de santé</th>
               <th>Statut</th>
               <th>Actions</th>
             </tr>
@@ -61,7 +63,10 @@
               <td>
                 {{ prescription?.prescriptionNumber | uppercase }}
                 </td>
-              <td>
+              
+                <td>{{ prescription?.practicienFirstName }}{{ prescription?.practicienLastName }}</td>
+                <td>{{ prescription?.faciityName }}</td>
+                <td>
                   {{ prescription?.prescriptionStatus }}
                 </td>
                 <td>
