@@ -90,7 +90,9 @@
               <td>{{ examination?.conclusion | uppercase }}</td>
               <td>{{ examination?.practicianFirstName  }} {{ examination?.practicianLastName}}</td>
               <td>{{ examination?.facility }}</td>
-              <td></td>
+              <td>
+                <nb-icon (click)="openPrescriptionForm(prescriptionFormContent, examination)" class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Délivrer une ordonnance" icon="file-outline"></nb-icon>
+              </td>
               <!-- <td style="font-size: 30px">
                 <nb-icon
                   (click)="openUpdateForm(updateFormContent, convention)"
@@ -148,6 +150,23 @@
     </div>
   </ng-template>
   
+   <!-- add modal -->
+   <ng-template #prescriptionFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
+        Ajouter une ordonnance
+      </h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body">
+      <app-prescription-form [examinationId]="examinationId" (addPrescription)="addPrescription()"></app-prescription-form>
+    </div>
+  </ng-template>
   <!-- update modal -->
   <!-- <ng-template #updateFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">

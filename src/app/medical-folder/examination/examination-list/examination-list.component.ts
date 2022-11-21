@@ -22,6 +22,9 @@ export class ExaminationListComponent implements OnInit {
 
   public examination: Object;
 
+  public examinationId: number;
+
+
   @Input()
   patientId : number;
 
@@ -31,6 +34,8 @@ export class ExaminationListComponent implements OnInit {
   @Output('updateExaminationNuber') updateExaminationNuber: EventEmitter<any> =
   new EventEmitter();
 
+  @Output('updatePatientPrescriptionNumber') updatePatientPrescriptionNumber: EventEmitter<any> =
+  new EventEmitter();
   currentPage: number;
   empty: boolean;
   firstPage: boolean;
@@ -132,6 +137,12 @@ export class ExaminationListComponent implements OnInit {
     this.modalService.open(updateFormContent, { size: 'xl' });
   }
 
+  openPrescriptionForm(prescriptionFormContent, item?) {
+    this.examinationId = item.id;
+    console.log(this.examinationId);
+    this.modalService.open(prescriptionFormContent, { size: 'xl' });
+  }
+
   addExamination() {
     this.modalService.dismissAll();
     this.notificationService.notify(
@@ -151,5 +162,13 @@ export class ExaminationListComponent implements OnInit {
     this.getConvention();
   }
 
+  addPrescription() {
+    this.modalService.dismissAll();
+    this.notificationService.notify(
+      NotificationType.SUCCESS,
+      "Ordonnance crée avec succès"
+    );
+    this.updatePatientPrescriptionNumber.emit();
+  }
 
 }

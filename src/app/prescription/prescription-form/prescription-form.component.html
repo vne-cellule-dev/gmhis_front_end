@@ -1,1 +1,129 @@
-<p>prescription-form works!</p>
+<form [formGroup]="prescriptionForm" (ngSubmit)="save()">
+    <div
+      *ngIf="showloading == true"
+      class="overlay d-flex justify-content-center align-items-center"
+    >
+      <div class="d-flex w-100 justify-content-center">
+        <div
+          class="spinner-border"
+          style="width: 5rem; height: 5rem; color: #623508"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <small *ngIf="!details" class="mb-2 fw-bold"
+      >Nb: Tous les champs marqués par <span class="text-danger">*</span> sont
+      obligatoires</small
+    >
+    <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
+  
+    <div
+      formArrayName="prescriptionItemsDto"
+      *ngFor="let prescription of prescriptionItemsDto.controls; let i = index"
+    >
+      <div class="row mb-3 mt-4" [formGroupName]="i">
+        <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+          <label for="drug-{{ i }}" class="form-label text-capitalize"
+            >Medicament</label
+          >
+          <ng-select
+            placeholder="médicament"
+            id="drug-{{ i }}"
+            formControlName="drug"
+          >
+            <ng-option
+              *ngFor="let drugNameAndId of drugsNameAndId"
+              [value]="drugNameAndId.id"
+              >{{ drugNameAndId.name }}</ng-option
+            >
+          </ng-select>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12">
+            <label for="quantity-{{ i }}" class="form-label text-capitalize"
+              >Quantité
+              <span *ngIf="!details" class="text-danger">*</span>
+              </label
+            >
+            <input
+              type="number"
+              id="quantity-{{ i }}"
+              class="form-control"
+              formControlName="quantity"
+            />
+          </div>
+        <div class="col-lg-2 col-md-4 col-sm-12">
+          <label for="duration-{{ i }}" class="form-label text-capitalize"
+            >duré du traitement</label
+          >
+          <span *ngIf="!details" class="text-danger">*</span>
+          <input
+              type="text"
+              id="duration-{{ i }}"
+              class="form-control"
+              formControlName="duration"
+            />
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <label for="dosage-{{ i }}" class="form-label text-capitalize"
+              >Posologie
+              <span *ngIf="!details" class="text-danger">*</span>
+              </label
+            >
+            <textarea
+            type="text"
+            id="dosage-{{ i }}"
+            class="form-control"
+            formControlName="dosage"
+            rows="1"
+          ></textarea>
+          </div>
+        <div class="col-lg-1 col-md-1 col-sm-12 d-flex align-items-end">
+          <span
+            (click)="removePrescriptionDto(i)"
+            style="color: red; cursor: pointer"
+            class="material-icons px-2 p-1 rounded"
+          >
+            delete
+          </span>
+          <!-- <button (click)="removeConstant(i)">-</button> -->
+        </div>
+      </div>
+    </div>
+    <div class="mt-3">
+      <span
+        (click)="addPrescriptionDto()"
+        style="color: white; cursor: pointer; background-color: green"
+        class="material-icons px-2 p-1 rounded"
+      >
+        add
+      </span>
+    </div>
+
+    <div class="col-lg-12 col-md-3 col-sm-12">
+        <label for="OObservation" class="form-label text-capitalize"
+          >Observation
+          </label
+        >
+        <textarea
+        type="text"
+        id="observation"
+        class="form-control"
+        formControlName="observation"
+        rows="4"
+      ></textarea>
+      </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <button
+          style="background-color: #14a2b8"
+          type="submit"
+          class="btn text-capitalize bg-biblos justify-content-center text-white rounded px-4 py-2 fw-bold"
+        >
+          VALIDER
+        </button>
+      </div>
+    </div>
+  </form>
+  

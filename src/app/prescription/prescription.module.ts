@@ -15,7 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   exports: [
-    PrescriptionListComponent
+    PrescriptionListComponent,
+    PrescriptionFormComponent
   ]
 })
 export class PrescriptionModule { }
