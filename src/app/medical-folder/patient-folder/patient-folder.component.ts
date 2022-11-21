@@ -5,6 +5,7 @@ import { AdmissionService } from 'src/app/admission/service/admission.service';
 import { PatientConstantService } from 'src/app/constant/patient-constant/service/patient-constant.service';
 import { IPatient } from 'src/app/patient/patient';
 import { PatientService } from 'src/app/patient/patient.service';
+import { PrescriptionService } from 'src/app/prescription/services/prescription.service';
 import { ExaminationService } from '../examination/services/examination.service';
 
 @Component({
@@ -22,12 +23,14 @@ export class PatientFolderComponent implements OnInit {
   showConstantList: boolean;
   menuClick:string = 'Consultations';
   patientConstantNumber: any;
+  patientPrescriptionNumber: any;
   constructor(
     private route : ActivatedRoute,
     private patientService : PatientService,
     private admissionService : AdmissionService,
     private examinationService : ExaminationService,
     private patientConstantService : PatientConstantService,
+    private prescriptionService : PrescriptionService,
     private menuService : NbMenuService
 
     ) { }
@@ -101,6 +104,7 @@ export class PatientFolderComponent implements OnInit {
             // )
             this.updateExaminationNuber(this.patient.id);
             this.updatePattientConstantNumber(this.patient.id);
+            this.updatePatientPrescriptionNumber(this.patient.id)
           }
         )
           }
@@ -131,6 +135,16 @@ export class PatientFolderComponent implements OnInit {
         console.log( this.patientConstantNumber);
         
         this.items2[1]["badge"]["text"] = this.patientConstantNumber.toString();
+      }
+    )
+  }
+
+  updatePatientPrescriptionNumber(patientId?:number){
+    this.prescriptionService.getPrescriptionNumberByPatientId(this.patient.id).subscribe(
+      (response : any) => {
+        this.patientPrescriptionNumber = response;
+        console.log( this.patientConstantNumber);
+        this.items2[2]["badge"]["text"] = this.patientPrescriptionNumber.toString();
       }
     )
   }

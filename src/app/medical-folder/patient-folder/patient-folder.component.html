@@ -75,7 +75,7 @@
                 <app-examen-list></app-examen-list>
             </div>
             <div *ngIf="menuClick=='Ordonances'" class="col-lg-10">
-                <app-prescription-list></app-prescription-list>
+                <app-prescription-list [patientId]="patientId"></app-prescription-list>
             </div>
         </div>
     </nb-card-body>
