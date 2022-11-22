@@ -13,7 +13,7 @@
                     </div>
                     <div>
                         <span class="spanDefault">date de naissance :</span>                     
-                       <span > {{patient?.birthDate | date : 'dd/MM/yyy'}}</span>
+                       <span > {{patient?.birthDate - currentDate | date : 'dd/MM/yyy'}}</span>
                     </div>
                      <!-- - né(e) le
                     {{patient?.birthDate | date : 'dd/MM/yyy'}}
