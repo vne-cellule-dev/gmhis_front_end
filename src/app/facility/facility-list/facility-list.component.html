@@ -71,19 +71,19 @@
             <tr class="pb-3">
               <th>Centre de sante</th>
               <th>Abréviation</th>
-              <th scope="col" class="text-nowrap">Latitude</th>
-              <th scope="col" class="text-nowrap">Longitude</th>
-              <th scope="col" class="text-nowrap">Localité</th>
+              <th>Contact</th>
+              <th>Adresse</th>
+              <!-- <th scope="col" class="text-nowrap">Latitude</th>
+              <th scope="col" class="text-nowrap">Longitude</th> -->
+              <th >Localité</th>
               <th>Etat</th>
-              <th>crée le</th>
+              <!-- <th>crée le</th>
               <th scope="col">crée par</th>
               <th scope="col">Dernière modif.</th>
-              <th scope="col">Modifié par</th>
-              <th scope="col">Action</th>
+              <th scope="col">Modifié par</th> -->
+              <th >Action</th>
             </tr>
-  
-            <tr></tr>
-          </thead>
+            </thead>
   
           <tbody>
             <tr
@@ -102,10 +102,11 @@
             >
               <td>{{ facility?.name | uppercase }}</td>
               <td>{{ facility?.shortName | uppercase }}</td>
-              <td>{{ facility?.latitude }}</td>
-              <td>{{ facility?.longitude }}</td>
+              <!-- <td>{{ facility?.latitude }}</td>
+              <td>{{ facility?.longitude }}</td> -->
+              <td>{{ facility?.contact }}</td>
+              <td>{{ facility?.address }}</td>
               <td>{{ facility?.locality }}</td>
-
               <td>
                 <nb-icon
                   *ngIf="facility.active == true"
@@ -118,7 +119,7 @@
                   icon="close-circle"
                 ></nb-icon>
               </td>
-              <td>{{ facility?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+              <!-- <td>{{ facility?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
               <td>
                 {{
                   facility.createdByFirstName + " " + facility.createdByLastName
@@ -132,7 +133,7 @@
                     ? facility.UpdatedByFirstName + " " + facility.UpdatedByLastName
                     : ("" | uppercase)
                 }}
-              </td>
+              </td> -->
               <td style="font-size: 30px">
                 <nb-icon
                   (click)="openUpdateForm(updateFormContent, facility)"
@@ -203,6 +204,7 @@
     <div class="modal-body">
       <app-facility-form
         [actCode]="actCode"
+        [facility]="facility"
         (updateFacility)="updateFacility()"
       ></app-facility-form>
     </div>

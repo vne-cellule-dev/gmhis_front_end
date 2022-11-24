@@ -9,5 +9,7 @@ export interface IFacilityDto {
   localityId: number,
   longitude: number,
   name: string,
-  shortName: string
+  shortName: string,
+  address: string,
+  contact: string
 }

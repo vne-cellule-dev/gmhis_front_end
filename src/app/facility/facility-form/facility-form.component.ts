@@ -75,7 +75,8 @@ export class FacilityFormComponent implements OnInit {
   private isFormSubmitted: boolean = false;
   facilityTypesNameAndId: any;
   facilityCategoriesNameAndId: any;
-
+  image : any = "";
+  facilityLogo : File;
   constructor(
     private facilityService: FaciityServiceService,
     private notificationService: NotificationService
@@ -90,13 +91,26 @@ export class FacilityFormComponent implements OnInit {
     this.findActiveFacilityTypeNameAndId();
     this.initForm();
     if (this.facility) {
-      console.log(this.facility);
-      this.facilityForm.patchValue(this.facility);
+      this.facilityService.getFacilityDetails(this.facility).subscribe(
+        (res : any) => {
+          console.log(res);       
+          this.facilityForm.patchValue(res);
+          this.facilityForm.get("facilityCategoryId").setValue(res["facilityCategoryId"]);
+          if (res["facilityTypeId"]) {
+            this.findActiveFacilityCategoriesNameAndId();
+            this.facilityForm.get("facilityTypeId").setValue(res["facilityTypeId"]);
+          }
+        }
+      )
     }
   }
 
 
-
+  onSelectFile(event){
+    this.facilityLogo = event.target.files[0];
+    console.log(this.facilityLogo);
+        
+  }
 
 
   initForm() {
@@ -112,6 +126,8 @@ export class FacilityFormComponent implements OnInit {
       localityId: new FormControl(1),
       longitude: new FormControl(null),
       shortName: new FormControl(null),
+      address: new FormControl(null),
+      contact: new FormControl(null),
     });
   }
   get name() {
@@ -128,7 +144,7 @@ export class FacilityFormComponent implements OnInit {
 
       if (this.facilityDto.id) {
         this.subs.add(
-          this.facilityService.updateFacility(this.facilityDto).subscribe(
+          this.facilityService.updateFacility(this.facilityDto,this.facilityLogo).subscribe(
             (response: any) => {
               this.showloading = false;
               this.updateFacility.emit();
@@ -144,7 +160,7 @@ export class FacilityFormComponent implements OnInit {
         );
       } else {
         this.subs.add(
-          this.facilityService.createFaciity(this.facilityDto).subscribe(
+          this.facilityService.createFaciity(this.facilityDto, this.facilityLogo).subscribe(
             (response: IFacility) => {
               this.showloading = false;
               this.addFaciity.emit();

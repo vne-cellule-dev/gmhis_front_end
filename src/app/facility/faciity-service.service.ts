@@ -48,20 +48,44 @@ export class FaciityServiceService {
     return this.http.get<any[]>(`${this.apiUrl}/facility_category/active_facilitiesCategory_name`);
   }
 
-  createFaciity(facilityDto: IFacilityDto): Observable<IFacility> {
-    return this.http.post<IFacility>(`${this.apiUrl}/facility/add`, facilityDto);
+  createFaciity(facilityDto: IFacilityDto, facilityLogo : File): Observable<IFacility> {
+    let formData = new FormData();
+    formData = this.createFormData(facilityDto,facilityLogo);
+    return this.http.post<IFacility>(`${this.apiUrl}/facility/add`, formData);
   }
 
-  updateFacility(faciityDto: IFacilityDto): Observable<any> {
+  updateFacility(facilityDto: IFacilityDto, facilityLogo : File): Observable<any> {
+    let formData = new FormData();
+    formData = this.createFormData(facilityDto,facilityLogo);
     return this.http.put<any>(
-      `${this.apiUrl}/facility/update/${faciityDto.id}`,
-      faciityDto
+      `${this.apiUrl}/facility/update`,
+      formData
     );
   }
 
-  getFacilityDetails(faciityDto: IFacilityDto): Observable<any> {
+  getFacilityDetails(faciity: any): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}/facility/get-detail/${faciityDto.id}`
+      `${this.apiUrl}/facility/get-detail/${faciity.id}`
     );
   }
+
+  createFormData(facilityDto: IFacilityDto, facilityLogo : File) : FormData{
+    let formData = new FormData();
+    formData.append("id", facilityDto.id);
+    formData.append("name", facilityDto.name);
+    formData.append("active", String(facilityDto.active));
+    formData.append("dhisCode", facilityDto.dhisCode);
+    formData.append("facilityCategoryId", facilityDto.facilityCategoryId);
+    formData.append("facilityTypeId", facilityDto.facilityTypeId);
+    formData.append("latitude", String(facilityDto.latitude));
+    formData.append("localCode", facilityDto.localCode);
+    formData.append("localityId", String(facilityDto.localityId));
+    formData.append("longitude", String(facilityDto.longitude));
+    formData.append("shortName", String(facilityDto.shortName));
+    formData.append("logo", facilityLogo);
+    formData.append("address", String(facilityDto.address));
+    formData.append("contact", String(facilityDto.contact));
+    return formData;
+  }
+
 }
