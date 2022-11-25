@@ -126,7 +126,7 @@
               </td> -->
               <td style="font-size: 30px">
                 <nb-icon
-                  (click)="openUpdateForm(updateFormContent, code)"
+                  (click)="openUpdateForm(updateFormContent, dci)"
                   class="mx-2 pointer"
                   style="cursor: pointer"
                   icon="edit-outline"
@@ -164,7 +164,7 @@
   <ng-template #addFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
-        Ajouter un code
+        Ajouter une DCI
       </h4>
       <nb-icon
         style="cursor: pointer"
@@ -174,7 +174,7 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-act-code-form (addActCode)="addActCode()"></app-act-code-form>
+      <app-dci-form (addDci)="addDci()"></app-dci-form>
     </div>
   </ng-template>
   
@@ -182,7 +182,7 @@
   <ng-template #updateFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
-        Modifer un code
+        Modifer une DCI
       </h4>
       <nb-icon
         style="cursor: pointer"
@@ -192,10 +192,10 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-act-code-form
-        [actCode]="actCode"
-        (updateActCode)="updateActCode()"
-      ></app-act-code-form>
+      <app-dci-form
+        [dci]="dci"
+        (updateDci)="updateDci()"
+      ></app-dci-form>
     </div>
   </ng-template>
   
