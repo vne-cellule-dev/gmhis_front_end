@@ -9,10 +9,12 @@ import { DciFormComponent } from './dci/dci-form/dci-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { TherapeuticFormComponent } from './therapeuticClass/therapeutic-form/therapeutic-form.component';
 import { TherapeuticListComponent } from './therapeuticClass/therapeutic-list/therapeutic-list.component';
+import { PharmacologicalListComponent } from './pharmacologicalForm/pharmacological-list/pharmacological-list.component';
+import { PharmacologicalFormComponent } from './pharmacologicalForm/pharmacological-form/pharmacological-form.component';
 
 
 @NgModule({
-  declarations: [DrugListComponent, DrugFormComponent, DciListComponent, DciFormComponent, TherapeuticFormComponent, TherapeuticListComponent],
+  declarations: [DrugListComponent, DrugFormComponent, DciListComponent, DciFormComponent, TherapeuticFormComponent, TherapeuticListComponent, PharmacologicalListComponent, PharmacologicalFormComponent],
   imports: [
     CommonModule,
     DrugRoutingModule,

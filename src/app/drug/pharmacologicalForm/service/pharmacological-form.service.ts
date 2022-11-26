@@ -7,8 +7,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DrugService {
-
+export class PharmacologicalFormService {
   private readonly apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
@@ -24,9 +23,8 @@ export class DrugService {
         .set('sort', data['sort']),
     };
 
-    return this.http.get<PageList>(`${this.apiUrl}/drug/p_list`, queryParams);
+    return this.http.get<PageList>(`${this.apiUrl}/drug_pharmacological_form/list`, queryParams);
   }
-
   /**
    * It returns an Observable of an array of any type
    * @returns An array of objects with the following properties:
@@ -34,24 +32,24 @@ export class DrugService {
    * - name
    * - active
    */
-  findActivedrugNameAndId(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/drug/active_drugs_name`);
+  findActivePharmacologicalNameAndId(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/drug_pharmacological_form/active_pharmacological_form_name`);
   }
 
-  createDrug(drug: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/drug/add`, drug);
+  createPharmacologicalForm(dci: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/drug_pharmacological_form/add`, dci);
   }
 
-  updateDrug(drug: any): Observable<any> {
+  updatePharmacologicalForm(dci: any): Observable<any> {
     return this.http.put<any>(
-      `${this.apiUrl}/drug/update/${drug.id}`,
-      drug
+      `${this.apiUrl}/drug_pharmacological_form/update/${dci.id}`,
+      dci
     );
   }
 
-  getActDrugDetails(drug: any): Observable<any> {
+  getPharmacologicalFormDetails(dci: any): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}/drug/get-detail/${drug.id}`
+      `${this.apiUrl}/drug_pharmacological_form/get-detail/${dci.id}`
     );
   }
 }

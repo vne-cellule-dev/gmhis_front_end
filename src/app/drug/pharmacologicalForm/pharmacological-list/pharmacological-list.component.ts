@@ -6,21 +6,21 @@ import { PageList } from 'src/app/_models/page-list.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
-import { IDrug } from '../models/drug';
-import { DrugService } from '../services/drug.service';
+import { IPharmacologicalForm } from '../pharmacological-form';
+import { PharmacologicalFormService } from '../service/pharmacological-form.service';
 
 @Component({
-  selector: 'app-drug-list',
-  templateUrl: './drug-list.component.html',
-  styleUrls: ['./drug-list.component.scss']
+  selector: 'app-pharmacological-list',
+  templateUrl: './pharmacological-list.component.html',
+  styleUrls: ['./pharmacological-list.component.scss']
 })
-export class DrugListComponent implements OnInit {
+export class PharmacologicalListComponent implements OnInit {
 
   private subs = new SubSink();
 
   public searchForm: FormGroup;
 
-  public drug: IDrug;
+  public pharmacologicalForm: IPharmacologicalForm;
 
   currentPage: number;
   empty: boolean;
@@ -51,7 +51,7 @@ export class DrugListComponent implements OnInit {
   showloading: boolean = false;
   currentIndex: number;
   constructor(
-    private drugService: DrugService,
+    private pharmacologicalFormService: PharmacologicalFormService,
     private notificationService: NotificationService,
     config: NgbModalConfig,
     private modalService: NgbModal
@@ -80,7 +80,7 @@ export class DrugListComponent implements OnInit {
   public getDci() {
     this.showloading = true;
     this.subs.add(
-      this.drugService.findAll(this.searchForm.value).subscribe(
+      this.pharmacologicalFormService.findAll(this.searchForm.value).subscribe(
         (response: PageList) => {
           console.log(response);
           this.showloading = false;
@@ -118,33 +118,32 @@ export class DrugListComponent implements OnInit {
   }
 
   openUpdateForm(updateFormContent, item?) {
-    this.drug = item;
-    console.log(this.drug);
+    this.pharmacologicalForm = item;
+    console.log(this.pharmacologicalForm);
     this.modalService.open(updateFormContent, { size: 'lg' });
   }
 
-  addDrug() {
+  addPharmacologicalForm() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "médicament ajouté avec succès"
+      "forme pharmacologique ajoutée avec succès"
     );
     this.getDci();
   }
 
-  updateDrug() {
+  updatePharmacologicalForm() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "médicament modifié avec succès"
+      "forme pharmacologique modifiée avec succès"
     );
     this.getDci();
   }
 
-  rowSelected(drug: IDrug, index: number) {
+  rowSelected(pharmacologicalForm: IPharmacologicalForm, index: number) {
     this.currentIndex = index;
-    this.drug = drug;
+    this.pharmacologicalForm = pharmacologicalForm;
   }
-
 
 }

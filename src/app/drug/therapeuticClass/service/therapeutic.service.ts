@@ -33,7 +33,7 @@ export class TherapeuticService {
    * - active
    */
   findActiveTherapeuticClassNameAndId(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/drug_therapeutic_class/active_drugTherapeuticClass_name`);
+    return this.http.get<any[]>(`${this.apiUrl}/drug_therapeutic_class/active_drugTherapeutic_class_name`);
   }
 
   createTherapeuticClass(therapeuticClass: any): Observable<any> {

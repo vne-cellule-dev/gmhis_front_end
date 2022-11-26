@@ -211,7 +211,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       children: [
         {
           title: 'Medicaments',
-          // link: '/constant/domain',
+          link: '/drug/list',
           icon: 'minus-outline',
         },
         {
@@ -226,7 +226,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
         },
         {
           title: 'Forme pharmacologique',
-          // link: '/constant/type',
+          link: '/drug/pharmacologicalForm',
           icon: 'minus-outline',
         },
         {
