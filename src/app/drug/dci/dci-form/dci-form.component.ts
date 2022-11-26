@@ -1,8 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { IActCode } from 'src/app/act/code/actCode.model';
 import { INameAndId } from 'src/app/shared/models/name-and-id';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
@@ -120,7 +118,7 @@ export class DciFormComponent implements OnInit {
       if (this.dciDto.id) {
         this.subs.add(
           this.dciService.updateDci(this.dciDto).subscribe(
-            (response: IActCode) => {
+            (response: any) => {
               this.showloading = false;
               this.updateDci.emit();
             },
@@ -136,7 +134,7 @@ export class DciFormComponent implements OnInit {
       } else {
         this.subs.add(
           this.dciService.createDci(this.dciDto).subscribe(
-            (response: IActCode) => {
+            (response: any) => {
               this.showloading = false;
               this.addDci.emit();
             },

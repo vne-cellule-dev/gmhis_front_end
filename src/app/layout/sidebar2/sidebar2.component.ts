@@ -221,7 +221,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
         },
         {
           title: 'Classe therapeutique',
-          // link: '/constant/type',
+          link: '/drug/therapeuticClass',
           icon: 'minus-outline',
         },
         {

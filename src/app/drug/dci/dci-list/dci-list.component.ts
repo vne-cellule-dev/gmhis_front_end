@@ -60,12 +60,6 @@ export class DciListComponent implements OnInit {
   ngOnInit(): void {
     this.initform();
     this.getDci();
-    const actGroup = {
-      active: false,
-      id: 0,
-      name: 'FAMILLE5',
-    };
-
   }
 
 
