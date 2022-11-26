@@ -85,6 +85,8 @@ export class FaciityServiceService {
     formData.append("logo", facilityLogo);
     formData.append("address", String(facilityDto.address));
     formData.append("contact", String(facilityDto.contact));
+    formData.append("email", String(facilityDto.email));
+
     return formData;
   }
 
