@@ -94,6 +94,32 @@
   ><span class="fw-bold">Salle d'attentes</span>
 </p>
 <p
+  [ngClass]="{ menuActive: menuItem == 'prescription' }"
+  (click)="menuItemFunction('prescription')"
+  routerLink="/prescription/pharmacy"
+  class="dashboard py-3"
+>
+  <fa-icon
+    [icon]="faUser"
+    ngbTooltip=""
+    style="font-size: 1rem; margin-right: 10px"
+  ></fa-icon
+  ><span class="fw-bold">Pharmacie</span>
+</p>
+<p
+  [ngClass]="{ menuActive: menuItem == 'avance' }"
+  (click)="menuItemFunction('avance')"
+  routerLink="/location/avance"
+  class="dashboard py-3"
+>
+  <fa-icon
+    [icon]="faMoney"
+    ngbTooltip=""
+    style="font-size: 1rem; margin-right: 10px"
+  ></fa-icon
+  ><span class="fw-bold"> Agenda des RDV</span>
+</p>
+<p
   [ngClass]="{ menuActive: menuItem == 'avance' }"
   (click)="menuItemFunction('avance')"
   routerLink="/location/avance"
@@ -107,19 +133,6 @@
   ><span class="fw-bold"> Agenda des RDV</span>
 </p>
 
-<p
-  [ngClass]="{ menuActive: menuItem == 'owner' }"
-  (click)="menuItemFunction('owner')"
-  routerLink="/owner/list"
-  class="dashboard py-3"
->
-  <fa-icon
-    [icon]="faUser"
-    ngbTooltip=""
-    style="font-size: 1rem; margin-right: 10px"
-  ></fa-icon
-  ><span class="fw-bold">Pharmacie</span>
-</p>
 <p
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"

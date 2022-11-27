@@ -100,6 +100,11 @@ const routes: Routes = [
           import('./patient/patient.module').then((m) => m.PatientModule),
       },
       {
+        path: 'prescription',
+        loadChildren: () =>
+          import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
+      },
+      {
         path : 'medical-folder',
         loadChildren: () =>
           import('./medical-folder/medical-folder.module').then((m) => m.MedicalFolderModule)

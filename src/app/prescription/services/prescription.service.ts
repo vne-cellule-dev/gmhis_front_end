@@ -61,4 +61,14 @@ export class PrescriptionService {
       `${this.apiUrl}/prescription/get-detail/${prescriptionId}`
     );
   }
+
+  getPrescriptionDetailsByPrescriptionNumber(prescriptionNumber: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/prescription/prescriptionByPrescriptionNumber/${prescriptionNumber}`
+    );
+  }
+
+  setPrescriptionItems(prescriptionitems: string[]): Observable<any> {    
+    return this.http.post<any>(`${this.apiUrl}/prescription/SetPrescriptionItems/`, prescriptionitems);
+  }
 }

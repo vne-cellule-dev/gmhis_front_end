@@ -1,0 +1,41 @@
+.container{
+    height: 100vh;
+    .form{
+        height: 300px;
+        width: 600px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 0 7px;
+        box-shadow: 0px 0px 16px 0px #83828259;
+        border-radius: 5px;
+    }
+}
+
+.prescription-item{
+    box-shadow: 0px 0px 16px 0px #a8a4a459; 
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.bold{
+    font-weight: 400;
+}
+
+.label-bold{
+    font-weight: 200; 
+    text-decoration: dashed;
+}
+
+.price{
+    text-decoration: line-through;
+}
+
+
