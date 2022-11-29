@@ -5,6 +5,7 @@ import { ExamenRoutingModule } from './examen-routing.module';
 import { ExamenListComponent } from './examen-list/examen-list.component';
 import { ExamenFormComponent } from './examen-form/examen-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { NbCheckboxModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -12,7 +13,9 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     ExamenRoutingModule,
-    SharedModule
+    SharedModule,
+    NbCheckboxModule
+
   ],
   exports: [
     ExamenListComponent

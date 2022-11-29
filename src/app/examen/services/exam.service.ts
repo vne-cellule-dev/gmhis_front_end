@@ -60,5 +60,7 @@ export class ExamService {
     );
   }
 
-
+  getAnalysisRequestNumberByPatientId(patientId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/analysis-request/getanalyseRequestNumber/${patientId}`);
+  }
 }

@@ -26,6 +26,9 @@ export class ExamenListComponent implements OnInit {
   @Input()
   patientId : number;
 
+  @Input()
+  admissionId : number;
+
   @Output('updatePatientExamenNumber') updatePatientExamenNumber: EventEmitter<any> =
   new EventEmitter();
 

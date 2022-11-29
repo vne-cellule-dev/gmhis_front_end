@@ -102,7 +102,7 @@
   <ng-template #addFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
-        Demande d'examen(s)
+        Demande d'analayse(s)
       </h4>
       <nb-icon
         style="cursor: pointer"
@@ -112,7 +112,7 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-examen-form (addExam)="addExam()"></app-examen-form>
+      <app-examen-form [admissionId]="admissionId" (addExam)="addExam()"></app-examen-form>
     </div>
   </ng-template>
   
