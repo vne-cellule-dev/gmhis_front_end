@@ -1,1 +1,140 @@
-<p>examen-list works!</p>
+<nb-card class="nbCardList">
+    <nb-card-header class="row d-flex justify-content-between align-items-center">
+      <div class="col-lg-7 col-md-3 col-sm-12">
+        <!-- <h4
+          class="text-capitalize d-flex justify-content-start w-100 text-center"
+        >
+          LISTE DES ORDONANCES
+        </h4> -->
+      </div>
+      <div class="col-lg-1 col-md-3 col-sm-12 justify-content-end">
+      
+        <button
+        (click)="openAddForm(addFormContent)"
+        class="text-capitalize btn mb-2 btn-block  w-100 d-flex align-items-center justify-content-center text-white rounded"
+        style="background-color: #14a2b8;"
+      >
+        <nb-icon icon="plus-outline"></nb-icon>
+      </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="searchForm">
+        <div class="row d-flex justify-content-between align-items-end mb-2">
+         
+        </div>
+      </form>
+      <div class="">
+        <table class="table table-bordered table-hover table-md align-middle">
+          <thead class="pb-3 text-capitalize">
+            <tr class="pb-3">
+                <th>Date</th>
+              <th>N° Examen</th>
+              <!-- <th>Médecin</th> -->
+              <th>Acte</th>
+              <th>Centre de santé</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr
+              *ngFor="
+                let examen of items
+                  | paginate
+                    : {
+                        itemsPerPage: selectedSize,
+                        currentPage: currentPage,
+                        totalItems: totalItems
+                      };
+                let i = index
+              "
+              [class.active]="i == currentIndex"
+            >
+              <td>
+                {{ examen?.date | date : 'medium' }}
+              </td>
+              <td></td>
+              <td>{{ examen?.act }}</td>
+
+              <!-- <td>
+                {{ prescription?.prescriptionNumber | uppercase }}
+                </td> -->
+              
+                <!-- <td>{{ prescription?.practicienFirstName }} {{ prescription?.practicienLastName }}</td> -->
+                <td>{{ examen?.facilityName }}</td>
+                <td>
+                  {{ examen?.state }}
+                </td>
+                <td>
+                    <nb-icon (click)="printPrescription(printContent,prescription)" class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Imprimer l'ordonnance" icon="file-outline"></nb-icon>
+
+                </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex w-100 justify-content-center">
+        <div
+          style="color: #623508"
+          *ngIf="showloading"
+          class="spinner-border"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div  class="d-flex justify-content-center">
+        <pagination-controls
+          responsive="true"
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onPageChange($event)"
+        >
+        </pagination-controls>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  
+  <!-- add modal -->
+  <ng-template #addFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
+        Demande d'examen(s)
+      </h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body">
+      <app-examen-form (addExam)="addExam()"></app-examen-form>
+    </div>
+  </ng-template>
+  
+  <!-- ngx-extended-pdf-viewer -->
+<ng-template #printContent let-c="close" let-d="dismiss">
+    <div class="modal-header bg-gray">
+      <h4 class="text-capitalize modal-title" id="update-form-modal">IMPRIMER</h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body bg-gray">
+      <ngx-extended-pdf-viewer
+        *ngIf="docSrc"
+        [src]="docSrc"
+        useBrowserLocale="true"
+        height="80vh"
+      >
+      </ngx-extended-pdf-viewer>
+    </div>
+  </ng-template>
+  
