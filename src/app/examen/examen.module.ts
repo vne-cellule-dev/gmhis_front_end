@@ -6,10 +6,11 @@ import { ExamenListComponent } from './examen-list/examen-list.component';
 import { ExamenFormComponent } from './examen-form/examen-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { NbCheckboxModule } from '@nebular/theme';
+import { LaboratoryExamenComponent } from './laboratory-examen/laboratory-examen.component';
 
 
 @NgModule({
-  declarations: [ExamenListComponent, ExamenFormComponent],
+  declarations: [ExamenListComponent, ExamenFormComponent, LaboratoryExamenComponent],
   imports: [
     CommonModule,
     ExamenRoutingModule,

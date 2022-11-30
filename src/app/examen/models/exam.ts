@@ -1,3 +1,3 @@
-export interface Exam {
+export interface IExam {
     id : number
 }

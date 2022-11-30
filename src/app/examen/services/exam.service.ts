@@ -60,6 +60,12 @@ export class ExamService {
     );
   }
 
+  makAsPerformed(examId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/analysis-request/performed/${examId}`
+    );
+  }
+
   getAnalysisRequestNumberByPatientId(patientId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/analysis-request/getanalyseRequestNumber/${patientId}`);
   }

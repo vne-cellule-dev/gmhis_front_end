@@ -74,6 +74,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'examen',
+        loadChildren: () =>
+          import('./examen/examen.module').then(
+            (m) => m.ExamenModule
+          ),
+      },
+      {
         path: 'drug',
         loadChildren: () =>
           import('./drug/drug.module').then(
