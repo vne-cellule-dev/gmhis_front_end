@@ -216,7 +216,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
         },
         {
           title: 'DCI',
-          // link: '/constant/type',
+          link: '/drug/dci',
           icon: 'minus-outline',
         },
         {
@@ -225,7 +225,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           icon: 'minus-outline',
         },
         {
-          title: 'Forme pharmcologique',
+          title: 'Forme pharmacologique',
           // link: '/constant/type',
           icon: 'minus-outline',
         },

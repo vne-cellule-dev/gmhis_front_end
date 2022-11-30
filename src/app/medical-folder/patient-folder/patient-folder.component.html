@@ -13,7 +13,7 @@
                     </div>
                     <div>
                         <span class="spanDefault">date de naissance :</span>                     
-                       <span > {{patient?.birthDate | date : 'dd/MM/yyy'}}</span>
+                       <span > {{patient?.birthDate - currentDate | date : 'dd/MM/yyy'}}</span>
                     </div>
                      <!-- - né(e) le
                     {{patient?.birthDate | date : 'dd/MM/yyy'}}
@@ -65,7 +65,7 @@
             </div>      
             <div *ngIf="showConsultationList == true && menuClick=='Consultations'" class="col-lg-10">
                 <h5 class="mb-4">LISTE DES CONSULTATIONS</h5>
-                <app-examination-list  (updateExaminationNuber)="updateExaminationNuber()" [admissionId]="admissionId" [patientId]="patientId"></app-examination-list>
+                <app-examination-list (updatePatientPrescriptionNumber)="updatePatientPrescriptionNumber()"  (updateExaminationNuber)="updateExaminationNuber()" [admissionId]="admissionId" [patientId]="patientId"></app-examination-list>
             </div>
             <div *ngIf="menuClick=='Constantes'" class="col-lg-9"> 
                 <h5 class="mb-4">LISTE DES CONSTANTES</h5>
@@ -75,7 +75,8 @@
                 <app-examen-list></app-examen-list>
             </div>
             <div *ngIf="menuClick=='Ordonances'" class="col-lg-10">
-                <app-prescription-list [patientId]="patientId"></app-prescription-list>
+                <h5 class="mb-4">LISTE DES ORDONNANCES</h5>
+                <app-prescription-list  (updatePatientPrescriptionNumber)="updatePatientPrescriptionNumber()" [patientId]="patientId"></app-prescription-list>
             </div>
         </div>
     </nb-card-body>

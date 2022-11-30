@@ -1,41 +1,27 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { IPatient } from 'src/app/patient/patient';
 import { PageList } from 'src/app/_models/page-list.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
-import { ExaminationService } from '../services/examination.service';
+import { IDci } from '../dci';
+import { DciService } from '../service/dci.service';
 
 @Component({
-  selector: 'app-examination-list',
-  templateUrl: './examination-list.component.html',
-  styleUrls: ['./examination-list.component.scss']
+  selector: 'app-dci-list',
+  templateUrl: './dci-list.component.html',
+  styleUrls: ['./dci-list.component.scss']
 })
-export class ExaminationListComponent implements OnInit {
+export class DciListComponent implements OnInit {
 
   private subs = new SubSink();
 
   public searchForm: FormGroup;
 
-  public examination: Object;
+  public dci: IDci;
 
-  public examinationId: number;
-
-
-  @Input()
-  patientId : number;
-
-  @Input()
-  admissionId : number;
-
-  @Output('updateExaminationNuber') updateExaminationNuber: EventEmitter<any> =
-  new EventEmitter();
-
-  @Output('updatePatientPrescriptionNumber') updatePatientPrescriptionNumber: EventEmitter<any> =
-  new EventEmitter();
   currentPage: number;
   empty: boolean;
   firstPage: boolean;
@@ -65,7 +51,7 @@ export class ExaminationListComponent implements OnInit {
   showloading: boolean = false;
   currentIndex: number;
   constructor(
-    private examinationService: ExaminationService,
+    private dciService: DciService,
     private notificationService: NotificationService,
     config: NgbModalConfig,
     private modalService: NgbModal
@@ -73,28 +59,34 @@ export class ExaminationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initform();
-    this.getConvention();
-    console.log(this.patientId);
-    
+    this.getDci();
+    const actGroup = {
+      active: false,
+      id: 0,
+      name: 'FAMILLE5',
+    };
+
   }
+
 
   initform() {
     this.searchForm = new FormGroup({
-      patient: new FormControl(this.patientId),
+      name: new FormControl(''),
+      active: new FormControl(null),
       page: new FormControl(0),
-      size: new FormControl(10),
+      size: new FormControl(50),
       sort: new FormControl('id,desc'),
     });
   }
 
   onSearchValueChange(): void {
-    this.getConvention();
+    this.getDci();
   }
 
-  public getConvention() {
+  public getDci() {
     this.showloading = true;
     this.subs.add(
-      this.examinationService.getPatientExamination(this.searchForm.value).subscribe(
+      this.dciService.findAll(this.searchForm.value).subscribe(
         (response: PageList) => {
           console.log(response);
           this.showloading = false;
@@ -119,56 +111,45 @@ export class ExaminationListComponent implements OnInit {
   }
 
   onIsActiveChange() {
-    this.getConvention();
+    this.getDci();
   }
 
   onPageChange(event) {
     this.searchForm.get('page').setValue(event - 1);
-    this.getConvention();
+    this.getDci();
   }
 
   openAddForm(addFormContent) {
-    this.modalService.open(addFormContent, { size: 'xl' });
+    this.modalService.open(addFormContent, { size: 'lg' });
   }
 
   openUpdateForm(updateFormContent, item?) {
-    this.examination = item;
-    console.log(this.examination);
-    this.modalService.open(updateFormContent, { size: 'xl' });
+    this.dci = item;
+    console.log(this.dci);
+    this.modalService.open(updateFormContent, { size: 'lg' });
   }
 
-  openPrescriptionForm(prescriptionFormContent, item?) {
-    this.examinationId = item.id;
-    console.log(this.examinationId);
-    this.modalService.open(prescriptionFormContent, { size: 'xl' });
-  }
-
-  addExamination() {
+  addActCode() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "Consultation ajoutée avec succès"
+      "Dénomination commune internationale ajouté avec succès"
     );
-    this.updateExaminationNuber.emit();
-    this.getConvention();
+    this.getDci();
   }
 
-  updateConvention() {
+  updateActCode() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "Consultation modifiée avec succès"
+      "Dénomination commune internationale modifié avec succès"
     );
-    this.getConvention();
+    this.getDci();
   }
 
-  addPrescription() {
-    this.modalService.dismissAll();
-    this.notificationService.notify(
-      NotificationType.SUCCESS,
-      "Ordonnance crée avec succès"
-    );
-    this.updatePatientPrescriptionNumber.emit();
+  rowSelected(dci: IDci, index: number) {
+    this.currentIndex = index;
+    this.dci = dci;
   }
 
 }

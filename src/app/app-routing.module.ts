@@ -73,6 +73,13 @@ const routes: Routes = [
             (m) => m.DocumentTypeModule
           ),
       },
+      {
+        path: 'drug',
+        loadChildren: () =>
+          import('./drug/drug.module').then(
+            (m) => m.DrugModule
+          ),
+      },
         {
         path: 'facility',
         loadChildren: () =>

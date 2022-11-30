@@ -1,11 +1,11 @@
 <nb-card class="nbCardList">
     <nb-card-header class="row d-flex justify-content-between align-items-center">
       <div class="col-lg-7 col-md-3 col-sm-12">
-        <h4
+        <!-- <h4
           class="text-capitalize d-flex justify-content-start w-100 text-center"
         >
           LISTE DES ORDONANCES
-        </h4>
+        </h4> -->
       </div>
       <div class="col-lg-1 col-md-3 col-sm-12 justify-content-end">
         <!-- <button
@@ -36,6 +36,8 @@
             <tr class="pb-3">
                 <th>Date</th>
               <th>N° Oronnance</th>
+              <th>Médecin</th>
+              <th>Centre de santé</th>
               <th>Statut</th>
               <th>Actions</th>
             </tr>
@@ -54,7 +56,6 @@
                 let i = index
               "
               [class.active]="i == currentIndex"
-              (click)="rowSelected(commune, i)"
             >
               <td>
                 {{ prescription?.prescritionDate | date : 'medium' }}
@@ -62,11 +63,14 @@
               <td>
                 {{ prescription?.prescriptionNumber | uppercase }}
                 </td>
-              <td>
+              
+                <td>{{ prescription?.practicienFirstName }} {{ prescription?.practicienLastName }}</td>
+                <td>{{ prescription?.faciityName }}</td>
+                <td>
                   {{ prescription?.prescriptionStatus }}
                 </td>
                 <td>
-                    <nb-icon  class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Imprimer l'ordonnance" icon="file-outline"></nb-icon>
+                    <nb-icon (click)="printPrescription(printContent,prescription)" class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Imprimer l'ordonnance" icon="file-outline"></nb-icon>
 
                 </td>
             </tr>
@@ -110,28 +114,7 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-patient-formm (addPatient)="addPatient()"></app-patient-formm>
-    </div>
-  </ng-template>
-  
-  <!-- update modal -->
-  <ng-template #admissionFormContent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
-        Nouvelle ordonnance
-      </h4>
-      <nb-icon
-        style="cursor: pointer"
-        (click)="d('Cross click')"
-        class="h4"
-        icon="close-circle-outline"
-      ></nb-icon>
-    </div>
-    <div class="modal-body">
-      <app-admission-form
-        [patient]="patient"
-        (addAdmission)="addAdmission()"
-      ></app-admission-form>
+      <app-prescription-form (addPrescription)="addPrescription()"></app-prescription-form>
     </div>
   </ng-template>
   
@@ -149,10 +132,32 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-patient-formm
+      <app-prescription-form
         [patient]="patient"
         (updatePatient)="updatePatient()"
-      ></app-patient-formm>
+      ></app-prescription-form>
+    </div>
+  </ng-template>
+
+  <!-- ngx-extended-pdf-viewer -->
+<ng-template #printContent let-c="close" let-d="dismiss">
+    <div class="modal-header bg-gray">
+      <h4 class="text-capitalize modal-title" id="update-form-modal">IMPRIMER</h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body bg-gray">
+      <ngx-extended-pdf-viewer
+        *ngIf="docSrc"
+        [src]="docSrc"
+        useBrowserLocale="true"
+        height="80vh"
+      >
+      </ngx-extended-pdf-viewer>
     </div>
   </ng-template>
   

@@ -55,4 +55,10 @@ export class PrescriptionService {
   getPrescriptionNumberByPatientId(patientId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/prescription/getPrescriptionNumber/${patientId}`);
   }
+
+  getPrescriptionDetails(prescriptionId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/prescription/get-detail/${prescriptionId}`
+    );
+  }
 }

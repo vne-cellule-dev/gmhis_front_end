@@ -4,7 +4,7 @@
         <h4
           class="text-capitalize d-flex justify-content-start w-100 text-center"
         >
-          LISTE DES CENTRES DE SANTÉ
+       {{" Dénominations communes internationales" | uppercase}}
         </h4>
       </div>
       <div class="col-lg-2 col-md-3 col-sm-12 justify-content-end">
@@ -27,7 +27,7 @@
                   type="text"
                   class="form-control"
                   formControlName="name"
-                  placeholder="Code"
+                  placeholder="Libelle"
                 />
               </div>
               <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
@@ -66,29 +66,25 @@
         </div>
       </form>
       <div class="tableFixHead">
-        <table class="table table-bordered table-hover table-md ">
+        <table class="table table-bordered table-hover table-md align-middle">
           <thead class="pb-3 text-capitalize">
             <tr class="pb-3">
-              <th>Centre de sante</th>
-              <th>Abréviation</th>
-              <th>Contact</th>
-              <th>Adresse</th>
-              <!-- <th scope="col" class="text-nowrap">Latitude</th>
-              <th scope="col" class="text-nowrap">Longitude</th> -->
-              <th >Localité</th>
+              <th>Libelle</th>
               <th>Etat</th>
               <!-- <th>crée le</th>
               <th scope="col">crée par</th>
               <th scope="col">Dernière modif.</th>
               <th scope="col">Modifié par</th> -->
-              <th >Action</th>
+              <th scope="col">Action</th>
             </tr>
-            </thead>
+  
+            <tr></tr>
+          </thead>
   
           <tbody>
             <tr
               *ngFor="
-                let facility of items
+                let dci of items
                   | paginate
                     : {
                         itemsPerPage: selectedSize,
@@ -100,43 +96,37 @@
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
             >
-              <td>{{ facility?.name | uppercase }}</td>
-              <td>{{ facility?.shortName | uppercase }}</td>
-              <!-- <td>{{ facility?.latitude }}</td>
-              <td>{{ facility?.longitude }}</td> -->
-              <td>{{ facility?.contact }}</td>
-              <td>{{ facility?.address }}</td>
-              <td>{{ facility?.locality }}</td>
+              <td>{{ dci?.name | uppercase }}</td>
               <td>
                 <nb-icon
-                  *ngIf="facility.active == true"
+                  *ngIf="dci.active == true"
                   style="color: green"
                   icon="checkmark-circle-2"
                 ></nb-icon>
                 <nb-icon
-                  *ngIf="facility.active == false"
+                  *ngIf="dci.active == false"
                   style="color: red"
                   icon="close-circle"
                 ></nb-icon>
               </td>
-              <!-- <td>{{ facility?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+              <!-- <td>{{ code?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
               <td>
                 {{
-                  facility.createdByFirstName + " " + facility.createdByLastName
+                  code.createdByFirstName + " " + code.createdByLastName
                     | uppercase
                 }}
               </td>
-              <td>{{ facility?.updatedAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+              <td>{{ code?.updatedAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
               <td>
                 {{
-                  facility.UpdatedByFirstName
-                    ? facility.UpdatedByFirstName + " " + facility.UpdatedByLastName
+                  code.UpdatedByFirstName
+                    ? code.UpdatedByFirstName + " " + code.UpdatedByLastName
                     : ("" | uppercase)
                 }}
               </td> -->
               <td style="font-size: 30px">
                 <nb-icon
-                  (click)="openUpdateForm(updateFormContent, facility)"
+                  (click)="openUpdateForm(updateFormContent, code)"
                   class="mx-2 pointer"
                   style="cursor: pointer"
                   icon="edit-outline"
@@ -174,7 +164,7 @@
   <ng-template #addFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
-        Ajouter un centre de santé
+        Ajouter un code
       </h4>
       <nb-icon
         style="cursor: pointer"
@@ -184,7 +174,7 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-facility-form (addFaciity)="addFaciity()"></app-facility-form>
+      <app-act-code-form (addActCode)="addActCode()"></app-act-code-form>
     </div>
   </ng-template>
   
@@ -192,7 +182,7 @@
   <ng-template #updateFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
-        Modifer un centre de santé
+        Modifer un code
       </h4>
       <nb-icon
         style="cursor: pointer"
@@ -202,11 +192,10 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-facility-form
+      <app-act-code-form
         [actCode]="actCode"
-        [facility]="facility"
-        (updateFacility)="updateFacility()"
-      ></app-facility-form>
+        (updateActCode)="updateActCode()"
+      ></app-act-code-form>
     </div>
   </ng-template>
   

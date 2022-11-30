@@ -1,12 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PageList } from 'src/app/_models/page-list.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
+import { PrescriptionDocumentService } from '../services/prescription-document.service';
 import { PrescriptionService } from '../services/prescription.service';
 
 @Component({
@@ -26,6 +27,9 @@ export class PrescriptionListComponent implements OnInit {
 
   @Input()
   patientId : number;
+
+  @Output('updatePatientPrescriptionNumber') updatePatientPrescriptionNumber: EventEmitter<any> =
+  new EventEmitter();
 
   prescription : any;
 
@@ -49,12 +53,14 @@ export class PrescriptionListComponent implements OnInit {
     { id: 500, value: 500 },
     { id: 1000, value: 1000 },
   ];
+  docSrc: string;
   constructor(
     private prescriptionService: PrescriptionService,
     private notificationService: NotificationService,
     config: NgbModalConfig,
     private modalService: NgbModal,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private prescriptionDocumentService  : PrescriptionDocumentService
   ) { }
 
   ngOnInit(): void {
@@ -117,5 +123,29 @@ export class PrescriptionListComponent implements OnInit {
 
   onSearchValueChange(): void {
     this.getPrescription();
+  }
+
+  addPrescription() {
+    this.modalService.dismissAll();
+    this.notificationService.notify(
+      NotificationType.SUCCESS,
+      "Ordonnance crée avec succès"
+    );
+    this.updatePatientPrescriptionNumber.emit();
+    this.getPrescription();
+  }
+
+  printPrescription(printContent, item : any){
+      this.prescriptionService.getPrescriptionDetails(item["id"]).subscribe(
+        (response : any) => {
+          this.prescriptionService.getPrescriptionItemByPrescriptionId(response["id"]).subscribe(
+            (res : any) => {
+              this.modalService.open(printContent, { size: 'xl' });
+              let doc = this.prescriptionDocumentService.getPrescriptionDocument(response,res);
+              this.docSrc = doc.output('datauristring');
+            }
+          )
+        }
+      ) 
   }
 }

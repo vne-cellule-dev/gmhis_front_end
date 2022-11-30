@@ -24,6 +24,8 @@ export class PatientFolderComponent implements OnInit {
   menuClick:string = 'Consultations';
   patientConstantNumber: any;
   patientPrescriptionNumber: any;
+
+  currentDate : any;
   constructor(
     private route : ActivatedRoute,
     private patientService : PatientService,
@@ -83,6 +85,7 @@ export class PatientFolderComponent implements OnInit {
         }
   ];
   ngOnInit(): void {
+    this.currentDate = new Date();
     this.route.paramMap.subscribe(
       params => {
         const id = Number(params.get('id'));
