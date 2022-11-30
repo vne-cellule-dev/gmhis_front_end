@@ -65,7 +65,7 @@
                 <!-- <td>{{ prescription?.practicienFirstName }} {{ prescription?.practicienLastName }}</td> -->
                 <td>{{ examen?.facilityName }}</td>
                 <td class="text-center">
-                    <span style="width: 20px" [ngClass]="{'bg-success' : examen?.state  == true,'bg-danger' : examen?.state  == false }" class=" px-2 text-white ">{{examen?.state == true ? 'effectué' : 'non effectué'}}</span>
+                    <span style="width: 20px" [ngClass]="{'statusColected' : examen?.state  == true,'statusDontColected' : examen?.state  == false }" class=" px-2">{{examen?.state == true ? 'effectué' : 'non effectué'}}</span>
                 </td>
                 <td>
                     <nb-icon (click)="printPrescription(printContent,prescription)" class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Télécharger le fichier" icon="file-outline"></nb-icon>

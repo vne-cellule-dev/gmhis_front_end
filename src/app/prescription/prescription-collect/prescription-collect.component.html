@@ -54,7 +54,7 @@
             {{perscriptionItem?.dosage}}
           </div>
           <div class="col-lg-2">
-            <span style="width: 20px" [ngClass]="{'bg-success' : perscriptionItem?.collected == true,'bg-danger' : perscriptionItem?.collected == false }" class=" px-2 text-white ">{{perscriptionItem?.collected == true ? 'collecté' : 'non collecté'}}</span>
+            <span [ngClass]="{'statusColected' : perscriptionItem?.collected == true,'statusDontColected' : perscriptionItem?.collected == false }" class=" px-2 ">{{perscriptionItem?.collected == true ? 'collecté' : 'non collecté'}}</span>
           </div>
           <div class="col-lg-2">
             <span class="price">{{perscriptionItem?.drugPrice | currency:'FCFA' : 'symbol' }}</span><br>
