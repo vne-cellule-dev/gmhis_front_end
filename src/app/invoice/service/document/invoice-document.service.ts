@@ -27,7 +27,7 @@ var doc = new jsPDF('p', 'mm', 'a4');
   // doc.setFillColor(230, 230, 230);
   doc.rect(50, 42, 45, 7)
   
-  doc.addImage(environment.logo, "JPEG", 14, 10, 30, 30);
+  doc.addImage(invoice["facilityLogo"], "JPEG", 14, 10, 30, 30);
 
 
   doc.setFontSize(16)

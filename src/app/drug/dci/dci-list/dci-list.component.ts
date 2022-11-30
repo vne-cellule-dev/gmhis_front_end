@@ -60,12 +60,6 @@ export class DciListComponent implements OnInit {
   ngOnInit(): void {
     this.initform();
     this.getDci();
-    const actGroup = {
-      active: false,
-      id: 0,
-      name: 'FAMILLE5',
-    };
-
   }
 
 
@@ -129,20 +123,20 @@ export class DciListComponent implements OnInit {
     this.modalService.open(updateFormContent, { size: 'lg' });
   }
 
-  addActCode() {
+  addDci() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "Dénomination commune internationale ajouté avec succès"
+      "DCI ajouté avec succès"
     );
     this.getDci();
   }
 
-  updateActCode() {
+  updateDci() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
-      "Dénomination commune internationale modifié avec succès"
+      "DCI modifié avec succès"
     );
     this.getDci();
   }

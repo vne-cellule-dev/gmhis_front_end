@@ -157,7 +157,7 @@ export class PrescriptionFormComponent implements OnInit {
 
 
   private findActiveDrugNameAndId(){
-    this.drugService.findActiveActdrugNameAndId().subscribe(
+    this.drugService.findActivedrugNameAndId().subscribe(
       (response : any) => {
         this.drugsNameAndId = response;
         console.log("drugsNameAndId", this.drugsNameAndId);

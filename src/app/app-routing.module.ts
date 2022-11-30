@@ -74,6 +74,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'examen',
+        loadChildren: () =>
+          import('./examen/examen.module').then(
+            (m) => m.ExamenModule
+          ),
+      },
+      {
         path: 'drug',
         loadChildren: () =>
           import('./drug/drug.module').then(
@@ -98,6 +105,11 @@ const routes: Routes = [
         path: 'patient',
         loadChildren: () =>
           import('./patient/patient.module').then((m) => m.PatientModule),
+      },
+      {
+        path: 'prescription',
+        loadChildren: () =>
+          import('./prescription/prescription.module').then((m) => m.PrescriptionModule),
       },
       {
         path : 'medical-folder',

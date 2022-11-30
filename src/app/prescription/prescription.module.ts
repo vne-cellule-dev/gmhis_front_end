@@ -5,14 +5,17 @@ import { PrescriptionRoutingModule } from './prescription-routing.module';
 import { PrescriptionListComponent } from './prescription-list/prescription-list.component';
 import { PrescriptionFormComponent } from './prescription-form/prescription-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { PrescriptionCollectComponent } from './prescription-collect/prescription-collect.component';
+import { NbCheckboxModule } from '@nebular/theme';
 
 
 @NgModule({
-  declarations: [PrescriptionListComponent,PrescriptionFormComponent],
+  declarations: [PrescriptionListComponent,PrescriptionFormComponent, PrescriptionCollectComponent],
   imports: [
     CommonModule,
     PrescriptionRoutingModule,
-    SharedModule
+    SharedModule,
+    NbCheckboxModule
   ],
   exports: [
     PrescriptionListComponent,

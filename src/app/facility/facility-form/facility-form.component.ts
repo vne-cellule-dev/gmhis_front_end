@@ -128,6 +128,7 @@ export class FacilityFormComponent implements OnInit {
       shortName: new FormControl(null),
       address: new FormControl(null),
       contact: new FormControl(null),
+      email: new FormControl(null),
     });
   }
   get name() {

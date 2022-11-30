@@ -253,6 +253,9 @@ export class PatientFormmComponent implements OnInit {
       motherLastName: new FormControl('Mariam', [Validators.required]),
       motherProfession: new FormControl('commercante'),
       fatherName: new FormControl('kanate ali'),
+      age: new FormControl(null),
+      height: new FormControl(null),
+      weight: new FormControl(null),
       // patientExternalId: new FormControl("", [Validators.required]),
       insurances: new FormControl([]),
     });

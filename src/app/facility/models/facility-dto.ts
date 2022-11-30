@@ -11,5 +11,6 @@ export interface IFacilityDto {
   name: string,
   shortName: string,
   address: string,
-  contact: string
+  contact: string,
+  email : string
 }

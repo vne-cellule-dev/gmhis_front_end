@@ -103,9 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.user = this.authService.getUserFromLocalStorage();
-    console.log(this.user);
-    
+    this.user = this.authService.getUserFromLocalStorage();    
     this.shareDataFromHeaderToSidebar2.currentSource.subscribe(data => this.showsideBar = data)
     this.searchForm = new FormGroup({ 
       searchText : new FormControl(""),

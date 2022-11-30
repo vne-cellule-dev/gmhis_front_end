@@ -24,7 +24,7 @@ export class DrugService {
         .set('sort', data['sort']),
     };
 
-    return this.http.get<PageList>(`${this.apiUrl}/drug/list`, queryParams);
+    return this.http.get<PageList>(`${this.apiUrl}/drug/p_list`, queryParams);
   }
 
   /**
@@ -34,7 +34,7 @@ export class DrugService {
    * - name
    * - active
    */
-  findActiveActdrugNameAndId(): Observable<any[]> {
+  findActivedrugNameAndId(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/drug/active_drugs_name`);
   }
 
@@ -49,7 +49,7 @@ export class DrugService {
     );
   }
 
-  getActCodeDetails(drug: any): Observable<any> {
+  getActDrugDetails(drug: any): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/drug/get-detail/${drug.id}`
     );

@@ -1,0 +1,78 @@
+<div class="container">
+  <form [formGroup]="searchForm" (submit)="findPrescription(addFormContent)" class="form" action="">
+    <div class="col-lg-8 col-md-6 col-sm-12 mb-2">
+      <input placeholder="numero d'ordonnance" type="text" id="height" class="form-control"
+        formControlName="prescriptionNumber" />
+    </div>
+    <button 
+    style="background-color: #14a2b8"
+     type="submit"
+      class="btn text-capitalize bg-biblos justify-content-center text-white rounded px-4 py-2 fw-bold">
+      Rechercher l'ordonnance
+    </button>
+  </form>
+
+
+</div>
+
+<!-- update modal -->
+<ng-template #addFormContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+      ordonnance
+    </h4>
+    <nb-icon style="cursor: pointer" (click)="d('Cross click')" class="h4" icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body">
+    <div class="prescription_infos d-flex justify-content-between">
+      <div>
+        <span class="label-bold">Practicien : </span> <span class="bold">{{prescriptionInfos?.practicienFirstName}} {{prescriptionInfos?.practicienLastName}}</span><br>
+        <span class="label-bold">Specialité : </span><span class="bold">{{prescriptionInfos?.serviceName | lowercase}}</span><br><br>
+
+        <span class="label-bold">Patient : </span><span class="bold">{{prescriptionInfos?.patientFirstName}} {{prescriptionInfos?.patientLastName}}</span><br><br><br>
+
+      </div>
+      <div>
+        <span class="label-bold">Centre de santé : </span> <span class="bold">{{prescriptionInfos?.facilityName}}</span><br>
+        <span class="label-bold">Adresse : </span><span class="bold">{{prescriptionInfos?.address}}</span><br>
+        <span class="label-bold">Téléphone : </span><span class="bold">{{prescriptionInfos?.contact}}</span><br><br>
+        <span class="label-bold">Prescris le : </span><span class="bold">{{prescriptionInfos?.prescriptionDate | date :"dd/mm/yyyy"}} </span><br><br>
+
+
+
+      </div>
+    </div>
+    <div *ngFor="let perscriptionItem of perscriptionItems">
+
+      <div class="prescription-item py-2">
+        <div class="row d-flex align-items-center">
+          <div class="col-lg-3">
+           {{perscriptionItem?.drug | uppercase}}
+          </div>
+          <div class="col-lg-1">{{perscriptionItem?.quantity}}</div>
+          <div class="col-lg-3">
+            {{perscriptionItem?.dosage}}
+          </div>
+          <div class="col-lg-2">
+            <span style="width: 20px" [ngClass]="{'bg-success' : perscriptionItem?.collected == true,'bg-danger' : perscriptionItem?.collected == false }" class=" px-2 text-white ">{{perscriptionItem?.collected == true ? 'collecté' : 'non collecté'}}</span>
+          </div>
+          <div class="col-lg-2">
+            <span class="price">{{perscriptionItem?.drugPrice | currency:'FCFA' : 'symbol' }}</span><br>
+            <span>{{perscriptionItem?.drugPrice - ((perscriptionItem?.drugPrice*70)/100) | currency:'FCFA' : 'symbol' }}</span>
+          </div>
+          <div  class="col-lg-1">
+            <nb-checkbox *ngIf="perscriptionItem?.collected == false" (checkedChange)="getPrescriptionItemsIdToCollected($event,perscriptionItem?.id)"  ></nb-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+    (click)="collectedPrescription()"
+    style="background-color: #14a2b8;"
+    class="text-capitalize btn btn-block w-25 text-white rounded"
+  >
+    <nb-icon icon="plus-outline"></nb-icon>
+    <span class="fw-bold"> ENREGISTRER</span>
+  </button>
+  </div>
+</ng-template>

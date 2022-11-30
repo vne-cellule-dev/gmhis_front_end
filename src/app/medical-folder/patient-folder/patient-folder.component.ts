@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NbMenuItem, NbMenuService } from '@nebular/theme';
 import { AdmissionService } from 'src/app/admission/service/admission.service';
 import { PatientConstantService } from 'src/app/constant/patient-constant/service/patient-constant.service';
+import { ExamService } from 'src/app/examen/services/exam.service';
 import { IPatient } from 'src/app/patient/patient';
 import { PatientService } from 'src/app/patient/patient.service';
 import { PrescriptionService } from 'src/app/prescription/services/prescription.service';
@@ -22,10 +23,11 @@ export class PatientFolderComponent implements OnInit {
   examinationNumber: number = 0;
   showConstantList: boolean;
   menuClick:string = 'Consultations';
-  patientConstantNumber: any;
-  patientPrescriptionNumber: any;
+  patientConstantNumber: number = 0;
+  patientPrescriptionNumber: number = 0;
 
   currentDate : any;
+  patientExamNumber: number = 0;
   constructor(
     private route : ActivatedRoute,
     private patientService : PatientService,
@@ -33,6 +35,7 @@ export class PatientFolderComponent implements OnInit {
     private examinationService : ExaminationService,
     private patientConstantService : PatientConstantService,
     private prescriptionService : PrescriptionService,
+    private examService : ExamService,
     private menuService : NbMenuService
 
     ) { }
@@ -108,6 +111,7 @@ export class PatientFolderComponent implements OnInit {
             this.updateExaminationNuber(this.patient.id);
             this.updatePattientConstantNumber(this.patient.id);
             this.updatePatientPrescriptionNumber(this.patient.id)
+            this.updatePatientExamenNumber(this.patient.id)
           }
         )
           }
@@ -146,8 +150,17 @@ export class PatientFolderComponent implements OnInit {
     this.prescriptionService.getPrescriptionNumberByPatientId(this.patient.id).subscribe(
       (response : any) => {
         this.patientPrescriptionNumber = response;
-        console.log( this.patientConstantNumber);
         this.items2[2]["badge"]["text"] = this.patientPrescriptionNumber.toString();
+      }
+    )
+  }
+
+
+  updatePatientExamenNumber(patientId?:number){
+    this.examService.getAnalysisRequestNumberByPatientId(this.patient.id).subscribe(
+      (response : any) => {
+        this.patientExamNumber = response;
+        this.items2[3]["badge"]["text"] = this.patientExamNumber.toString();
       }
     )
   }

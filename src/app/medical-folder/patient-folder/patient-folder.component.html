@@ -69,10 +69,11 @@
             </div>
             <div *ngIf="menuClick=='Constantes'" class="col-lg-9"> 
                 <h5 class="mb-4">LISTE DES CONSTANTES</h5>
-                <app-patient-constant (updatePattientConstantNumber)="updatePattientConstantNumber()" [patientId]="patientId" *ngIf="showConstantList == true" [patientId]="patientId"></app-patient-constant>
+                <app-patient-constant (updatePattientConstantNumber)="updatePattientConstantNumber()" *ngIf="showConstantList == true" [patientId]="patientId"></app-patient-constant>
             </div>
             <div *ngIf="menuClick=='Examens'" class="col-lg-10">
-                <app-examen-list></app-examen-list>
+                <h5 class="mb-4">LISTE DES DEMANDES D'EXAMENS</h5>
+                <app-examen-list (updatePatientExamenNumber)="updatePatientExamenNumber()" [admissionId]="admissionId" [patientId]="patientId"></app-examen-list>
             </div>
             <div *ngIf="menuClick=='Ordonances'" class="col-lg-10">
                 <h5 class="mb-4">LISTE DES ORDONNANCES</h5>

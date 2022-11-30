@@ -36,7 +36,7 @@
             <ng-option
               *ngFor="let drugNameAndId of drugsNameAndId"
               [value]="drugNameAndId.id"
-              >{{ drugNameAndId.name }}</ng-option
+              >{{ drugNameAndId.name  }} {{drugNameAndId.drugPharmacologicalName}} {{drugNameAndId.dosage}} </ng-option
             >
           </ng-select>
         </div>
