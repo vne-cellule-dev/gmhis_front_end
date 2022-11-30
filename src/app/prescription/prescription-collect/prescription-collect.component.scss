@@ -17,6 +17,15 @@
         box-shadow: 0px 0px 16px 0px #83828259;
         border-radius: 5px;
     }
+
+    .spinner-border{
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
 }
 
 .prescription-item{
@@ -36,6 +45,24 @@
 
 .price{
     text-decoration: line-through;
+    font-size: 0.7rem;
+}
+
+.collected{
+    background-color: #c8e6c9;
+    color: #256029;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.nonCollected{
+    background-color: #ffcdd2;
+    color: #c63737;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+
 }
 
 

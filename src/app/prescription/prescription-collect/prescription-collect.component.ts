@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -11,6 +12,7 @@ import { PrescriptionService } from '../services/prescription.service';
   styleUrls: ['./prescription-collect.component.scss']
 })
 export class PrescriptionCollectComponent implements OnInit {
+  showloading: boolean;
 
   constructor(
     config: NgbModalConfig,
@@ -40,43 +42,45 @@ export class PrescriptionCollectComponent implements OnInit {
   }
 
   save(addFormContent){
-    console.log(this.searchForm.value);
     this.modalService.open(addFormContent, { size: 'xl' });
   }
 
   findPrescription(addFormContent){
+    this.showloading = true;
     let prescriptionNumber = this.searchForm.get('prescriptionNumber').value;
     this.prescriptionService.getPrescriptionDetailsByPrescriptionNumber(prescriptionNumber).subscribe(
       (res : any) => {
         this.prescriptionInfos = res;
-        console.log(this.prescriptionInfos);  
         this.prescriptionService.getPrescriptionItemByPrescriptionId(this.prescriptionInfos['id']).subscribe(
           (res : any ) => {
             this.perscriptionItems = res;
-            console.log(this.perscriptionItems);
-            
+            this.showloading = false;
+            this.searchForm.get('prescriptionNumber').setValue("");
           }
         )
         this.modalService.open(addFormContent, { size: 'xl' });  
+      },
+      (errorResponse : HttpErrorResponse) => {
+        this.showloading = false;
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          "Numéro d'ordonnance incorrect "
+        );
       }
     )
   }
 
-  getPrescriptionItemsIdToCollected(event, perscriptionItemId){
-      console.log(this.prescriptionItemsId.indexOf(perscriptionItemId));
-      
+  getPrescriptionItemsIdToCollected(event, perscriptionItemId){      
     if (this.prescriptionItemsId.indexOf(perscriptionItemId) == -1) {
         this.prescriptionItemsId.push(perscriptionItemId); 
       }else{
         this.prescriptionItemsId.splice(this.prescriptionItemsId.indexOf(perscriptionItemId),1);
       } 
-      console.log(this.prescriptionItemsId);      
   }
 
   collectedPrescription(){
     this.prescriptionService.setPrescriptionItems(this.prescriptionItemsId).subscribe(
       (res : any) => {
-        console.log(res);
         this.modalService.dismissAll();
         this.notificationService.notify(
           NotificationType.SUCCESS,

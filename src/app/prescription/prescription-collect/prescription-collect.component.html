@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="searchForm" (submit)="findPrescription(addFormContent)" class="form" action="">
+  <form [formGroup]="searchForm" *ngIf="!showloading" (submit)="findPrescription(addFormContent)" class="form" action="">
     <div class="col-lg-8 col-md-6 col-sm-12 mb-2">
       <input placeholder="numero d'ordonnance" type="text" id="height" class="form-control"
         formControlName="prescriptionNumber" />
@@ -7,12 +7,15 @@
     <button 
     style="background-color: #14a2b8"
      type="submit"
+     [disabled]="!searchForm.valid"
       class="btn text-capitalize bg-biblos justify-content-center text-white rounded px-4 py-2 fw-bold">
       Rechercher l'ordonnance
     </button>
   </form>
-
-
+  <div style="color: #623508;" *ngIf="showloading" class="spinner-border" style="width: 3rem; height: 3rem;"
+  role="status">
+  <span class="sr-only">Loading...</span>
+</div>
 </div>
 
 <!-- update modal -->
@@ -57,8 +60,8 @@
             <span [ngClass]="{'statusColected' : perscriptionItem?.collected == true,'statusDontColected' : perscriptionItem?.collected == false }" class=" px-2 ">{{perscriptionItem?.collected == true ? 'collecté' : 'non collecté'}}</span>
           </div>
           <div class="col-lg-2">
-            <span class="price">{{perscriptionItem?.drugPrice | currency:'FCFA' : 'symbol' }}</span><br>
-            <span>{{perscriptionItem?.drugPrice - ((perscriptionItem?.drugPrice*70)/100) | currency:'FCFA' : 'symbol' }}</span>
+            <span  [ngClass]="{'price':perscriptionItem?.coverredByCMU == true}">{{perscriptionItem?.drugPrice | currency:'FCFA' : 'symbol' }}</span><br>
+            <span *ngIf="perscriptionItem?.coverredByCMU == true">{{perscriptionItem?.drugPrice - ((perscriptionItem?.drugPrice*70)/100) | currency:'FCFA' : 'symbol' }}</span>
           </div>
           <div  class="col-lg-1">
             <nb-checkbox *ngIf="perscriptionItem?.collected == false" (checkedChange)="getPrescriptionItemsIdToCollected($event,perscriptionItem?.id)"  ></nb-checkbox>
