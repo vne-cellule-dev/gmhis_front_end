@@ -64,7 +64,7 @@ export class PrescriptionCollectComponent implements OnInit {
         this.showloading = false;
         this.notificationService.notify(
           NotificationType.ERROR,
-          "Numéro d'ordonnance incorrect"
+          "Numéro d'ordonnance incorrect "
         );
       }
     )
