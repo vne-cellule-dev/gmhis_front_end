@@ -2,11 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { th } from 'date-fns/locale';
 import { PageList } from 'src/app/_models/page-list.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
 import { IExam } from '../models/exam';
+import { IExamItemDto } from '../models/exam-item-dto';
 import { ExamService } from '../services/exam.service';
 
 @Component({
@@ -55,6 +57,10 @@ export class LaboratoryExamenComponent implements OnInit {
   showloading: boolean = false;
   currentIndex: number;
   examenId: number;
+  analysisRequestItems: IExamItemDto[];
+  medicalAnalysisSpeciality: any = [];
+  selectectedExamIds: string[] = [];
+
   constructor(
     private examenService: ExamService,
     private notificationService: NotificationService,
@@ -64,8 +70,6 @@ export class LaboratoryExamenComponent implements OnInit {
   ngOnInit(): void {
     this.initform();
     this.getAllExam();
-   
-
   }
 
 
@@ -88,12 +92,12 @@ export class LaboratoryExamenComponent implements OnInit {
     this.subs.add(
       this.examenService.findAll(this.searchForm.value).subscribe(
         (response: PageList) => {
-          console.log(response);
           this.showloading = false;
           this.currentPage = response.currentPage + 1;
           this.empty = response.empty;
           this.firstPage = response.firstPage;
           this.items = response.items;
+          console.log(this.items);
           this.lastPage = response.lastPage;
           this.selectedSize = response.size;
           this.totalItems = response.totalItems;
@@ -125,8 +129,10 @@ export class LaboratoryExamenComponent implements OnInit {
 
   public openUpdateForm(updateFormContent, item : IExam) {
     this.examen = item;
-    console.log(this.examen);
-    this.modalService.open(updateFormContent, { size: 'md' });
+    this.getAnalysisRequestItemsByAnalysisId(this.examen.id);
+    this.modalService.open(updateFormContent, { size: 'lg' });
+    this.selectectedExamIds = [];
+    this.file = null;
   }
 
   addActCode() {
@@ -153,29 +159,77 @@ export class LaboratoryExamenComponent implements OnInit {
   }
 
   onExamenFileSelect(event) {
-    this.file = event.target.files[0]
+    
+    this.file = event.target.files[0];
+    console.log(this.file);
+    
+    // this.analysisRequestItems[2]["file"] = this.file;
+    // console.log(this.analysisRequestItems);
+    
     // this.readFile(this.files[0]).then(fileContents => {
 
     // })
   }
 
+  
+
   markAsperformed(){
-    console.log(this.examen);
-    this.examenService.makAsPerformed(this.examen.id).subscribe(
+    this.examenService.makAsPerformed(this.selectectedExamIds).subscribe(
       (response : any) => {
         this.modalService.dismissAll(); 
         this.notificationService.notify(
           NotificationType.SUCCESS,
           "analyse effectuée avec succès"
         );  
-        this.getAllExam();     
+        this.getAllExam();  
+        this.selectectedExamIds = [];  
+        this.file = null;
       },(errorResponse: HttpErrorResponse) => {
           this.showloading = false;
           this.notificationService.notify(
             NotificationType.ERROR,
             errorResponse.error.message
           );
+          this.selectectedExamIds = [];  
         }
     )
   }
+
+  getAnalysisRequestItemsByAnalysisId(analysisId): any {
+    this.examenService.getAnalysisRequestItemsByAnalysisId(analysisId).subscribe(
+      (response : any) => {
+        this.analysisRequestItems = response;
+        this.medicalAnalysisSpeciality = [];
+        this.analysisRequestItems.forEach((el,i)=>{
+          this.removeDuplicates(this.medicalAnalysisSpeciality,el["medicalAnalysisName"]);    
+        })
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.showloading = false;
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          errorResponse.error.message
+        );
+      }
+    )
+  }
+
+  removeDuplicates(arr,item) {
+    if (!arr.includes(item)) {
+      arr.push(item);
+    }
+}
+
+getExamItemsIdToCollected(examId){
+  if (this.selectectedExamIds.includes(examId)) {
+    let index = this.selectectedExamIds.indexOf(examId);
+    this.selectectedExamIds.splice(index, 1);
+
+  } else {
+    this.selectectedExamIds.push(examId);
+  }
+
+  console.log(this.selectectedExamIds);
+  
+}
 }

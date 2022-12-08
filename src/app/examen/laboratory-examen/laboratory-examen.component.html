@@ -1,81 +1,66 @@
 <nb-card class="nbCardList">
-    <nb-card-header class="row d-flex justify-content-between align-items-center">
-      <div class="col-lg-7 col-md-3 col-sm-12">
-        <h4
-          class="text-capitalize d-flex justify-content-start w-100 text-center"
-        >
-          LISTE DES EXAMENS MEDICAUX
-        </h4>
-      </div>
-    </nb-card-header>
-    <nb-card-body>
-      <form [formGroup]="searchForm">
-        <div class="row d-flex justify-content-between align-items-center">
-          <div class="col-lg-9 col-md-9 col-sm-12">
-            <div class="row">
-              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="name"
-                  placeholder="Code"
-                />
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                <ng-select placeholder="Etat" formControlName="active">
-                  <ng-option *ngFor="let actif of actives" [value]="actif.id">{{
-                    actif.value
+  <nb-card-header class="row d-flex justify-content-between align-items-center">
+    <div class="col-lg-7 col-md-3 col-sm-12">
+      <h4 class="text-capitalize d-flex justify-content-start w-100 text-center">
+        DEMANDE D'ANALYSES MEDICALES
+    
+      </h4>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="searchForm">
+      <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-lg-9 col-md-9 col-sm-12">
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <input type="text" class="form-control" formControlName="name" placeholder="Code" />
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+              <ng-select placeholder="Etat" formControlName="active">
+                <ng-option *ngFor="let actif of actives" [value]="actif.id">{{
+                  actif.value
                   }}</ng-option>
-                </ng-select>
-              </div>
-              <div class="col-lg-2">
-                <span
-                  (click)="onSearchValueChange()"
-                  style="
+              </ng-select>
+            </div>
+            <div class="col-lg-2">
+              <span (click)="onSearchValueChange()" style="
                     background-color: #ededed;
                     color: #14a2b8;
                     cursor: pointer;
-                  "
-                  class="material-icons px-2 p-1 rounded"
-                >
-                  search
-                </span>
-              </div>
+                  " class="material-icons px-2 p-1 rounded">
+                search
+              </span>
             </div>
           </div>
-          <div class="col-lg-2 col-md-3 col-sm-12">
-            <ng-select
-              [(ngModel)]="selectedSize"
-              formControlName="size"
-              (change)="onSearchValueChange()"
-            >
-              <ng-option *ngFor="let size of sizes" [value]="size.id">{{
-                size.value
-              }}</ng-option>
-            </ng-select>
-          </div>
         </div>
-      </form>
-      <div class="tableFixHead">
-        <table class="table table-bordered table-hover table-md align-middle">
-          <thead class="pb-3 text-capitalize">
-            <tr class="pb-3">
-              <th>Date de demande</th>
-              <th>acte</th>
-              <th>Centre de santé</th>
-              <th>N° d'admission</th>
-              <th scope="col">N° carte ID</th>
-              <th scope="col">N° Patient</th>
-              <th scope="col">Action</th>
-              <th>Statut</th>
-            </tr>
-  
-            <tr></tr>
-          </thead>
-  
-          <tbody>
-            <tr
-              *ngFor="
+        <div class="col-lg-2 col-md-3 col-sm-12">
+          <ng-select [(ngModel)]="selectedSize" formControlName="size" (change)="onSearchValueChange()">
+            <ng-option *ngFor="let size of sizes" [value]="size.id">{{
+              size.value
+              }}</ng-option>
+          </ng-select>
+        </div>
+      </div>
+    </form>
+    <div class="tableFixHead">
+      <table class="table table-bordered table-hover table-md align-middle">
+        <thead class="pb-3 text-capitalize">
+          <tr class="pb-3">
+            <th>Date de demande</th>
+            <th>N° de demande</th>
+            <th>Nom Patient</th>
+            <th>Centre de santé</th>
+            <th scope="col">N° carte ID</th>
+            <th scope="col">N° Patient</th>
+            <th scope="col">Action</th>
+            <th>Statut</th>
+          </tr>
+
+          <tr></tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="
                 let analys of items
                   | paginate
                     : {
@@ -84,90 +69,128 @@
                         totalItems: totalItems
                       };
                 let i = index
-              "
-              [class.active]="i == currentIndex"
-              (click)="rowSelected(analys, i)"
-            >
-              <td>{{ analys?.date | date: "dd/MM/yyyy hh:mm:ss" }}</td>
-              <td>{{ analys?.act | uppercase}}</td>
-              <td>{{ analys?.facilityName }}</td>
-              <td>{{ analys?.admissionNumber }}</td>
-              <td>{{ analys?.idCardNumber }}</td>
-              <td>{{ analys?.patientNumber }}</td>
-              <td class="text-nowrap text-center">
-                <span style="width: 20px" [ngClass]="{'bg-success' : analys?.state  == true,'bg-danger' : analys?.state  == false }" class=" px-2 text-white ">{{analys?.state == true ? 'effectué' : 'non effectué'}}</span>
-              </td>
-              <td class="text-nowrap" style="font-size: 30px">
-                <nb-icon
-                (click)="openUpdateForm(makAsdoneContent, analys)"
-                class="mx-2 pointer"
-                style="cursor: pointer; color: green;"
-                icon="checkmark-circle-2"
-                ngbTooltip="Marquer comme effectué"
-              ></nb-icon>
-                <!-- <nb-icon (click)="openDetailsForm(detailFormContent, commune)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon> -->
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="d-flex w-100 justify-content-center">
-        <div
-          style="color: #623508"
-          *ngIf="showloading"
-          class="spinner-border"
-          style="width: 3rem; height: 3rem"
-          role="status"
-        >
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <pagination-controls
-          responsive="true"
-          previousLabel="Prev"
-          nextLabel="Next"
-          (pageChange)="onPageChange($event)"
-        >
-        </pagination-controls>
-      </div>
-    </nb-card-body>
-  </nb-card>
-  
-  <!-- update modal -->
-  <ng-template #makAsdoneContent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
-       Ajouter un rapport 
-   </h4>
-      <nb-icon
-        style="cursor: pointer"
-        (click)="d('Cross click')"
-        class="h4"
-        icon="close-circle-outline"
-      ></nb-icon>
+              " [class.active]="i == currentIndex" (click)="rowSelected(analys, i)">
+            <td>{{ analys?.date | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+            <td>{{ analys?.analysisNumber | uppercase}}</td>
+            <td>{{analys?.patientFirstName}} {{analys?.patientLastName}}</td>
+            <td>{{ analys?.facilityName }}</td>
+            <!-- <td>{{ analys?.admissionNumber }}</td> -->
+            <td>{{ analys?.idCardNumber }}</td>
+            <td>{{ analys?.patientNumber }}</td>
+            <td class="text-nowrap text-center">
+              <span style="width: 20px"
+                [ngClass]="{'statusColected' : analys?.state  == 'E','statusDontColected' : analys?.state  == 'N','partiallyColected' : analys?.state  == 'P'  }"
+                class=" px-2">{{analys?.state == 'E' ? 'Effectué' : analys?.state == 'N' ? 'Non Effectué' :
+                'Effectué-Partiellement'}}</span>
+            </td>
+            <td class="text-nowrap" style="font-size: 30px">
+              <nb-icon (click)="openUpdateForm(makAsdoneContent, analys)" class="mx-2 pointer"
+                style="cursor: pointer; color: green;" icon="checkmark-circle-2" ngbTooltip="Effectuer les analyses">
+              </nb-icon>
+              <!-- <nb-icon (click)="openDetailsForm(detailFormContent, commune)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="modal-body">
-      <textarea name="" id="" cols="52" rows="8" class="mb-3"></textarea>
-      <label class="w-100 mb-5" for="examenFile">
+    <div class="d-flex w-100 justify-content-center">
+      <div style="color: #623508" *ngIf="showloading" class="spinner-border" style="width: 3rem; height: 3rem"
+        role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next" (pageChange)="onPageChange($event)">
+      </pagination-controls>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<!-- update modal -->
+<ng-template #makAsdoneContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+      BULLETIN D'ANALYSES MÉDICALES
+    </h4>
+    <nb-icon style="cursor: pointer" (click)="d('Cross click')" class="h4" icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body">
+    <div class="patient_infos mb-5 d-flex justify-content-between">
+      <div>
+        <span class="label-bold">Patient : </span><span class="bold">{{examen?.patientFirstName}}
+          {{examen?.patientLastName}}</span><br>
+        <span class="label-bold">Sexe : </span><span class="bold">{{examen?.patientGender}}</span><br>
+        <span class="label-bold">Age : </span><span class="bold">{{examen?.patientAge}} ans</span><br>
+      </div>
+      <div>
+        <span class="label-bold">N° de demande : </span><span class="bold">{{examen?.analysisNumber}}</span><br>
+        <span class="label-bold">N° CMU : </span><span class="bold">{{examen?.analysisNumber}}</span><br>
+        <span class="label-bold">N° de télephone : </span><span class="bold">{{examen?.patientTel1}}/{{examen?.patientTel2}}</span><br>
+      </div>
+    </div>
+<div>
+        
+      <label class="w-100 mb-3" for="examenFile">
         <div class="inputCustom w-100 d-flex align-items-center justify-content-center">
-            <span *ngIf="file == null">Joindre un fichier</span>
-            <span class="color1 text-truncate" style="font-size: 12px; margin-right: 4px;" >
+            <span *ngIf="file == null">Cliquez ici pour joindre les résultats d'analyses.</span>
+            <span class="color1 pointertext-truncate" >
                 {{file?.name}}
             </span>
         </div>
         <input (change)="onExamenFileSelect($event)" style="display: none; visibility: none;" type="file" id="examenFile">
 
     </label>
-      <div  class="text-right">
-        <button
-        (click)="markAsperformed()"
-        style="background-color: #14a2b8;"
-        class="text-capitalize btn btn-block w-50 text-white rounded"
-      >
+</div>
+    <h5
+    class="text-center mb-3">ANALYSES DÉMANDÉS
+    </h5>
+    <div class="mb-4 analysis_body" *ngFor="let medicalAnalysiSpeciality of medicalAnalysisSpeciality; let i = index">
+      <div class="actsSelected_title">{{medicalAnalysiSpeciality}}</div>
+      <div *ngFor="let analysisRequestItem of analysisRequestItems; let i = index;"
+        [hidden]="analysisRequestItem?.medicalAnalysisName != medicalAnalysiSpeciality">
+        <div class="analysis-item py-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-lg-8 mx-2">
+              {{analysisRequestItem?.actName | uppercase}}
+            </div>
+            <div class="col-lg-2 ">
+              <span
+                [ngClass]="{'statusColected' : analysisRequestItem?.state == true,'statusDontColected' : analysisRequestItem?.state == false }"
+                class=" px-2 ">{{analysisRequestItem?.state == true ? 'Effectué' : 'Non Effectué'}}</span>
+            </div>
+            <div class="col-lg-1 d-flex justify-content-end">
+              <nb-checkbox *ngIf="analysisRequestItem?.state == false"
+                (checkedChange)="getExamItemsIdToCollected(analysisRequestItem.id)"></nb-checkbox>
+            </div>
+            <!-- <div  class="col-lg-3 text-center">
+               <label for="examenFile">
+                <nb-icon
+                *ngIf="analysisRequestItem?.file == null"
+                class="pointer"
+                style="cursor: pointer;"
+                icon="file-add-outline"
+                ngbTooltip="joigner le bilan"
+              ></nb-icon>
+              <span  *ngIf="analysisRequestItem?.file != null" class="act_selectedItem text-truncate" style="font-size: 12px; margin-right: 4px;" >
+               <span class="mx-2"> {{analysisRequestItem?.file?.name}}</span>
+                <div class="closeBtn" >
+                  <nb-icon  class="pointer text-white" style=" cursor: pointer; "  icon="close-outline"></nb-icon>
+              </div>
+            </span>
+              <input (change)="onExamenItemFileSelect($event)" style="display: none; visibility: none;" type="file" id="examenFile">
+               </label>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+   
+    <div *ngIf="examen?.state != 'E'" class="text-right">
+      <button (click)="markAsperformed()" class="text-capitalize btn btn-outline-info btn-block w-25  rounded">
         <span class="fw-bold"> ENREGISTRER</span>
       </button>
-       </div>
     </div>
-  </ng-template>
-  
+  </div>
+</ng-template>

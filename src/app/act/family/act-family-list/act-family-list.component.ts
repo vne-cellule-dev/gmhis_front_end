@@ -109,7 +109,7 @@ export class ActFamilyListComponent implements OnInit {
       name: new FormControl(''),
       active: new FormControl(null),
       page: new FormControl(0),
-      size: new FormControl(10),
+      size: new FormControl(50),
       sort: new FormControl('id,desc'),
     });
   }

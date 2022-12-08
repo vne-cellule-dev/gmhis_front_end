@@ -19,8 +19,8 @@
   >
   <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
   <div class="row mb-2">
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <label for="name" class="form-label text-capitalize">Nom du code</label>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <label for="name" class="form-label text-capitalize">Lettre-clé</label>
       <span *ngIf="!details" class="text-danger">*</span>
       <input
         type="text"
@@ -33,8 +33,8 @@
         {{ formsErrors["name"] }}
       </span>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <label for="code" class="form-label text-capitalize">Valeur</label>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <label for="code" class="form-label text-capitalize">Cotation</label>
       <span *ngIf="!details" class="text-danger">*</span>
       <input
         type="number"
@@ -47,7 +47,21 @@
         {{ formsErrors["value"] }}
       </span>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <label for="libelle" class="form-label text-capitalize">Libelle</label>
+      <span *ngIf="!details" class="text-danger">*</span>
+      <input
+        type="string"
+        id="libelle"
+        class="form-control"
+        formControlName="libelle"
+        [ngClass]="{ 'is-invalid': formsErrors['libelle'] }"
+      />
+      <span style="color: red">
+        {{ formsErrors["libelle"] }}
+      </span>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 rounded-pill">
       <label for="active" class="form-label text-capitalize">Etat</label>
       <ng-select placeholder="Etat" formControlName="active">
         <ng-option *ngFor="let actif of actives" [value]="actif.id">{{

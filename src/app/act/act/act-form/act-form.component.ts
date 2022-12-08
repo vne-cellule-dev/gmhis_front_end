@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MedicalAnalysisSpecialityService } from 'src/app/medical-analysis-speciality/service/medical-analysis-speciality.service';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
@@ -75,13 +77,15 @@ export class ActFormComponent implements OnInit {
   actCategoriesNameAndId: any;
   actCodeodesNameAndId: any;
   actGroupsNameAndId: any;
+  medicalAnalysisSpecialityNameAndId: any;
 
   constructor(
     private actService: ActService,
     private notificationService: NotificationService,
     private actCodeService : CodeService,
     private actCategoryService : ActCategoryService,
-    private actGroupService : ActGroupService
+    private actGroupService : ActGroupService,
+    private medicalAnalysisSpecialityService : MedicalAnalysisSpecialityService,
   ) {}
 
   // Unsubscribe when the component dies
@@ -99,13 +103,13 @@ export class ActFormComponent implements OnInit {
           console.log(response);
           this.actForm.patchValue(response);
           console.log(this.actForm.value);
-          
         }
       )
     }
     this.findActiveActCategoryNameAndId();
     this.findActiveActCodeNameAndId();
     this.findActiveActGroupNameAndId();
+    this.findActiveMedicalAnalysisSpecialityNameAndId();
   }
 
 
@@ -116,12 +120,13 @@ export class ActFormComponent implements OnInit {
       id: new FormControl(null),
       name: new FormControl('', [Validators.required]),
       active: new FormControl(true),
-      actCategory: new FormControl(null),
-      actCode: new FormControl(null),
-      actGroup: new FormControl(null),
+      actCategory: new FormControl(47),
+      actCode: new FormControl(3),
+      actGroup: new FormControl(30),
       codification: new FormControl(null),
       coefficient: new FormControl(null),
       description: new FormControl(null),
+      medicalAnalysisSpeciality: new FormControl(null),
     });
   }
   get name() {
@@ -223,4 +228,21 @@ export class ActFormComponent implements OnInit {
     )
   }
 
+
+  private findActiveMedicalAnalysisSpecialityNameAndId(){
+    this.medicalAnalysisSpecialityService.getListOfActiveMedicaleAnalysis().subscribe(
+      (response : any) => {
+        this.medicalAnalysisSpecialityNameAndId = response;
+        console.log("medicalAnalysisSpecialityNameAndId",this.medicalAnalysisSpecialityNameAndId);
+        
+      },
+      (errorResponse : HttpErrorResponse) => {
+        this.showloading = false;
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          errorResponse.error.message
+        ); 
+      }
+    )
+  }
 }

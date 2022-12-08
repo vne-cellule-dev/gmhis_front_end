@@ -60,13 +60,19 @@ export class ExamService {
     );
   }
 
-  makAsPerformed(examId: number): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}/analysis-request/performed/${examId}`
-    );
+  makAsPerformed(examId: string[]): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/analysis-request/performed`, examId);
   }
+
+  // setPrescriptionItems(prescriptionitems: string[]): Observable<any> {    
+  //   return this.http.post<any>(`${this.apiUrl}/prescription/SetPrescriptionItems/`, prescriptionitems);
+  // }
 
   getAnalysisRequestNumberByPatientId(patientId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/analysis-request/getanalyseRequestNumber/${patientId}`);
+  }
+
+  getAnalysisRequestItemsByAnalysisId(analysisRquestId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/analysis-request/getAnalysisRequestItems/${analysisRquestId}`);
   }
 }

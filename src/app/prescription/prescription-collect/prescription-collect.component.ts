@@ -51,6 +51,8 @@ export class PrescriptionCollectComponent implements OnInit {
     this.prescriptionService.getPrescriptionDetailsByPrescriptionNumber(prescriptionNumber).subscribe(
       (res : any) => {
         this.prescriptionInfos = res;
+        console.log(this.prescriptionInfos);
+        
         this.prescriptionService.getPrescriptionItemByPrescriptionId(this.prescriptionInfos['id']).subscribe(
           (res : any ) => {
             this.perscriptionItems = res;
@@ -78,17 +80,19 @@ export class PrescriptionCollectComponent implements OnInit {
       } 
   }
 
-  collectedPrescription(){
-    this.prescriptionService.setPrescriptionItems(this.prescriptionItemsId).subscribe(
-      (res : any) => {
-        this.modalService.dismissAll();
-        this.notificationService.notify(
-          NotificationType.SUCCESS,
-          "medicaments(s) collecté avec succès"
-        );
+  collectedPrescription( invoicePrescriptionModal){
+    this.modalService.dismissAll();
+    this.modalService.open(invoicePrescriptionModal, { size: 'xl' });  
+    // this.prescriptionService.setPrescriptionItems(this.prescriptionItemsId).subscribe(
+    //   (res : any) => {
+    //     this.modalService.dismissAll();
+    //     this.notificationService.notify(
+    //       NotificationType.SUCCESS,
+    //       "medicaments(s) collecté avec succès"
+    //     );
         
-      }
-    )
+    //   }
+    // )
   }
 
 }

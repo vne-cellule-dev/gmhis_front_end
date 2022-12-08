@@ -19,16 +19,17 @@
     >
     <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
     <div class="row mb-2">
-      <div class="col-lg-12 col-md-4 col-sm-12">
-        <label for="code" class="form-label text-capitalize">Spécialité de l'acte</label>
-        <span *ngIf="!details" class="text-danger">*</span>
+      <div class="col-lg-12 col-md-6 col-sm-12">
+        <label for="code" class="form-label text-capitalize">Spécialité de l'acte
+          <span *ngIf="!details" class="text-danger">*</span>
+        </label>
         <ng-select  formControlName="actCategory">
             <ng-option *ngFor="let actCategory of actCategoriesNameAndId" [value]="actCategory.id">{{
                 actCategory.name
             }}</ng-option>
           </ng-select>
       </div>
-      <div class="col-lg-6 col-md-4 col-sm-12">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="name" class="form-label text-capitalize">Acte</label>
         <span *ngIf="!details" class="text-danger">*</span>
         <input
@@ -38,7 +39,7 @@
           formControlName="name"
         />
       </div>
-      <div class="col-lg-6 col-md-4 col-sm-12">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="code" class="form-label text-capitalize">Codification</label>
         <span *ngIf="!details" class="text-danger">*</span>
         <input
@@ -48,7 +49,7 @@
           formControlName="codification"
         />
       </div>
-      <div class="col-lg-6 col-md-4 col-sm-12">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="code" class="form-label text-capitalize">coefficient </label>
         <span *ngIf="!details" class="text-danger">*</span>
         <input
@@ -58,7 +59,7 @@
           formControlName="coefficient"
         />
       </div>
-      <div class="col-lg-6 col-md-4 col-sm-12 rounded-pill">
+      <div class="col-lg-6 col-md-6 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Etat</label>
         <ng-select placeholder="Etat" formControlName="active">
           <ng-option *ngFor="let actif of actives" [value]="actif.id">{{
@@ -66,7 +67,7 @@
           }}</ng-option>
         </ng-select>
       </div>
-      <div class="col-lg-6 col-md-4 col-sm-12">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="code" class="form-label text-capitalize">Famille de l'acte</label>
         <span *ngIf="!details" class="text-danger">*</span>
         <ng-select  formControlName="actGroup">
@@ -75,8 +76,8 @@
             }}</ng-option>
           </ng-select>
       </div>
-      <div class="col-lg-6 col-md-4 col-sm-12">
-        <label for="code" class="form-label text-capitalize">Code d'Acte</label>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <label for="code" class="form-label text-capitalize">Lettre-clé</label>
         <span *ngIf="!details" class="text-danger">*</span>
         <ng-select  formControlName="actCode">
             <ng-option *ngFor="let actCodeo of actCodeodesNameAndId" [value]="actCodeo.id">{{
@@ -84,9 +85,18 @@
             }}</ng-option>
           </ng-select>
       </div>
-      <div class="col-lg-12 col-md-4 col-sm-12 rounded-pill">
+      <div class="col-lg-6 col-md-6 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Description</label>
         <textarea class="form-control" name="" id="" cols="10" rows="2"></textarea>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <label for="code" class="form-label text-capitalize">specilatité de l'analyse médicale</label>
+        <span *ngIf="!details" class="text-danger">*</span>
+        <ng-select  formControlName="medicalAnalysisSpeciality">
+            <ng-option *ngFor="let medicalAnalysiSpecialityNameAndId of medicalAnalysisSpecialityNameAndId" [value]="medicalAnalysiSpecialityNameAndId.id">{{
+              medicalAnalysiSpecialityNameAndId.name
+            }}</ng-option>
+          </ng-select>
       </div>
     </div>
     <div *ngIf="!details" class="mt-3 col">

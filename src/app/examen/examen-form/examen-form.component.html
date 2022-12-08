@@ -1,25 +1,56 @@
 <div class="row h-100">
-    <div class="col-lg-6 row" >
-        <div class="col-md-6" *ngFor="let act of acts">
-            <nb-checkbox  (checkedChange)="getPrescriptionItemsIdToCollected($event,act)"  ></nb-checkbox>
-            {{act?.name}}
-        </div>
-    </div>
-    <div class="col-lg-6 h-100 d-flex flex-column justify-content-between">
-        <div class="actsSelected h-75 px-3">
-            <h5 >Analyses selectionnées ({{selectectedItems.length}})</h5>
-                <span *ngFor="let selectectedItem of selectectedItems; let i = index" style="color:#14a2b8;" class="mx-3 my-3">({{i+1}}) {{selectectedItem?.name}}</span>
-        </div>
+    <div class="col-lg-6 row">
+        <nb-accordion multi>
+            <nb-accordion-item *ngFor="let medicalAnalysiSpeciality of medicalAnalysisSpeciality; let i = index;">
+                <nb-accordion-item-header>
+                    {{i + 1}} - {{medicalAnalysiSpeciality?.name | uppercase}}
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <div class="row accordion-item-body">
+                        <div class="col-lg-6" *ngFor="let act of acts"
+                            [hidden]="act?.medicalAnalysisId != medicalAnalysiSpeciality?.id">
+                            <div class="accordion_item">
+                                <div>
+                                    <nb-checkbox  (checkedChange)="getPrescriptionItemsIdToCollected($event,act)">
+                                    </nb-checkbox>
+                                    <span class="mx-1">{{act?.name}}</span>
+                                </div>
+                                <div>
+                                    {{act?.actCode}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-       <div class="text-right">
-        <button
-        (click)="saveExamanRequest()"
-        style="background-color: #14a2b8;"
-        class="text-capitalize btn btn-block w-25 text-white rounded"
-      >
-        <nb-icon icon="plus-outline"></nb-icon>
-        <span class="fw-bold"> ENREGISTRER</span>
-      </button>
-       </div>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+        </nb-accordion>
+        <!-- <div class="col-md-6" *ngFor="let act of acts">
+            <nb-checkbox  (checkedChange)="getPrescriptionItemsIdToCollected($event,act)"  ></nb-checkbox>
+            {{act?.group}}
+        </div> -->
     </div>
-</div>
+    <div class="col-lg-6 h-100 pb-2">
+        <div class="actsSelected h-75 px-3">
+               <div class="mb-5" *ngFor="let medicalAnalysiSpecialityName of medicalAnalysisSpecialitySecondSection; let i = index">
+                <span class="actsSelected_title">{{medicalAnalysiSpecialityName}}</span>
+                    <div class="act_selectedBox mt-2" *ngFor="let selectectedItem of selectectedItems; let i = index" 
+                    [hidden]="selectectedItem?.medicalAnalysisName != medicalAnalysiSpecialityName"
+                    >
+                        <div class="accordion_item">
+                            <div
+                            class="act_selectedItem mx-2">
+                            <span class="mx-2">{{selectectedItem?.actCode}} - {{selectectedItem?.name}}</span>
+                            <div class="closeBtn" >
+                                <nb-icon (click)="getPrescriptionItemsIdToCollected(selectectedItem)" class="pointer text-white" style=" cursor: pointer; "  icon="close-outline"></nb-icon>
+                            </div>
+                            </div>
+                        </div>
+                    </div> 
+               </div>
+                <button *ngIf="medicalAnalysisSpecialitySecondSection.length != 0" (click)="saveExamanRequest()" style="background-color: #14a2b8;"
+                    class="text-capitalize btn btn-block w-25 text-white rounded">
+                    <span class="fw-bold"> DEMANDER</span>
+                </button>
+        </div>
+    </div>

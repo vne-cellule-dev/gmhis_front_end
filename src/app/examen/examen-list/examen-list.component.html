@@ -30,8 +30,7 @@
             <tr class="pb-3">
                 <th>Date</th>
               <th>N° Examen</th>
-              <!-- <th>Médecin</th> -->
-              <th>Acte</th>
+              <th>Médecin</th>
               <th>Centre de santé</th>
               <th>Statut</th>
               <th>Actions</th>
@@ -55,17 +54,15 @@
               <td>
                 {{ examen?.date | date : 'medium' }}
               </td>
-              <td></td>
-              <td>{{ examen?.act }}</td>
 
-              <!-- <td>
-                {{ prescription?.prescriptionNumber | uppercase }}
-                </td> -->
+              <td>
+                {{ examen?.examenisNumber | uppercase }}
+                </td>
               
-                <!-- <td>{{ prescription?.practicienFirstName }} {{ prescription?.practicienLastName }}</td> -->
+                <td>{{ examen?.practicienFirstName }} {{ examen?.practicienLastName }}</td>
                 <td>{{ examen?.facilityName }}</td>
                 <td class="text-center">
-                    <span style="width: 20px" [ngClass]="{'statusColected' : examen?.state  == true,'statusDontColected' : examen?.state  == false }" class=" px-2">{{examen?.state == true ? 'effectué' : 'non effectué'}}</span>
+                  <span style="width: 20px" [ngClass]="{'statusColected' : examen?.state  == 'E','statusDontColected' : examen?.state  == 'N','partiallyColected' : examen?.state  == 'P'  }" class=" px-2">{{examen?.state == 'E' ? 'effectué' : examen?.state == 'N' ? 'non-effectué' : 'effectué-partiellement'}}</span>
                 </td>
                 <td>
                     <nb-icon (click)="printPrescription(printContent,prescription)" class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Télécharger le fichier" icon="file-outline"></nb-icon>

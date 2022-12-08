@@ -4,7 +4,7 @@
       <h4
         class="text-capitalize d-flex justify-content-start w-100 text-center"
       >
-        LISTE DES CODES D'ACTES
+        LETTRE-CLÉ D'ACTES
       </h4>
     </div>
     <div class="col-lg-2 col-md-3 col-sm-12 justify-content-end">
@@ -66,12 +66,9 @@
         <thead class="pb-3 text-capitalize">
           <tr class="pb-3">
             <th>Code d'actes</th>
+            <th>libelle</th>
             <th>Valeur</th>
             <th>Etat</th>
-            <th>crée le</th>
-            <th scope="col">crée par</th>
-            <th scope="col">Dernière modif.</th>
-            <th scope="col">Modifié par</th>
             <th scope="col">Action</th>
           </tr>
 
@@ -93,7 +90,8 @@
             [class.active]="i == currentIndex"
             (click)="rowSelected(commune, i)"
           >
-            <td>{{ code?.name | uppercase }}</td>
+          <td>{{ code?.name | uppercase }}</td>
+          <td>{{ code?.libelle | uppercase }}</td>
             <td>{{ code?.value }}</td>
             <td>
               <nb-icon
@@ -106,21 +104,6 @@
                 style="color: red"
                 icon="close-circle"
               ></nb-icon>
-            </td>
-            <td>{{ code?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
-            <td>
-              {{
-                code.createdByFirstName + " " + code.createdByLastName
-                  | uppercase
-              }}
-            </td>
-            <td>{{ code?.updatedAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
-            <td>
-              {{
-                code.UpdatedByFirstName
-                  ? code.UpdatedByFirstName + " " + code.UpdatedByLastName
-                  : ("" | uppercase)
-              }}
             </td>
             <td style="font-size: 30px">
               <nb-icon
@@ -162,7 +145,7 @@
 <ng-template #addFormContent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
-      Ajouter un code
+      Ajouter une lettre
     </h4>
     <nb-icon
       style="cursor: pointer"
@@ -180,7 +163,7 @@
 <ng-template #updateFormContent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
-      Modifer un code
+      Modifer une lettre
     </h4>
     <nb-icon
       style="cursor: pointer"

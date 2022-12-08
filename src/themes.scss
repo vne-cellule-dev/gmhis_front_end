@@ -21,11 +21,17 @@ $nb-themes: nb-register-theme((
   sidebar-padding: 0,
 
   // accordion
-  accordion-padding: 0.70rem,
-  accordion-header-text-font-size: 0.9rem,
-  accordion-item-background-color : #f9f2ec,
-  accordion-shadow:	0  0rem  0rem  0,
-  accordion-item-text-font-weight: 550,
+  // accordion-padding: 0.70rem,
+  // accordion-header-text-font-size: 0.9rem,
+  // accordion-item-background-color : #f9f2ec,
+  // accordion-shadow:	0  0rem  0rem  0,
+  // accordion-item-text-font-weight: 550,
+
+  checkbox-basic-checked-background-color : #14a2b8,
+  checkbox-basic-indeterminate-background-color :#14a2b8,
+  checkbox-basic-checked-border-color : #14a2b8,
+  checkbox-basic-focus-checked-background-color : #14a2b8,
+  checkbox-basic-hover-checked-background-color : #14a2b8,
 
 // header
   header-background-color: #14a2b8,

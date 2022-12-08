@@ -20,18 +20,21 @@ a{
 .statusDontColected {
   background-color: #ffcdd2;
   color: #c63737;
-  text-transform: uppercase;
   font-weight: bold;
   font-size: 0.8rem;
-  padding: 4 0px;
 }
 
 .statusColected {
   background-color: #c8e6c9;
   color: #256029;
-  text-transform: uppercase;
   font-weight: bold;
-  font-size: 0.8px;
+  font-size: 0.8rem;
+}
+
+.partiallyColected {
+  background-color: #ffd8b2;
+  color: #805b36;
+  font-weight: bold;
   font-size: 0.8rem;
 }
 

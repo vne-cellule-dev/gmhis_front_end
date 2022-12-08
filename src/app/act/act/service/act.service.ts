@@ -41,6 +41,10 @@ export class ActService {
     return this.http.get(`${this.apiUrl}/act/active_acts_name`);
   }
 
+  public getListOfAllMedicalAnalysis() : Observable<any>{
+    return this.http.get(`${this.apiUrl}/act/find-All-medical-Analysis`);
+  }
+
  /**
   * This function is used to get the details of an act by its id
   * @param {number} actId - The id of the act you want to get.

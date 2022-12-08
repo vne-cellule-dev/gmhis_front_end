@@ -88,10 +88,6 @@
               <th scope="col">Coefficient</th>
               <th scope="col">Coût</th>
               <th>Etat</th>
-              <th>crée le</th>
-              <th>crée par</th>
-              <th scope="col">Dernière modif.</th>
-              <th scope="col">Modifié par</th>
               <th scope="col">Action</th>
             </tr>
   
@@ -114,12 +110,12 @@
               (click)="rowSelected(commune, i)"
             >
               <td>{{ act?.codification | uppercase }}</td>
-              <td>{{ act?.name }}</td>
+              <td>{{ act?.name | uppercase }}</td>
               <td>{{ act?.actCategory }}</td>
               <td>{{ act?.actGroup }}</td>
               <td>{{ act?.actCode }}</td>
               <td class="text-center text-nowrap">{{ act?.coefficient }}</td>
-               <td class="text-center text-nowrap">{{ act?.amount }}</td>
+               <td class="text-center text-nowrap">{{ act?.amount | currency: "FCFA":"symbol":"1.0-0"}}</td>
               <td>
                 <nb-icon
                   *ngIf="act.active == true"
@@ -131,21 +127,6 @@
                   style="color: red"
                   icon="close-circle"
                 ></nb-icon>
-              </td>
-              <td>{{ act?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
-              <td>
-                {{
-                  act.createdByFirstName + " " + act.createdByLastName
-                    | uppercase
-                }}
-              </td>
-              <td>{{ act?.updatedAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
-              <td>
-                {{
-                  act.UpdatedByFirstName
-                    ? act.UpdatedByFirstName + " " + act.UpdatedByLastName
-                    : ("" | uppercase)
-                }}
               </td>
               <td style="font-size: 30px">
                 <nb-icon

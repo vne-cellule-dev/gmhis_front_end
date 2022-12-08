@@ -65,8 +65,6 @@ export class ExamenListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initform();
-    console.log(this.patientId);
-    let dateConvert: string;
     this.getExam();
   }
 

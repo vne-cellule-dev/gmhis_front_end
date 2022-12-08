@@ -157,6 +157,7 @@ export class ActCodeFormComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       active: new FormControl(true),
       value: new FormControl(null),
+      libelle: new FormControl(null)
     });
   }
   get name() {

@@ -138,6 +138,8 @@ export class PrescriptionListComponent implements OnInit {
   printPrescription(printContent, item : any){
       this.prescriptionService.getPrescriptionDetails(item["id"]).subscribe(
         (response : any) => {
+          console.log(response);
+          
           this.prescriptionService.getPrescriptionItemByPrescriptionId(response["id"]).subscribe(
             (res : any) => {
               this.modalService.open(printContent, { size: 'xl' });
