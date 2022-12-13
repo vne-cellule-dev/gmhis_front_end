@@ -91,7 +91,6 @@
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12">
         <label for="code" class="form-label text-capitalize">specilatité de l'analyse médicale</label>
-        <span *ngIf="!details" class="text-danger">*</span>
         <ng-select  formControlName="medicalAnalysisSpeciality">
             <ng-option *ngFor="let medicalAnalysiSpecialityNameAndId of medicalAnalysisSpecialityNameAndId" [value]="medicalAnalysiSpecialityNameAndId.id">{{
               medicalAnalysiSpecialityNameAndId.name

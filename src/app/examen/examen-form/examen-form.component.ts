@@ -56,7 +56,9 @@ export class ExamenFormComponent implements OnInit {
     )
   }
 
-  getPrescriptionItemsIdToCollected(target, item) {    
+  getPrescriptionItemsIdToCollected(item) {  
+    console.log(item);
+      
     this.examDto.acts = [];
     if (this.selectectedItems.includes(item)) {
       let index = this.selectectedItems.indexOf(item);
@@ -65,10 +67,12 @@ export class ExamenFormComponent implements OnInit {
     } else {
       this.selectectedItems.push(item);
     }
-    this.removeDuplicates(this.medicalAnalysisSpecialitySecondSection,item["medicalAnalysisName"]);    
+    this.removeDuplicates(this.medicalAnalysisSpecialitySecondSection,item["medicalAnalysisName"]);   
+    console.log(this.medicalAnalysisSpecialitySecondSection);
+     
   }
 
-  removeDuplicates(arr,item) {
+   removeDuplicates(arr,item) {
     if (!arr.includes(item)) {
       arr.push(item);
     }

@@ -29,7 +29,6 @@ var doc = new jsPDF('p', 'mm', 'a4');
   
   doc.addImage(invoice["facilityLogo"], "JPEG", 14, 10, 30, 30);
 
-
   doc.setFontSize(16)
   doc.text(invoice["facilityName"].toString().toUpperCase() , 65, 10)
   // doc.setFont("arial", "bold");

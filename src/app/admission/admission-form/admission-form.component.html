@@ -19,7 +19,7 @@
     >
     <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid</div>
     <div class="row mb-2">
-      <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="col-lg-6 col-md-4 col-sm-12">
         <label for="name" class="form-label text-capitalize">Numero Patient</label>
         <input
           type="text"
@@ -30,7 +30,7 @@
         <span style="color: red">
         </span>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="col-lg-6 col-md-4 col-sm-12">
         <label for="code" class="form-label text-capitalize">Nom du patient</label>
         <input
           type="text"
@@ -41,7 +41,7 @@
         <span style="color: red">
         </span>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+      <div class="col-lg-6 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Spécialité</label>
         <ng-select (change)="findActiveActByActCategoryId($event)" placeholder="Specialite d'acte" formControlName="act">
           <ng-option *ngFor="let actCategory of actCategories" [value]="actCategory.id">{{
@@ -50,7 +50,7 @@
         </ng-select>
       </div>
    
-      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+      <div class="col-lg-6 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Motif d'admission</label>
         <ng-select placeholder="Acte d'admission" formControlName="act">
           <ng-option *ngFor="let act of actsNameAndId" [value]="act.id">{{
@@ -58,14 +58,14 @@
           }}</ng-option>
         </ng-select>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 mb-2 rounded-pill">
+      <div class="col-lg-6 col-md-4 col-sm-12 mb-2 rounded-pill">
         <label for="code" class="form-label text-capitalize">Date d'admission
           <span  class="text-danger">*</span>
         </label>
         <input nbInput formControlName="createdAt" placeholder="Date et heure d'admission" class="form-control" [nbDatepicker]="dateTimePicker">
         <nb-date-timepicker withSeconds #dateTimePicker></nb-date-timepicker>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+      <div class="col-lg-6 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Service</label>
         <ng-select placeholder="Service" formControlName="service">
           <ng-option *ngFor="let service of servicesNameAndId" [value]="service.id">{{
@@ -73,7 +73,7 @@
           }}</ng-option>
         </ng-select>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+      <div class="col-lg-6 col-md-4 col-sm-12 rounded-pill">
         <label for="active" class="form-label text-capitalize">Medecin</label>
         <ng-select placeholder="Medecin" formControlName="practician">
           <ng-option *ngFor="let practician of practicians" [value]="practician.userId">

@@ -3,7 +3,7 @@
     <div class="col-lg-7 col-md-3 col-sm-12">
       <h4 class="text-capitalize d-flex justify-content-start w-100 text-center">
         DEMANDE D'ANALYSES MEDICALES
-    
+
       </h4>
     </div>
   </nb-card-header>
@@ -125,68 +125,66 @@
       <div>
         <span class="label-bold">N° de demande : </span><span class="bold">{{examen?.analysisNumber}}</span><br>
         <span class="label-bold">N° CMU : </span><span class="bold">{{examen?.analysisNumber}}</span><br>
-        <span class="label-bold">N° de télephone : </span><span class="bold">{{examen?.patientTel1}}/{{examen?.patientTel2}}</span><br>
+        <span class="label-bold">N° de télephone : </span><span
+          class="bold">{{examen?.patientTel1}}/{{examen?.patientTel2}}</span><br>
       </div>
     </div>
-<div>
-        
-      <label class="w-100 mb-3" for="examenFile">
-        <div class="inputCustom w-100 d-flex align-items-center justify-content-center">
-            <span *ngIf="file == null">Cliquez ici pour joindre les résultats d'analyses.</span>
-            <span class="color1 pointertext-truncate" >
-                {{file?.name}}
+    <h6 class="text-center mb-2">RESULTATS D'ANALYSES 
+    </h6>
+    <div class="analysis_res mb-4">
+     
+      <div class="analysis_result_item mx-2">
+        ddd
+      </div>
+      <div class="analysis_result_item mx-2">
+        ddd
+      </div>
+      <div class="analysis_result_item mx-2">
+        <label *ngIf="examen?.state != 'E'"  for="examenFile">
+          <div class="addFile">
+            <span *ngIf="file == null">
+              <nb-icon icon="plus-outline"></nb-icon>
             </span>
-        </div>
-        <input (change)="onExamenFileSelect($event)" style="display: none; visibility: none;" type="file" id="examenFile">
+            <span class="color1 pointer text-truncate">
+              {{file?.name}}
+            </span>
+          </div>
+          <input (change)="onExamenFileSelect($event)" style="display: none; visibility: none;" type="file"
+            id="examenFile">
+        </label>
+      </div>
 
-    </label>
-</div>
-    <h5
-    class="text-center mb-3">ANALYSES DÉMANDÉS
-    </h5>
-    <div class="mb-4 analysis_body" *ngFor="let medicalAnalysiSpeciality of medicalAnalysisSpeciality; let i = index">
-      <div class="actsSelected_title">{{medicalAnalysiSpeciality}}</div>
-      <div *ngFor="let analysisRequestItem of analysisRequestItems; let i = index;"
-        [hidden]="analysisRequestItem?.medicalAnalysisName != medicalAnalysiSpeciality">
-        <div class="analysis-item py-2">
-          <div class="row d-flex align-items-center">
-            <div class="col-lg-8 mx-2">
-              {{analysisRequestItem?.actName | uppercase}}
-            </div>
-            <div class="col-lg-2 ">
-              <span
-                [ngClass]="{'statusColected' : analysisRequestItem?.state == true,'statusDontColected' : analysisRequestItem?.state == false }"
-                class=" px-2 ">{{analysisRequestItem?.state == true ? 'Effectué' : 'Non Effectué'}}</span>
-            </div>
-            <div class="col-lg-1 d-flex justify-content-end">
-              <nb-checkbox *ngIf="analysisRequestItem?.state == false"
-                (checkedChange)="getExamItemsIdToCollected(analysisRequestItem.id)"></nb-checkbox>
-            </div>
-            <!-- <div  class="col-lg-3 text-center">
-               <label for="examenFile">
-                <nb-icon
-                *ngIf="analysisRequestItem?.file == null"
-                class="pointer"
-                style="cursor: pointer;"
-                icon="file-add-outline"
-                ngbTooltip="joigner le bilan"
-              ></nb-icon>
-              <span  *ngIf="analysisRequestItem?.file != null" class="act_selectedItem text-truncate" style="font-size: 12px; margin-right: 4px;" >
-               <span class="mx-2"> {{analysisRequestItem?.file?.name}}</span>
-                <div class="closeBtn" >
-                  <nb-icon  class="pointer text-white" style=" cursor: pointer; "  icon="close-outline"></nb-icon>
+   
+    </div>
+    <div>
+      <h6 class="text-center mb-2">ANALYSES DÉMANDÉS
+      </h6>
+      <div class="mb-4 analysis_body" *ngFor="let medicalAnalysiSpeciality of medicalAnalysisSpeciality; let i = index">
+        <div class="actsSelected_title">{{medicalAnalysiSpeciality}}</div>
+        <div *ngFor="let analysisRequestItem of analysisRequestItems; let i = index;"
+          [hidden]="analysisRequestItem?.medicalAnalysisName != medicalAnalysiSpeciality">
+          <div class="analysis-item py-2">
+            <div class="row d-flex align-items-center">
+              <div class="col-lg-8 mx-2">
+                {{analysisRequestItem?.actName | uppercase}}
               </div>
-            </span>
-              <input (change)="onExamenItemFileSelect($event)" style="display: none; visibility: none;" type="file" id="examenFile">
-               </label>
-            </div> -->
+              <div class="col-lg-2 ">
+                <span
+                  [ngClass]="{'statusColected' : analysisRequestItem?.state == true,'statusDontColected' : analysisRequestItem?.state == false }"
+                  class=" px-2 ">{{analysisRequestItem?.state == true ? 'Effectué' : 'Non Effectué'}}</span>
+              </div>
+              <div class="col-lg-1 d-flex justify-content-end">
+                <nb-checkbox *ngIf="analysisRequestItem?.state == false"
+                  (checkedChange)="getExamItemsIdToCollected(analysisRequestItem.id)"></nb-checkbox>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
 
-   
+
     <div *ngIf="examen?.state != 'E'" class="text-right">
       <button (click)="markAsperformed()" class="text-capitalize btn btn-outline-info btn-block w-25  rounded">
         <span class="fw-bold"> ENREGISTRER</span>

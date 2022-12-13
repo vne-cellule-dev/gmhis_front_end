@@ -97,7 +97,6 @@ export class LaboratoryExamenComponent implements OnInit {
           this.empty = response.empty;
           this.firstPage = response.firstPage;
           this.items = response.items;
-          console.log(this.items);
           this.lastPage = response.lastPage;
           this.selectedSize = response.size;
           this.totalItems = response.totalItems;
@@ -160,11 +159,8 @@ export class LaboratoryExamenComponent implements OnInit {
 
   onExamenFileSelect(event) {
     
-    this.file = event.target.files[0];
-    console.log(this.file);
-    
+    this.file = event.target.files[0];    
     // this.analysisRequestItems[2]["file"] = this.file;
-    // console.log(this.analysisRequestItems);
     
     // this.readFile(this.files[0]).then(fileContents => {
 
@@ -173,8 +169,9 @@ export class LaboratoryExamenComponent implements OnInit {
 
   
 
-  markAsperformed(){
-    this.examenService.makAsPerformed(this.selectectedExamIds).subscribe(
+  markAsperformed(){    
+  if (this.selectectedExamIds.length != 0 && this.file != null ) {
+    this.examenService.makAsPerformed(this.selectectedExamIds, this.file).subscribe(
       (response : any) => {
         this.modalService.dismissAll(); 
         this.notificationService.notify(
@@ -193,6 +190,12 @@ export class LaboratoryExamenComponent implements OnInit {
           this.selectectedExamIds = [];  
         }
     )
+  }else{
+    this.notificationService.notify(
+      NotificationType.ERROR,
+     "Veuillez joindre un fichier et choisir une analyse."
+    );
+  }
   }
 
   getAnalysisRequestItemsByAnalysisId(analysisId): any {
@@ -228,8 +231,6 @@ getExamItemsIdToCollected(examId){
   } else {
     this.selectectedExamIds.push(examId);
   }
-
-  console.log(this.selectectedExamIds);
   
 }
 }

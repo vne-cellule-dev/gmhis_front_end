@@ -11,7 +11,7 @@
                             [hidden]="act?.medicalAnalysisId != medicalAnalysiSpeciality?.id">
                             <div class="accordion_item">
                                 <div>
-                                    <nb-checkbox  (checkedChange)="getPrescriptionItemsIdToCollected($event,act)">
+                                    <nb-checkbox  (checkedChange)="getPrescriptionItemsIdToCollected(act)">
                                     </nb-checkbox>
                                     <span class="mx-1">{{act?.name}}</span>
                                 </div>
@@ -30,9 +30,9 @@
             {{act?.group}}
         </div> -->
     </div>
-    <div class="col-lg-6 h-100 pb-2">
-        <div class="actsSelected h-75 px-3">
-               <div class="mb-5" *ngFor="let medicalAnalysiSpecialityName of medicalAnalysisSpecialitySecondSection; let i = index">
+    <div class="col-lg-6 pb-2">
+        <div class="actsSelected  mb-3 px-3">
+               <div class="mb-4" *ngFor="let medicalAnalysiSpecialityName of medicalAnalysisSpecialitySecondSection; let i = index">
                 <span class="actsSelected_title">{{medicalAnalysiSpecialityName}}</span>
                     <div class="act_selectedBox mt-2" *ngFor="let selectectedItem of selectectedItems; let i = index" 
                     [hidden]="selectectedItem?.medicalAnalysisName != medicalAnalysiSpecialityName"
@@ -48,9 +48,11 @@
                         </div>
                     </div> 
                </div>
-                <button *ngIf="medicalAnalysisSpecialitySecondSection.length != 0" (click)="saveExamanRequest()" style="background-color: #14a2b8;"
-                    class="text-capitalize btn btn-block w-25 text-white rounded">
-                    <span class="fw-bold"> DEMANDER</span>
-                </button>
+              
         </div>
+        <textarea class="mb-3" placeholder="COMMENTAIRE" name="" id="" cols="72" rows="3"></textarea>
+        <button *ngIf="medicalAnalysisSpecialitySecondSection.length != 0" (click)="saveExamanRequest()" style="background-color: #14a2b8;"
+        class="text-capitalize btn btn-block w-25 text-white rounded">
+        <span class="fw-bold"> DEMANDER</span>
+    </button>
     </div>

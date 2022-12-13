@@ -346,7 +346,6 @@ export class InvoiceFormComponent implements OnInit {
     this.insureds.controls[0].get('subscriber').setValue(cnamInsured["subscriberName"]);
     this.insureds.controls[0].get('society').setValue(cnamInsured["society"]);
     this.insureds.controls[0].get('insuredCoverage').setValue(cnamInsured["coverage"]);
-    this.insureds.controls[0].get('insuredPart').setValue(5000);
 
   }
   public addInsured(): void {
@@ -457,16 +456,15 @@ export class InvoiceFormComponent implements OnInit {
     let acts = invoiceFormValue["acts"];
   this.totalInvoice = 0;
     acts.forEach((el, index) => {
+      console.log(el);
+      
       this.totalInvoice = this.totalInvoice  + el["cost"];
     })
-    let remaingAfterOtherInssuranceReduction = 0;
-    let partPecByOthherInsurance = 0; 
-    let totalpartPecByOthherInsurance = 0;
     this.partPecByCNAM = 0;
     this.partPecByOthherInsurance = 0; 
     this.partientPart = 0;
     let remaingAfterCnamReduction = 0;
-    this.partPecByCNAM = 5000*this.insureds.controls[0].get('insuredCoverage').value/100;
+    this.partPecByCNAM =  this.totalInvoice*this.insureds.controls[0].get('insuredCoverage').value/100;
     this.insureds.controls[0].get('insuredPart').setValue(this.partPecByCNAM);
     remaingAfterCnamReduction = this.totalInvoice - this.partPecByCNAM;
     if (this.insureds.controls.length > 1) {

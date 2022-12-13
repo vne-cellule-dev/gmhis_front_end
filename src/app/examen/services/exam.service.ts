@@ -60,8 +60,11 @@ export class ExamService {
     );
   }
 
-  makAsPerformed(examId: string[]): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/analysis-request/performed`, examId);
+  makAsPerformed(examId: string[], examResultDoc : File): Observable<any> {
+    let formData = new FormData();
+    formData.append("file", examResultDoc);
+    formData.append("examId", String(examId));
+    return this.http.post<any>(`${this.apiUrl}/analysis-request/performed`, formData);
   }
 
   // setPrescriptionItems(prescriptionitems: string[]): Observable<any> {    
