@@ -10,11 +10,12 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
+import { SafePipe } from './safe.pipe';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [SafePipe],
   imports: [
     CommonModule
   ],
@@ -38,7 +39,8 @@ import { RouterModule } from '@angular/router';
     NgbTooltipModule,
     NgxCurrencyModule,
     NbDatepickerModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    SafePipe
   ]
 })
 export class SharedModule { }

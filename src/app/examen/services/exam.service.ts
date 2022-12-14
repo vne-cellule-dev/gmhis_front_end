@@ -78,4 +78,8 @@ export class ExamService {
   getAnalysisRequestItemsByAnalysisId(analysisRquestId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/analysis-request/getAnalysisRequestItems/${analysisRquestId}`);
   }
+
+  getAnalysisRequestRquestFiles(analysisRquestId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/analysis-request/getAnalysisRequestResultFile/${analysisRquestId}`);
+  }
 }

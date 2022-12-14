@@ -60,6 +60,9 @@ export class LaboratoryExamenComponent implements OnInit {
   analysisRequestItems: IExamItemDto[];
   medicalAnalysisSpeciality: any = [];
   selectectedExamIds: string[] = [];
+  medicalAnalysisResultFiles: any = [];
+  pdfFile: File;
+
 
   constructor(
     private examenService: ExamService,
@@ -129,9 +132,16 @@ export class LaboratoryExamenComponent implements OnInit {
   public openUpdateForm(updateFormContent, item : IExam) {
     this.examen = item;
     this.getAnalysisRequestItemsByAnalysisId(this.examen.id);
+    this.getAnalysisRequestResultFile(this.examen.id);
     this.modalService.open(updateFormContent, { size: 'lg' });
     this.selectectedExamIds = [];
     this.file = null;
+  }
+
+  openPdfFile(pdfFileContent, file : File){
+    // this.modalService.dismissAll();
+    this.modalService.open(pdfFileContent, { size: 'lg' });
+    this.pdfFile = file;
   }
 
   addActCode() {
@@ -217,6 +227,22 @@ export class LaboratoryExamenComponent implements OnInit {
     )
   }
 
+  getAnalysisRequestResultFile(analysisId): any {
+    this.examenService.getAnalysisRequestRquestFiles(analysisId).subscribe(
+      (response : any) => {
+        this.medicalAnalysisResultFiles = response;
+        console.log(this.medicalAnalysisResultFiles);
+        
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.showloading = false;
+        this.notificationService.notify(
+          NotificationType.ERROR,
+          errorResponse.error.message
+        );
+      }
+    )
+  }
   removeDuplicates(arr,item) {
     if (!arr.includes(item)) {
       arr.push(item);

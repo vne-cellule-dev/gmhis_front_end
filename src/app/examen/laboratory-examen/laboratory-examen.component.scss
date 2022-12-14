@@ -5,10 +5,12 @@
 }
 
 .analysis_result_item{
-  width: 8em;
-  height: 8rem;
+  width: 5em;
+  height: 6.5rem;
   color: #b4b4c4;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .inputCustom{
@@ -16,13 +18,16 @@
     // height: 70px;
     // height: 100%;
     border: 3px solid #b4b4c4;
-    border-radius: 5px;
     color: #b4b4c4;
-    font-size: 16px;
+    font-size: 8px;
   }
 
   .addFile{
-    border: 3px solid #b4b4c4;
+    height: 5rem !important;
+    width: 5rem !important;
+    border: 3px dashed rgba(20, 162, 184, 0.9);
+    color: rgba(20, 162, 184, 0.9);
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -33,9 +38,9 @@
     }
   }
   .color1{
-   color: #226674;
+   color: rgba(20, 162, 184, 0.9);
    font-weight: 600; 
-   font-size: 1.2rem;   
+   font-size: .8rem;   
 }
 
 .label-bold{
