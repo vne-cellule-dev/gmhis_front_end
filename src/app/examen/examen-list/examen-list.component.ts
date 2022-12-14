@@ -32,7 +32,7 @@ export class ExamenListComponent implements OnInit {
   @Output('updatePatientExamenNumber') updatePatientExamenNumber: EventEmitter<any> =
   new EventEmitter();
 
-  prescription : any;
+  examen : any;
 
 
   currentPage: number;
@@ -55,6 +55,8 @@ export class ExamenListComponent implements OnInit {
     { id: 1000, value: 1000 },
   ];
   docSrc: string;
+
+  resultAskByDoctor : boolean; 
   constructor(
     private examenService: ExamService,
     private notificationService: NotificationService,
@@ -87,6 +89,8 @@ export class ExamenListComponent implements OnInit {
           this.empty = response.empty;
           this.firstPage = response.firstPage;
           this.items = response.items;
+          console.log(this.items);
+          
           this.lastPage = response.lastPage;
           this.selectedSize = response.size;
           this.totalItems = response.totalItems;
@@ -113,8 +117,15 @@ export class ExamenListComponent implements OnInit {
   }
 
   openUpdateForm(updateFormContent, item?) {
-    this.prescription = item;
+    this.examen = item;
     this.modalService.open(updateFormContent, { size: 'xl' });
+  }
+
+  openAnalysisBulletinForm(makAsdoneContent,item){
+    this.resultAskByDoctor = true;
+    this.examen = item;
+    console.log(this.examen);
+    this.modalService.open(makAsdoneContent, { size: 'lg' });
   }
 
   onSearchValueChange(): void {

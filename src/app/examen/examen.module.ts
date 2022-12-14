@@ -7,10 +7,11 @@ import { ExamenFormComponent } from './examen-form/examen-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { NbAccordionModule, NbCheckboxModule } from '@nebular/theme';
 import { LaboratoryExamenComponent } from './laboratory-examen/laboratory-examen.component';
+import { AnalysisBulletinComponent } from './analysis-bulletin/analysis-bulletin.component';
 
 
 @NgModule({
-  declarations: [ExamenListComponent, ExamenFormComponent, LaboratoryExamenComponent],
+  declarations: [ExamenListComponent, ExamenFormComponent, LaboratoryExamenComponent, AnalysisBulletinComponent],
   imports: [
     CommonModule,
     ExamenRoutingModule,

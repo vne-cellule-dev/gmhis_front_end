@@ -1,0 +1,97 @@
+<div class="patient_infos mb-3 d-flex justify-content-between">
+    <div>
+      <span class="label-bold">Patient : </span><span class="bold">{{examen?.patientFirstName}}
+        {{examen?.patientLastName}}</span><br>
+      <span class="label-bold">Sexe : </span><span class="bold">{{examen?.patientGender}}</span><br>
+      <span class="label-bold">Age : </span><span class="bold">{{examen?.patientAge}} ans</span><br>
+    </div>
+    <div>
+      <span class="label-bold">N° de demande : </span><span class="bold">{{examen?.analysisNumber}}</span><br>
+      <span class="label-bold">N° CMU : </span><span class="bold">{{examen?.analysisNumber}}</span><br>
+      <span class="label-bold">N° de télephone : </span><span
+        class="bold">{{examen?.patientTel1}}/{{examen?.patientTel2}}</span><br>
+    </div>
+  </div>
+    <p  *ngIf="examen?.observation" style="font-size: 1.1rem;">
+      <nb-icon style="color: #FFCC00;" class="mx-2 pointer" icon="alert-triangle"></nb-icon> :
+      {{examen?.observation}}
+    </p>
+  <h6 class="text-center mb-2">RESULTATS D'ANALYSES 
+  </h6>
+  <div class="text-center mb-1" *ngIf="medicalAnalysisResultFiles.length == 0">
+    <small>
+      Aucun résultat disponible ! <span  *ngIf="!resultAskByDoctor">Veuillez cliquer sur le bouton ci-dessous pour joindre un résultat</span>.
+
+    </small>
+  </div>
+  <div class="analysis_res mb-4">
+    <div *ngFor="let medicalAnalysisResultFile of medicalAnalysisResultFiles let i = index"  class="content-pdf d-flex flex-column align-items-center">
+      <nb-icon icon="file-outline" (click)="openPdfFile(pdfFileContent, medicalAnalysisResultFile?.file)" class="mx-2 pointer analysis_result_item"  ngbTooltip="{{medicalAnalysisResultFile?.fileName}}">
+    </nb-icon>
+    <span>Resultat {{i + 1}}</span>
+  </div>
+    <div  *ngIf="!resultAskByDoctor"  class="analysis_result_item mx-2 pointer">
+      <label class="w-150 " *ngIf="examen?.state != 'E'"  for="examenFile">
+        <div class="addFile mw-100">
+          <span *ngIf="file == null">
+            <nb-icon icon="plus-outline"></nb-icon>
+          </span>
+          <span class="color1 pointer text-truncate">
+            {{file?.name}}
+          </span>
+        </div>
+        <input (change)="onExamenFileSelect($event)" style="display: none; visibility: none;" type="file"
+          id="examenFile">
+      </label>
+    </div>
+
+ 
+  </div>
+ 
+  <div>
+    <h6 class="text-center mb-2">ANALYSES DÉMANDÉS
+    </h6>
+    <div class="mb-4 analysis_body" *ngFor="let medicalAnalysiSpeciality of medicalAnalysisSpeciality; let i = index">
+      <div class="actsSelected_title">{{medicalAnalysiSpeciality}}</div>
+      <div *ngFor="let analysisRequestItem of analysisRequestItems; let i = index;"
+        [hidden]="analysisRequestItem?.medicalAnalysisName != medicalAnalysiSpeciality">
+        <div class="analysis-item py-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-lg-8 mx-2">
+              {{analysisRequestItem?.actName | uppercase}}
+            </div>
+            <div class="col-lg-2 ">
+              <span
+                [ngClass]="{'statusColected' : analysisRequestItem?.state == true,'statusDontColected' : analysisRequestItem?.state == false }"
+                class=" px-2 ">{{analysisRequestItem?.state == true ? 'Effectué' : 'Non Effectué'}}</span>
+            </div>
+            <div class="col-lg-1 d-flex justify-content-end">
+              <nb-checkbox *ngIf="analysisRequestItem?.state == false  && !resultAskByDoctor"
+                (checkedChange)="getExamItemsIdToCollected(analysisRequestItem.id)"></nb-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="examen?.state != 'E'  && !resultAskByDoctor" class="text-right">
+    <button (click)="markAsperformed()" class="text-capitalize btn btn-outline-info btn-block w-25  rounded">
+      <span class="fw-bold"> ENREGISTRER</span>
+    </button>
+  </div>
+
+  <ng-template #pdfFileContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <nb-icon style="cursor: pointer" (click)="d('Cross click')" class="h4" icon="close-circle-outline"></nb-icon>
+    </div>
+     <div class="content-pdf mx-2">
+            <embed 
+            type="application/pdf"
+            width="100%"
+            height="750" 
+            [src]="pdfFile| safe ">
+        </div>
+  </ng-template>

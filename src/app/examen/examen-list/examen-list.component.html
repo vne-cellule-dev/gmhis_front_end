@@ -65,7 +65,7 @@
                   <span style="width: 20px" [ngClass]="{'statusColected' : examen?.state  == 'E','statusDontColected' : examen?.state  == 'N','partiallyColected' : examen?.state  == 'P'  }" class=" px-2">{{examen?.state == 'E' ? 'effectué' : examen?.state == 'N' ? 'non-effectué' : 'effectué-partiellement'}}</span>
                 </td>
                 <td>
-                    <nb-icon (click)="printPrescription(printContent,prescription)" class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Télécharger le fichier" icon="file-outline"></nb-icon>
+                    <nb-icon (click)="openAnalysisBulletinForm(makAsdoneContent, examen)" class="mx-2 pointer" style=" cursor: pointer;" ngbTooltip="Bulletin d'analyse" icon="file-outline"></nb-icon>
 
                 </td>
             </tr>
@@ -134,4 +134,17 @@
       </ngx-extended-pdf-viewer>
     </div>
   </ng-template>
+
+  <!-- update modal -->
+<ng-template #makAsdoneContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+      BULLETIN D'ANALYSES MÉDICALES
+    </h4>
+    <nb-icon style="cursor: pointer" (click)="d('Cross click')" class="h4" icon="close-circle-outline"></nb-icon>
+  </div>
+  <div class="modal-body">
+    <app-analysis-bulletin [examen]="examen" [resultAskByDoctor]="resultAskByDoctor"></app-analysis-bulletin>
+  </div>
+</ng-template>
   

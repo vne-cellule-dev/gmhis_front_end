@@ -50,7 +50,7 @@
                </div>
               
         </div>
-        <textarea class="mb-3" placeholder="COMMENTAIRE" name="" id="" cols="72" rows="3"></textarea>
+        <textarea class="mb-3" [(ngModel)]="examDto.observation" placeholder="COMMENTAIRE" name="" id="" cols="72" rows="3"></textarea>
         <button *ngIf="medicalAnalysisSpecialitySecondSection.length != 0" (click)="saveExamanRequest()" style="background-color: #14a2b8;"
         class="text-capitalize btn btn-block w-25 text-white rounded">
         <span class="fw-bold"> DEMANDER</span>

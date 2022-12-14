@@ -27,12 +27,12 @@ export class ExamenFormComponent implements OnInit {
     admission: 0,
     diagnostic: 'ok ok ',
     id: 0,
-    observation: 'ok ok'
+    observation: ' '
   };
   selectectedItems = [];
   medicalAnalysisSpeciality: any;
   medicalAnalysisSpecialitySecondSection: any = [];
-
+  observation : string = ' l';
   constructor(
     private actService : ActService,
     private examenService : ExamService,
