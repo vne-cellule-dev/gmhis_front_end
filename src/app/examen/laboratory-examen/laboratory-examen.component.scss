@@ -5,13 +5,10 @@
 }
 
 .analysis_result_item{
-  width: 6em;
-  height: 6rem;
-  border: 3px solid #b4b4c4;
+  width: 8em;
+  height: 8rem;
   color: #b4b4c4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border-radius: 10px;
 }
 
 .inputCustom{
@@ -25,7 +22,15 @@
   }
 
   .addFile{
-    font-size: 10rem;
+    border: 3px solid #b4b4c4;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    nb-icon{
+      font-size: 3rem;
+      font-weight: bolder;
+    }
   }
   .color1{
    color: #226674;

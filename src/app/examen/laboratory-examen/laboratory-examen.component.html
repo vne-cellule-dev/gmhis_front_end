@@ -136,12 +136,10 @@
       <div class="analysis_result_item mx-2">
         ddd
       </div>
-      <div class="analysis_result_item mx-2">
-        ddd
-      </div>
-      <div class="analysis_result_item mx-2">
-        <label *ngIf="examen?.state != 'E'"  for="examenFile">
-          <div class="addFile">
+        <nb-icon class="analysis_result_item mx-2" icon="file-outline"></nb-icon>
+      <div class="analysis_result_item mx-2 pointer">
+        <label class="w-150 h-100" *ngIf="examen?.state != 'E'"  for="examenFile">
+          <div class="addFile mw-100 h-100">
             <span *ngIf="file == null">
               <nb-icon icon="plus-outline"></nb-icon>
             </span>
