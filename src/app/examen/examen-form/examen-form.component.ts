@@ -29,7 +29,7 @@ export class ExamenFormComponent implements OnInit {
     admission: 0,
     diagnostic: 'ok ok ',
     id: 0,
-    observation: ' '
+    observation: null
   };
   selectectedItems = [];
   medicalAnalysisSpeciality: any;

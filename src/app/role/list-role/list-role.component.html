@@ -3,12 +3,14 @@
     <div class="col-lg-5 col-md-3 col-sm-12 mb-2">
       <h4  class=" w-100 text-center">LISTE DES RÔLES</h4>
     </div>
-    <div [hidden]="!canAddRole" class="col-lg-2 col-md-3 col-sm-12  justify-content-end">
-      <button  (click)="openAddForm(addFormContent)"
-        class="btn text-capitalize w-100 bg-biblos d-flex align-items-center justify-content-center text-white rounded">
-        <nb-icon icon="plus-outline"></nb-icon>
-        <span class="fw-bold"> NOUVEAU</span>
-      </button>
+    <div [hidden]="!canAddRole" class="col-lg-2 col-md-3 col-sm-12 d-flex justify-content-end">
+      <button
+      (click)="openAddForm(addFormContent)"
+      class="text-capitalize btn mb-2 btn-block  w-50 d-flex align-items-center justify-content-center text-white rounded"
+      style="background-color: #14a2b8;"
+    >
+      <nb-icon icon="plus-outline"></nb-icon>
+    </button>
     </div>
   </nb-card-header>
   <nb-card-body>
@@ -80,35 +82,35 @@
 
 <!-- permission modal -->
 <ng-template #permissionFormContent let-c="close" let-d="dismiss">
-  <div class="modal-header bg-gray">
+  <div class="modal-header">
     <h4 class="text-capitalize modal-title" id="permisison-modal">Attribution de droit d'accès au rôle : <span class="text-primary">{{role.name }}</span> </h4>
     <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
   </div>
-  <div class="modal-body bg-gray">
+  <div class="modal-body">
     <app-permission [role]='role'  (setAuthority)="setAuthority()"></app-permission>
   </div>
 </ng-template>
 
 <!-- add modal -->
 <ng-template #addFormContent let-c="close" let-d="dismiss">
-  <div class="modal-header bg-gray">
+  <div class="modal-header">
     <h4 class="text-capitalize modal-title" id="add-form-modal">Ajouter un rôle</h4>
     <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
   </div>
-  <div class="modal-body bg-gray">
+  <div class="modal-body">
     <app-role-form (addRole)="addRole()"></app-role-form>
   </div>
 </ng-template>
 
 <!-- update modal -->
 <ng-template #updateFormContent let-c="close" let-d="dismiss">
-  <div class="modal-header bg-gray">
+  <div class="modal-header">
     <h4 class="text-capitalize modal-title" id="update-form-modal">Modifier un rôle</h4>
     <button type="button" class="button btn  btn-sm " aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body bg-gray">
+  <div class="modal-body">
     <app-role-form [role]='role' (updateRole)="updateRole()"></app-role-form>
   </div>
 </ng-template>
