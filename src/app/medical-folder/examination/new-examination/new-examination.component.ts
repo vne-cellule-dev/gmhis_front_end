@@ -103,13 +103,20 @@ export class NewExaminationComponent implements OnInit {
         examinationType: new FormControl('', Validators.required),
         history: new FormControl('', Validators.required),
         id: new FormControl(0),
-        pathologies: new FormControl(null ),
-        symptoms: new FormControl(null ),
+        pathologies: new FormControl(null, Validators.required ),
+        symptoms: new FormControl(null, Validators.required),
         startDate: new FormControl(this.startDate),
         pratician : new FormControl(1)
        
       })
     }
+
+    get examinationType(){return this.form.get('examinationType');}
+    get pathology(){return this.form.get('pathologies');}
+    get conclusion(){ return this.form.get('conclusion');}
+    get symptom(){return this.form.get('symptoms');}
+    get examinationReasons(){return this.form.get('examinationReasons'); }
+    get history(){return this.form.get('conclusion');}
 
     save() {
       this.invalidFom = !this.form.valid;

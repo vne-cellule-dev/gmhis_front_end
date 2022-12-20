@@ -12,7 +12,7 @@
         <div *ngIf="invalidFom" class="alert alert-danger">Formulaire invalid </div>
         <div class="row">
             <div class="mb-3 col">
-                <label for="lastName" class="form-label text-capitalize fw-bold">Nom</label>
+                <label for="lastName" class="form-label">Nom</label>
                 <span class="text-danger">*</span>
                 <input type="text" class="form-control" formControlName="lastName">
                 <div *ngIf="formSubmitted && !userForm.controls.lastName.valid">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="mb-3 col">
-                <label for="firstName" class="form-label text-capitalize fw-bold">Prénoms</label>
+                <label for="firstName" class="form-label ">Prénoms</label>
                 <span class="text-danger">*</span>
                 <input type="text" class="form-control" formControlName="firstName">
                 <div *ngIf="formSubmitted && !userForm.controls.firstName.valid">
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <div class="mb-3 col">
-                <label for="email" class="form-label text-capitalize fw-bold">Email</label>
+                <label for="email" class="form-label ">Email</label>
                 <span class="text-danger">*</span>
                 <input type="email" class="form-control" formControlName="email">
                 <div *ngIf="formSubmitted && !userForm.controls.email.valid">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="mb-3 col">
-                <label for="tel" class="form-label text-capitalize fw-bold">Numéro de téléphone</label>
+                <label for="tel" class="form-label ">Numéro de téléphone</label>
                 <span class="text-danger">*</span>
                 <input type="text" class="form-control" formControlName="tel">
                 <div *ngIf="formSubmitted && !userForm.controls.tel.valid">
@@ -51,73 +51,47 @@
         </div>
         <div class="row">
             <div class="mb-3 col">
-                <label for="depot" class="form-label text-capitalize fw-bold">Dépot</label>
+                <label for="role" class="form-label ">Role</label>
                 <span class="text-danger">*</span>
-                <ng-select formControlName="depot" placeholder="Selectionné un dépot">
-                    <ng-option *ngFor="let depot of depots" [value]="depot.id">
-                        {{depot.name}}
-                    </ng-option>
-                </ng-select>
-                <div *ngIf="formSubmitted && !userForm.controls.depot.valid">
-                    <div *ngIf="depot.errors.required" class="text-danger">Veuillez remplir ce champs</div>
-                </div>
-            </div>
-            <div class="mb-3 col">
-                <label for="role" class="form-label text-capitalize fw-bold">Role</label>
-                <span class="text-danger">*</span>
-                <ng-select multiple="true" formControlName="role" placeholder="Selectionné un role">
+                <ng-select multiple="true" formControlName="roles" placeholder="Selectionné un role">
                     <ng-option *ngFor="let role of roles" [value]="role.id">
                         {{role.name}}
                     </ng-option>
                 </ng-select>
-                <div *ngIf="formSubmitted && !userForm.controls.role.valid">
+                <div *ngIf="formSubmitted && !userForm.controls.roles.valid">
                     <div *ngIf="role.errors.required" class="text-danger">Veuillez remplir ce champs</div>
                 </div>
             </div>
-        </div>
-        <div class="row" >
             <div class="mb-3 col">
-                <label for="isActive" class="form-label text-capitalize fw-bold">Controlleur tout depôt</label>
+                <label for="active" class="form-label ">Etat</label>
                 <span class="text-danger">*</span>
-                <ng-select formControlName="controllerAllDepot" [clearable]="false">
-                    <ng-option *ngFor="let option of controllerAllDepotOptions" [value]="option.id">
-                        {{option.value}}
-                    </ng-option>
-                </ng-select>
-                <div *ngIf="formSubmitted && !userForm.controls.controllerAllDepot.valid">
-                    <div *ngIf="controllerAllDepot.errors.required" class="text-danger">Vérrouller</div>
-                </div>
-            </div>
-            <div class="mb-3 col">
-                <label for="isActive" class="form-label text-capitalize fw-bold">Etat</label>
-                <span class="text-danger">*</span>
-                <ng-select formControlName="isActive" [clearable]="false">
+                <ng-select formControlName="active" [clearable]="false">
                     <ng-option *ngFor="let state of states" [value]="state.id">
                         {{state.value}}
                     </ng-option>
                 </ng-select>
-                <div *ngIf="formSubmitted && !userForm.controls.isActive.valid">
-                    <div *ngIf="isActive.enabled && isActive.errors.required" class="text-danger">Vérrouller</div>
+                <div *ngIf="formSubmitted && !userForm.controls.active.valid">
+                    <div *ngIf="active.enabled && active.errors.required" class="text-danger">Vérrouller</div>
                 </div>
             </div>
         </div>
         <div class="row" >
             
             <div class="mb-3 col">
-                <label for="isNonLocked" class="form-label text-capitalize fw-bold">Vérrou</label>
+                <label for="notLocked" class="form-label ">Vérrou</label>
                 <span class="text-danger">*</span>
-                <ng-select formControlName="isNonLocked">
+                <ng-select formControlName="notLocked">
                     <ng-option *ngFor="let lock of lockOptions" [value]="lock.id">
                         {{lock.value}}
                     </ng-option>
                 </ng-select>
-                <div *ngIf="formSubmitted && !userForm.controls.isNonLocked.valid">
-                    <div *ngIf="isNonLocked.enabled && isNonLocked.errors.required" class="text-danger">Veuillez remplir ce champs</div>
+                <div *ngIf="formSubmitted && !userForm.controls.notLocked.valid">
+                    <div *ngIf="notLocked.enabled && notLocked.errors.required" class="text-danger">Veuillez remplir ce champs</div>
                 </div>
             </div>
     
             <div class="mb-3 col">
-                <label for="passwordMustBeChange" class="form-label text-capitalize fw-bold">Changer le mot de passe</label>
+                <label for="passwordMustBeChange" class="form-label ">Changer le mot de passe</label>
                 <span class="text-danger">*</span>
                 <ng-select formControlName="passwordMustBeChange">
                     <ng-option *ngFor="let option of changPwdOptions" [value]="option.id">
@@ -129,18 +103,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-        <div *ngIf="user" style="width: 250px; margin-right: 5px;">
-            <img src="{{user.profileImageUrl}}" alt="" width="250">
-        </div>
-        <ngx-dropzone style="width:250px" [multiple]="false" (change)="onSelect($event)">
-            <ngx-dropzone-label>Choisir une image </ngx-dropzone-label>
-            <ngx-dropzone-image-preview  [removable]="true" (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-              </ngx-dropzone-image-preview>
-        </ngx-dropzone>
-    </div>
-        <button [disabled]="showloading" type="submit" class="btn text-capitalize bg-biblos justify-content-center text-white rounded  px-3">
+        <button   style="background-color: #14a2b8;" class="text-capitalize btn btn-block w-25 text-white rounded"   type="submit" >
                 VALIDER
         </button>
     </div>

@@ -3,13 +3,16 @@
       <div class="col-lg-5 col-md-12 col-sm-12">
         <h4 class="d-flex justify-content-start w-100 text-center">LISTE DES UTILISATEURS</h4>
       </div>
-      <div [hidden]="!canAddUser" class="col-lg-2 col-md-3 col-sm-12  justify-content-end">
-        <button  (click)="openAddForm(addFormContent)"
-          class="btn text-capitalize bg-biblos w-100  d-flex align-items-center justify-content-center text-white rounded">
-          <nb-icon icon="plus-outline"></nb-icon>
-          <span class="fw-bold"> NOUVEAU</span>
-        </button>
+      <div [hidden]="!canAddUser" class="col-lg-2 col-md-3 col-sm-12 d-flex justify-content-end">
+        <button
+        (click)="openAddForm(addFormContent)"
+        style="background-color: #14a2b8;"
+        class="text-capitalize btn btn-block btn-success w-50 d-flex align-items-center justify-content-center text-white rounded"
+      >
+        <nb-icon icon="plus-outline"></nb-icon>
+      </button>
       </div>
+      
     </nb-card-header>
     <nb-card-body>
       <form [formGroup]="searchForm" (ngSubmit)="getUsers()" class="mb-3">
@@ -24,13 +27,6 @@
               </div>
               <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
                 <input type="text" class="form-control" formControlName="tel" placeholder="Téléphone" (keyup)="onKeyUp()">
-              </div>
-              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
-                <ng-select formControlName="depot" (change)="onIsActiveChange()"  placeholder="Selectionné un dépot">
-                  <ng-option *ngFor="let depot of depots" [value]="depot.id">
-                      {{depot.name}}
-                  </ng-option>
-              </ng-select>
               </div>
             </div>
           </div>
@@ -48,12 +44,8 @@
             <th class="text-nowrap">Statut <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('isActive')" ></fa-icon></th>
             <th class="text-nowrap">Email</th>
             <th class="text-nowrap">Téléphone</th>
-            <!-- <th class="text-center">Controller tout depot</th> -->
-           <th class="text-nowrap">Dépot <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('depot')" ></fa-icon></th>
-           <!-- <th class="text-nowrap">Role</th> -->
            <th class="text-nowrap">vérou <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('isNotLocked')" ></fa-icon></th>
            <th class="text-nowrap" >actions</th>
-           <!-- <th [hidden]="!canResetPassword" class="text-nowrap">Changer MP </th> -->
         </thead>
         <tbody *ngIf="!showloading">
             <tr *ngFor="let user of items | paginate : { 
@@ -72,10 +64,6 @@
               </td>
                 <td class="text-lowercase">{{user?.email}}</td>
                 <td>{{user?.tel}}</td>
-                <td class="text-center">
-                  <nb-icon *ngIf="user.controllerAllDepot == false" style="color: red;" icon="close-circle"></nb-icon>
-                    <nb-icon *ngIf="user.controllerAllDepot == true" style="color: green;" icon="checkmark-circle-2"></nb-icon>
-                </td>
                 <!-- <td class="text-nowrap">{{user?.depot.name }}</td> -->
                 <!-- <td>{{user?.role}}</td> -->
                 <td class="text-center">
@@ -116,22 +104,22 @@
   
 <!-- add modal -->
 <ng-template  #addFormContent let-c="close" let-d="dismiss">
-  <div  class="modal-header bg-gray">
+  <div  class="modal-header ">
     <h5 class="modal-title text-capitalize " id="update-form-modal">Ajouter un utilisateur</h5>
       <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
   </div>
-  <div class="modal-body bg-gray">
+  <div class="modal-body ">
     <app-user-form  (addUser)="addUser()"></app-user-form>
   </div>
 </ng-template>
   
  <!-- update modal -->
 <ng-template #updateFormContent let-c="close" let-d="dismiss">
-  <div  class="modal-header bg-gray">
+  <div  class="modal-header">
     <h5 class="modal-title text-capitalize " id="update-form-modal">Modifier un utilisateur</h5>
       <nb-icon style="cursor: pointer;" (click)="d('Cross click')" class="h4"  icon="close-circle-outline"></nb-icon>
   </div>
-  <div class="modal-body bg-gray">
+  <div class="modal-body">
     <app-user-form [user]='user' (updateUser)="updateUser()"></app-user-form>
   </div>
 </ng-template>

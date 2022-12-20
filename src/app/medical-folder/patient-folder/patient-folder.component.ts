@@ -138,9 +138,7 @@ export class PatientFolderComponent implements OnInit {
   updatePattientConstantNumber(patientId?:number){
     this.patientConstantService.getPatientConstantNumberByPatientId(this.patient.id).subscribe(
       (response : any) => {
-        this.patientConstantNumber = response["PatientConstantNumber"];
-        console.log( this.patientConstantNumber);
-        
+        this.patientConstantNumber = response["PatientConstantNumber"];        
         this.items2[1]["badge"]["text"] = this.patientConstantNumber.toString();
       }
     )

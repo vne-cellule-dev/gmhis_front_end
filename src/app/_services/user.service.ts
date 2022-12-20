@@ -60,16 +60,16 @@ export class UserService {
    * @param formData 
    * @returns User
    */
-  public addUser(formData: FormData): Observable<User | HttpErrorResponse> {
-    return this.http.post<User>(`${this.host}/user/add`, formData)
+  public addUser(userDto: User): Observable<User | HttpErrorResponse> {
+    return this.http.post<User>(`${this.host}/user/add`, userDto)
   }
   /**
    * update user
    * @param FormData 
    * @returns User
    */
-  public updateUser(FormData: FormData): Observable<User | HttpErrorResponse> {    
-    return this.http.post<User>(`${this.host}/user/update/`, FormData)
+  public updateUser(userDto: User): Observable<User | HttpErrorResponse> {    
+    return this.http.put<User>(`${this.host}/user/update/${userDto.id}`, userDto)
   }
   /**
    * reset user password 
@@ -143,12 +143,10 @@ export class UserService {
     formData.append('firstName', user.firstName);
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
-    formData.append('depot', user.depot);
     formData.append('tel', user.tel);
     formData.append('roles', user.role);
     formData.append('profileImage', profileImage);
     formData.append('isActive', JSON.stringify(user.isActive));
-    formData.append('controllerAllDepot', JSON.stringify(user.controllerAllDepot));
     formData.append('isNonLocked', JSON.stringify(user.isNonLocked));
     formData.append('passwordMustBeChange', JSON.stringify(user.passwordMustBeChange));
     return formData
@@ -183,7 +181,7 @@ export class UserService {
    * @returns 
    */
    getUserDetail(userId: number): Observable<User> {
-    return this.http.get<User>(`${this.host}/user/get-detail/${userId}`)
+    return this.http.get<User>(`${this.host}/user/detail/${userId}`)
   } 
 
 }

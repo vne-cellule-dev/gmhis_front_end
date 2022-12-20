@@ -6,6 +6,8 @@ import { PageList } from 'src/app/_models/page-list.model';
 import { NotificationService } from 'src/app/_services/notification.service';
 import { NotificationType } from 'src/app/_utilities/notification-type-enum';
 import { SubSink } from 'subsink';
+import { IExam } from '../models/exam';
+import { AnalysisBulletinDocService } from '../services/document/analysis-bulletin-doc.service';
 import { ExamService } from '../services/exam.service';
 
 @Component({
@@ -62,6 +64,7 @@ export class ExamenListComponent implements OnInit {
     private notificationService: NotificationService,
     config: NgbModalConfig,
     private modalService: NgbModal,
+    private analysisBulletinDocService: AnalysisBulletinDocService
     // private datePipe: DatePipe,
   ) { }
 
@@ -143,4 +146,9 @@ export class ExamenListComponent implements OnInit {
   }
 
  
+  printExamenBulletinDoc(printContent,examen : IExam){
+    this.modalService.open(printContent, { size: 'xl' });
+    let doc  = this.analysisBulletinDocService.getExamenBulletinDoc(examen);
+    this.docSrc = doc.output('datauristring');  
+  }
 }

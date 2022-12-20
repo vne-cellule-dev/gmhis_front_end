@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActService } from 'src/app/act/act/service/act.service';
+import { InsuranceService } from 'src/app/insurance/insurance.service';
 import { MedicalAnalysisSpecialityService } from 'src/app/medical-analysis-speciality/service/medical-analysis-speciality.service';
 import { INameAndId } from 'src/app/shared/models/name-and-id';
 import { NotificationService } from 'src/app/_services/notification.service';
@@ -33,20 +35,56 @@ export class ExamenFormComponent implements OnInit {
   medicalAnalysisSpeciality: any;
   medicalAnalysisSpecialitySecondSection: any = [];
   observation : string = ' l';
+  examenForm : FormGroup;
+  laboratories = [
+    {
+      name : 'Interne',
+      value : 'I'
+    },
+    {
+      name : 'Externe',
+      value : 'E'
+    }
+  ];
+
+  patientTypes = [
+    {
+      name : 'Comptant',
+      value : 'C'
+    },
+    {
+      name : 'Assuré',
+      value : 'A'
+    }
+  ];
+
+  InsurrancesList : INameAndId;
+
   constructor(
     private actService : ActService,
     private examenService : ExamService,
     private modalService: NgbModal,
     private notificationService: NotificationService,
-    private medicalAnalysisSpecialityService : MedicalAnalysisSpecialityService
+    private medicalAnalysisSpecialityService : MedicalAnalysisSpecialityService,
+    private insuranceService : InsuranceService
     ) { }
 
   ngOnInit(): void {
     this.getAllAct();
     this.examDto.admission = this.admissionId;
-    this.getAllMedicalAnalysisSpeciality()
+    this.getAllMedicalAnalysisSpeciality();
+    this.initForm();
+    this.getAllInsuranceActive();
   }
 
+  initForm():void {
+    this.examenForm = new FormGroup({
+        id : new FormControl(null),
+        laboratoryType : new FormControl(null),
+        patientType : new FormControl(null),
+        insurrance : new FormControl(null),
+    })
+  }
 
   getAllAct(){
     this.actService.getListOfAllMedicalAnalysis().subscribe(
@@ -108,6 +146,14 @@ export class ExamenFormComponent implements OnInit {
     this.medicalAnalysisSpecialityService.getListOfActiveMedicaleAnalysis().subscribe(
       (response : any) => {
         this.medicalAnalysisSpeciality = response;        
+      }
+    )
+  }
+
+  getAllInsuranceActive(){
+    this.insuranceService.getAllInsuranceActive().subscribe(
+      (response : INameAndId) => {
+        this.InsurrancesList = response;
       }
     )
   }

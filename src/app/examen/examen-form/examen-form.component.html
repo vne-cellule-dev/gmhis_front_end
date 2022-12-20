@@ -1,3 +1,29 @@
+<form [formGroup]="examenForm" action="" class="row mb-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">laboratoire</label>
+        <ng-select placeholder="laboratoire" formControlName="laboratoryType">
+            <ng-option *ngFor="let laboratorie of laboratories" [value]="laboratorie.id">{{
+                laboratorie.name
+                }}</ng-option>
+        </ng-select>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">Type de patient</label>
+        <ng-select placeholder="Type de Patient" formControlName="patientType">
+            <ng-option *ngFor="let patientType of patientTypes" [value]="patientType.id">{{
+                patientType.name
+                }}</ng-option>
+        </ng-select>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 rounded-pill">
+        <label for="active" class="form-label text-capitalize">Assurance</label>
+        <ng-select placeholder="Assurance" formControlName="insurrance">
+            <ng-option *ngFor="let Insurrance of InsurrancesList" [value]="Insurrance.id">{{
+                Insurrance.name
+                }}</ng-option>
+        </ng-select>
+    </div>
+</form>
 <div class="row h-100">
     <div class="col-lg-6 row">
         <nb-accordion multi>
@@ -11,7 +37,7 @@
                             [hidden]="act?.medicalAnalysisId != medicalAnalysiSpeciality?.id">
                             <div class="accordion_item">
                                 <div>
-                                    <nb-checkbox  (checkedChange)="getPrescriptionItemsIdToCollected(act)">
+                                    <nb-checkbox (checkedChange)="getPrescriptionItemsIdToCollected(act)">
                                     </nb-checkbox>
                                     <span class="mx-1">{{act?.name}}</span>
                                 </div>
@@ -32,27 +58,30 @@
     </div>
     <div class="col-lg-6 pb-2">
         <div class="actsSelected  mb-3 px-3">
-               <div class="mb-4" *ngFor="let medicalAnalysiSpecialityName of medicalAnalysisSpecialitySecondSection; let i = index">
+            <div class="mb-4"
+                *ngFor="let medicalAnalysiSpecialityName of medicalAnalysisSpecialitySecondSection; let i = index">
                 <span class="actsSelected_title">{{medicalAnalysiSpecialityName}}</span>
-                    <div class="act_selectedBox mt-2" *ngFor="let selectectedItem of selectectedItems; let i = index" 
-                    [hidden]="selectectedItem?.medicalAnalysisName != medicalAnalysiSpecialityName"
-                    >
-                        <div class="accordion_item">
-                            <div
-                            class="act_selectedItem mx-2">
+                <div class="act_selectedBox mt-2" *ngFor="let selectectedItem of selectectedItems; let i = index"
+                    [hidden]="selectectedItem?.medicalAnalysisName != medicalAnalysiSpecialityName">
+                    <div class="accordion_item">
+                        <div class="act_selectedItem mx-2">
                             <span class="mx-2">{{selectectedItem?.actCode}} - {{selectectedItem?.name}}</span>
-                            <div class="closeBtn" >
-                                <nb-icon (click)="getPrescriptionItemsIdToCollected(selectectedItem)" class="pointer text-white" style=" cursor: pointer; "  icon="close-outline"></nb-icon>
-                            </div>
+                            <div class="closeBtn">
+                                <nb-icon (click)="getPrescriptionItemsIdToCollected(selectectedItem)"
+                                    class="pointer text-white" style=" cursor: pointer; " icon="close-outline">
+                                </nb-icon>
                             </div>
                         </div>
-                    </div> 
-               </div>
-              
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <textarea class="mb-3" [(ngModel)]="examDto.observation" placeholder="COMMENTAIRE" name="" id="" cols="72" rows="3"></textarea>
-        <button *ngIf="medicalAnalysisSpecialitySecondSection.length != 0" (click)="saveExamanRequest()" style="background-color: #14a2b8;"
-        class="text-capitalize btn btn-block w-25 text-white rounded">
-        <span class="fw-bold"> DEMANDER</span>
-    </button>
+        <textarea class="mb-3" [(ngModel)]="examDto.observation" placeholder="COMMENTAIRE" name="" id="" cols="72"
+            rows="3"></textarea>
+        <button *ngIf="medicalAnalysisSpecialitySecondSection.length != 0" (click)="saveExamanRequest()"
+            style="background-color: #14a2b8;" class="text-capitalize btn btn-block w-25 text-white rounded">
+            <span class="fw-bold"> DEMANDER</span>
+        </button>
     </div>
+</div>

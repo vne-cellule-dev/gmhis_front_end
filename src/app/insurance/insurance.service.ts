@@ -29,10 +29,6 @@ export class InsuranceService {
     );
   }
 
-  findInsuranceSimpleList(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/insurance/active_insurances_name`);
-  }
-
   createInsurance(antecedentType: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/insurance/add`, antecedentType);
   }

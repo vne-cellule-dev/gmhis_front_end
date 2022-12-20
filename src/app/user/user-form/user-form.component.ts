@@ -122,20 +122,20 @@ export class UserFormComponent implements OnInit ,  OnDestroy{ private subs = ne
       this.subs.add(
         this.userService.getUserDetail(this.user.id).subscribe(
           (response : User)=>{
+            console.log(response);
+            
            this.userForm.patchValue(response)
-           this.userForm.get("depot").setValue(response.depot["id"]);
-           this.userForm.get("isNonLocked").setValue(response["notLocked"]);
-           this.userForm.get("isActive").enable();
-           this.userForm.get("isNonLocked").enable();
+           this.userForm.get("notLocked").setValue(response["notLocked"]);
+           this.userForm.get("active").enable();
+           this.userForm.get("notLocked").enable();
            this.userForm.get("passwordMustBeChange").enable()
-           this.userForm.get("role").setValue(userRoles);
+           this.userForm.get("roles").setValue(userRoles);
           }
         )
       )
      ;
     }
 
-    this.getDepotActifList();
     this.getRoleActifList();
 
   }
@@ -148,13 +148,11 @@ export class UserFormComponent implements OnInit ,  OnDestroy{ private subs = ne
       username: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
       tel: new FormControl('', [Validators.required]),
-      depot: new FormControl('', [Validators.required]),
-      role: new FormControl('', [Validators.required]),
-      isActive: new FormControl({ value: true, disabled: true }, [Validators.required]),
-      controllerAllDepot: new FormControl(false, [Validators.required]),
-      isNonLocked: new FormControl({ value: false, disabled: true }, [Validators.required]),
+      roles: new FormControl('', [Validators.required]),
+      facilityId : new FormControl('2bd56b2f-80ed-4a8c-a496-cd7f8b676f42'),
+      active: new FormControl({ value: true, disabled: true }, [Validators.required]),
+      notLocked: new FormControl({ value: false, disabled: true }, [Validators.required]),
       passwordMustBeChange: new FormControl({ value: true, disabled: true }, [Validators.required]),
-      profilImage: new FormControl(''),
     });
   }
 
@@ -162,13 +160,11 @@ export class UserFormComponent implements OnInit ,  OnDestroy{ private subs = ne
   get lastName() { return this.userForm.get('lastName'); }
   get email() { return this.userForm.get('email'); }
   get tel() { return this.userForm.get('tel'); }
-  get depot() { return this.userForm.get('depot'); }
-  get isActive() { return this.userForm.get('isActive'); }
+  get active() { return this.userForm.get('active'); }
   get controllerAllDepot() { return this.userForm.get('controllerAllDepot'); }
   get isNonLocked() { return this.userForm.get('isNonLocked'); }
   get passwordMustBeChange() { return this.userForm.get('passwordMustBeChange'); }
-  get userImage() { return this.userForm.get('profilImage'); }
-  get role() { return this.userForm.get('role'); }
+  get role() { return this.userForm.get('roles'); }
 
   private async readFile(file: File): Promise<string | ArrayBuffer> {
     return new Promise<string | ArrayBuffer>((resolve, reject) => {
@@ -212,8 +208,9 @@ export class UserFormComponent implements OnInit ,  OnDestroy{ private subs = ne
       this.user = this.userForm.getRawValue();
 
       if (this.user.id) {
+        console.log(this.user);
         this.subs.add(
-          this.userService.updateUser(this.userService.createUserFormdData(this.user.username, this.user, this.profileImage)).subscribe(
+          this.userService.updateUser(this.user).subscribe(
           (response: User) => {
             this.showloading = false;
             this.updateUser.emit();
@@ -225,7 +222,7 @@ export class UserFormComponent implements OnInit ,  OnDestroy{ private subs = ne
         ));
       } else {
         this.subs.add(
-          this.userService.addUser(this.userService.createUserFormdData(null, this.user, this.profileImage)).subscribe(
+          this.userService.addUser(this.user).subscribe(
           (response: User) => {
             this.showloading = false;
             this.addUser.emit();
@@ -244,13 +241,7 @@ export class UserFormComponent implements OnInit ,  OnDestroy{ private subs = ne
     this.fileName = fileName;
     this.profileImage = profileImage;
   }
-  private getDepotActifList() {
-    this.depotService.findActive().subscribe(
-      (response: Depot[]) => {
-        this.depots = response;
-      }
-    )
-  }
+
 
   private getRoleActifList() {
     this.roleService.findAllActive().subscribe(

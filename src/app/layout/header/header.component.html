@@ -4,18 +4,18 @@
       <nb-action (click)="toggleSidebar()" icon="menu-2-outline"></nb-action>
     </nb-actions>
   </div>
-  <span class="">{{user?.facility.name}} ({{user?.facility.shortName}}) {{user?.facility?.facilityType?.name}} de {{user?.facility?.facilityCategory?.name}}</span>
   <div class="d-flex align-items-center">
     <nb-actions size="medium">
       <!-- <nb-action [hidden]="!canAccessNotification" class="control-item" icon="bell-outline" badgeText="2"
       badgePosition="top right"
       badgeStatus="danger"></nb-action> -->
-      <nb-action   (click)="showRightSideBarF()" class="control-item" icon="settings-outline" ></nb-action>
+      <!-- <nb-action   (click)="showRightSideBarF()" class="control-item" icon="settings-outline" ></nb-action> -->
       <nb-action class="control-item">
         <button class="" size="tiny" shape="round" (click)="logOut()" nbButton>Se deconnecter</button>
       </nb-action>
     </nb-actions>
-    <!-- <nb-user size="large"  name="{{user?.firstName}} {{user?.lastName}}" title="{{user?.depot.name | uppercase}}" picture="user?.profileImageUrl">
+    <nb-user (click)="showRightSideBarF()" class="pointer" name="{{user?.lastName}} {{user?.firstName }} ({{user?.role}})" title="{{user?.facility?.name | uppercase}}"></nb-user>
+    <!-- <nb-user size="large" (click)="showRightSideBarF()" name="{{user?.lastName}} {{user?.firstName}} ({{user?.role}})" title="{{user?.facility.name | uppercase}}" picture="user?.profileImageUrl">
     </nb-user> -->
   </div>
  

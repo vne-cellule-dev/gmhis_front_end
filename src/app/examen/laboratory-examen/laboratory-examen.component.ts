@@ -56,7 +56,7 @@ export class LaboratoryExamenComponent implements OnInit {
 
   showloading: boolean = false;
   currentIndex: number;
-  examenId: number;
+  examenId: string;
   analysisRequestItems: IExamItemDto[];
   medicalAnalysisSpeciality: any = [];
   selectectedExamIds: string[] = [];

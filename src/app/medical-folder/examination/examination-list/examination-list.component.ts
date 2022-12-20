@@ -74,8 +74,6 @@ export class ExaminationListComponent implements OnInit {
   ngOnInit(): void {
     this.initform();
     this.getConvention();
-    console.log(this.patientId);
-    
   }
 
   initform() {
@@ -96,7 +94,6 @@ export class ExaminationListComponent implements OnInit {
     this.subs.add(
       this.examinationService.getPatientExamination(this.searchForm.value).subscribe(
         (response: PageList) => {
-          console.log(response);
           this.showloading = false;
           this.currentPage = response.currentPage + 1;
           this.empty = response.empty;
@@ -133,13 +130,11 @@ export class ExaminationListComponent implements OnInit {
 
   openUpdateForm(updateFormContent, item?) {
     this.examination = item;
-    console.log(this.examination);
     this.modalService.open(updateFormContent, { size: 'xl' });
   }
 
   openPrescriptionForm(prescriptionFormContent, item?) {
     this.examinationId = item.id;
-    console.log(this.examinationId);
     this.modalService.open(prescriptionFormContent, { size: 'xl' });
   }
 

@@ -179,7 +179,6 @@ var doc = new jsPDF('p', 'mm', 'a4');
     startY: 110,
     styles: {font: "arial", fontSize: 9},
     didDrawPage: function (data :any ) {
-
       doc.setFontSize(8)
       var pageSize = doc.internal.pageSize
       var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight()
@@ -188,6 +187,7 @@ var doc = new jsPDF('p', 'mm', 'a4');
       doc.text("- Page " + data.pageNumber + " -", data.settings.margin.left + 80, pageHeight - 3)
     }
   })
+
   return doc;
 
 }

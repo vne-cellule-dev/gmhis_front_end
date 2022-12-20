@@ -104,7 +104,6 @@ export class ListUserComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.initform();
     this.getUsers();
-    this.getDepotActifList();
   }
 
   ngAfterViewInit() { }
@@ -276,18 +275,6 @@ export class ListUserComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalService.dismissAll();
     this.notificationService.notify(NotificationType.SUCCESS, "E-mail envoyé avec succès");
     this.getUsers();
-  }
-
-  private getDepotActifList() {
-    this.subs.add(
-      this.depotService.findActive().subscribe(
-        (response: Depot[]) => {
-          this.depots = response;
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.notificationService.notify(NotificationType.ERROR, errorResponse.error.message);
-        }
-      ));
   }
 
   rowSelected(user: User, index: number) {

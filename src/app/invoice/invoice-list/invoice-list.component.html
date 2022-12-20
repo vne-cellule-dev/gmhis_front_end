@@ -142,8 +142,8 @@
             <th>Date d'admission</th>
             <th>N° Admission</th>
             <!-- <th>Acte</th> -->
-            <th>Assurance</th>
-            <th>Etablissement garant</th>
+            <!-- <th>Assurance</th>
+            <th>Etablissement garant</th> -->
             <th>Total Facture</th>
             <th>Encaissé</th>
             <th>Actions</th>
@@ -182,8 +182,8 @@
             <!-- <td></td> -->
             <!-- <td class="text-nowrap">{{invoice.billActs[0].act.name}}</td> -->
             <!-- <td class="text-nowrap">{{invoicie?.patientType}}</td> -->
-            <td class="text-nowrap">{{ invoice.insurance?.name }}</td>
-            <td>{{ invoice?.subscriber?.name }}</td>
+            <!-- <td class="text-nowrap">{{ invoice.insurance?.name }}</td>
+            <td>{{ invoice?.subscriber?.name }}</td> -->
             <td>
               {{ invoice?.patientPart | currency: "FCFA":"symbol":"1.0-0" }}
             </td>
@@ -345,15 +345,15 @@
     ></nb-icon>
   </div>
   <div class="modal-body">
-    <!-- <app-payment
+    <app-payment
     [invoice]="invoice"
+    (addPayment)="addPayment()"
     >
-
-    </app-payment> -->
-    <app-invoice-form
+    </app-payment>
+    <!-- <app-invoice-form
       [invoice]="invoice"
       [makeInvoice]="makeInvoice"
       (addPayment)="addPayment()"
-    ></app-invoice-form>
+    ></app-invoice-form> -->
   </div>
 </ng-template>
