@@ -41,6 +41,7 @@
         <thead >
              <th class="text-nowrap">Nom <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('firstName')" ></fa-icon></th>
             <th class="text-nowrap">Prénom <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('lastName')" ></fa-icon></th>
+            <th class="text-nowrap">Roles <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('lastName')" ></fa-icon></th>
             <th class="text-nowrap">Statut <fa-icon [icon]="faSort" class ="mx-1" (click)="sortBy('isActive')" ></fa-icon></th>
             <th class="text-nowrap">Email</th>
             <th class="text-nowrap">Téléphone</th>
@@ -58,6 +59,7 @@
                 </td> -->
                 <td class="text-nowrap">{{user?.lastName }}</td>
                 <td class="text-nowrap">{{user?.firstName }}</td>
+                <td class="text-nowrap">{{user?.role | uppercase }}</td>
                 <td class="text-center">
                   <nb-icon *ngIf="user.active == true" style="color: green;" icon="checkmark-circle-2"></nb-icon>
                   <nb-icon *ngIf="user.active == false" style="color: red;" icon="close-circle"></nb-icon>

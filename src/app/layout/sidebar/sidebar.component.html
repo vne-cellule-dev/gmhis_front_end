@@ -1,4 +1,5 @@
 <p
+[hidden]="!canAccessDashBoard"
   [ngClass]="{ menuActive: menuItem == 'Dashboard' }"
   (click)="menuItemFunction('Dashboard')"
   routerLink="/home"
@@ -13,6 +14,7 @@
 </p>
 
 <p
+[hidden]="!canAccessPatient"
   [routerLink]="['/patient/list']"
   [ngClass]="{ menuActive: menuItem == 'patient' }"
   (click)="menuItemFunction('patient')"
@@ -27,6 +29,7 @@
 </p>
 
 <p
+[hidden]="!canAccessAdmission"
   [ngClass]="{ menuActive: menuItem == 'admission' }"
   (click)="menuItemFunction('admission')"
   routerLink="/admission/list"
@@ -41,6 +44,7 @@
 </p>
 
 <p
+  [hidden]="!canAccessCaisse"
   [ngClass]="{ menuActive: menuItem == 'invoice' }"
   (click)="menuItemFunction('invoice')"
   routerLink="/invoice/list"
@@ -55,6 +59,7 @@
 </p>
 
 <p
+  [hidden]="!canAccessInvoiceAssurance"
   [ngClass]="{ menuActive: menuItem == 'insuranceBill' }"
   (click)="menuItemFunction('insuranceBill')"
   routerLink="/invoice/insuranceBill"
@@ -68,6 +73,7 @@
   ><span class="fw-bold">Facture assurance</span>
 </p>
 <p
+  [hidden]="!canAccessConstantTaking"
   [ngClass]="{ menuActive: menuItem == 'constantWaitingRoom' }"
   (click)="menuItemFunction('constantWaitingRoom')"
   routerLink="/waiting-room/constantWaitingRoom"
@@ -81,6 +87,7 @@
   ><span class="fw-bold">Salle de prise de constante</span>
 </p>
 <p
+  [hidden]="!canAccessWaitingRoom"
   [ngClass]="{ menuActive: menuItem == 'waitingRoom' }"
   (click)="menuItemFunction('waitingRoom')"
   routerLink="/waiting-room/waitingRoom"
@@ -94,6 +101,7 @@
   ><span class="fw-bold">Salle d'attentes</span>
 </p>
 <p
+[hidden]="!canAccessPharmacy"
   [ngClass]="{ menuActive: menuItem == 'pharmacy' }"
   (click)="menuItemFunction('pharmacy')"
   routerLink="/prescription/pharmacy"
@@ -107,6 +115,7 @@
   ><span class="fw-bold">Pharmacie</span>
 </p>
 <p
+[hidden]="!canAccessLaboratory"
 [ngClass]="{ menuActive: menuItem == 'laboratory-exam' }"
 (click)="menuItemFunction('laboratory-exam')"
 routerLink="/examen/exam-list"
@@ -120,6 +129,7 @@ class="dashboard py-3"
   ><span class="fw-bold">Laboratoire</span>
 </p>
 <p
+[hidden]="!canAccessHospitalisation"
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"
   routerLink="/owner/list"
@@ -133,6 +143,7 @@ class="dashboard py-3"
   ><span class="fw-bold">Hospitalisation</span>
 </p>
 <p
+  [hidden]="!canAccessStatistics"
   [ngClass]="{ menuActive: menuItem == 'owner' }"
   (click)="menuItemFunction('owner')"
   routerLink="/owner/list"

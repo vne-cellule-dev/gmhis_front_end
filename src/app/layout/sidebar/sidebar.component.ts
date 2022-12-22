@@ -12,7 +12,6 @@ import { NotifService } from 'src/app/_services/notif.service';
 import { StockEntryService } from 'src/app/_services/stock-entry.service';
 import { TransfertService } from 'src/app/_services/transfert.service';
 import { UserService } from 'src/app/_services/user.service';
-import { WebsocketService } from 'src/app/_services/websocket.service';
 
 import { SubSink } from 'subsink';
 
@@ -55,24 +54,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private notificationService: NotifService,
     private transferService: TransfertService,
     private stockEntryService: StockEntryService,
-    private webSocketService: WebsocketService,
     private customerOrderService : CustomerOrderService,
     private inventoryService : InventoryService,
     private assetService : AssetsService
      ) {
 
-		// Open connection with server socket
-        let stompClient = this.webSocketService.connect();
-        stompClient.connect({}, frame => {
 
-			// Subscribe to notification topic
-      // this.subs.add(
-      //       stompClient.subscribe('/topic/stock-entry-notification', notifications => {
-			// 	// Update notifications attribute with the recent messsage sent from the server
-      //           this.stockEntryNotification = JSON.parse(notifications.body);
-      //       }));
-      
-        });
     }
 
   // Unsubscribe when the component dies
@@ -89,13 +76,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       }
       
     )
-    /*****************star transfert notification****************** */
-    // this.notificationService.getTransfertNotificationMsg().subscribe(response => {
-    //   this.transfertNotification = response;
-    //   if (this.transfertNotification > 0) {
-    //     this.stockNotification = true;
-    //   }
-    // })
+  
 
    }
 // dashboard
@@ -103,8 +84,45 @@ export class SidebarComponent implements OnInit, OnDestroy {
     return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_DASHBOARD);
   }
 
-  get canAccessLocal() {
-    return this.userService.checkAuthority(LocalAuthorityEnum.LOCAUX_LIST);
+  get canAccessPatient() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_PATIENT);
+  }
+
+  get canAccessAdmission() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_ADMISSION);
+  }
+
+  get canAccessCaisse() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_CAISSE);
+  }
+
+  get canAccessInvoiceAssurance() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_INSURANCE_INVOICE);
+  }
+
+  get canAccessConstantTaking() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_CONSTANT_TAKING);
+  }
+
+  get canAccessWaitingRoom() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_WAITING_ROOM);
+  }
+
+
+  get canAccessPharmacy() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_PHARMACY);
+  }
+
+  get canAccessLaboratory() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_LABORATORY);
+  }
+
+  get canAccessHospitalisation() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_HOSPITALISATION);
+  }
+
+  get canAccessStatistics() {
+    return this.userService.checkAuthority(SideBar1MenuAuthorityEnum.ACCESS_PHARMACY);
   }
 
  

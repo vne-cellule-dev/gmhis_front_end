@@ -24,7 +24,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import {CurrencyPipe, registerLocaleData} from '@angular/common'
 import localFr from '@angular/common/locales/fr';
-import { WebsocketService } from './_services/websocket.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
@@ -62,7 +61,7 @@ registerLocaleData(localFr, 'fr');
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     
     ],
-  providers: [NotificationService,AuthenticationGuard, AuthenticationService, UserService, WebsocketService,
+  providers: [NotificationService,AuthenticationGuard, AuthenticationService, UserService,
   {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, {provide: LOCALE_ID, useValue: 'fr'},
  ],
   bootstrap: [AppComponent]

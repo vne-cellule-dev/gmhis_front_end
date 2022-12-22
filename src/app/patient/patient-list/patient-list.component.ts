@@ -60,6 +60,7 @@ export class PatientListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initform();
+    this.getPatient();
    const actGroup = {
       active: false,
       id: 0,

@@ -82,7 +82,6 @@ export class InvoiceListComponent implements OnInit {
   ngOnInit(): void {
    
     this.initform();
-    console.log(this.actServicesNameAndId);
     this.getPatient();
   }
 

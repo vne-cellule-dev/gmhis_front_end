@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
-import { BankAuthorityEnum } from 'src/app/_enum/bankAuthority.enum';
 import { CarrierAuthorityEnum } from 'src/app/_enum/carrierAuthority.enum';
 import { CityAuthorityEnum } from 'src/app/_enum/cityAuthority.enum';
 import { CommuneAuthorityEnum } from 'src/app/_enum/communeAuthority.enum';
@@ -441,9 +440,6 @@ export class Sidebar2Component implements OnInit, OnDestroy {
     return this.userService.checkAuthority(DriverAuthorityEnum.DRIVER_LIST);
   }
 
-  private canAccessBank() {
-    return this.userService.checkAuthority(BankAuthorityEnum.BANK_LIST);
-  }
 
   private canAccessCountry() {
     return this.userService.checkAuthority(CountryAuthorityEnum.COUNTRY_LIST);
