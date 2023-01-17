@@ -108,9 +108,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let act of patientInvoice?.billActs">
-            <td>{{ act?.act?.name }}</td>
+            <td>{{ act?.act }}</td>
             <td>
-              {{ act?.practician?.firstName }} {{ act?.practician?.lastName }}
+              {{ act?.practicianFirstName }} {{ act?.practicianLastName }}
             </td>
             <td>{{ act?.actCost }}</td>
           </tr>

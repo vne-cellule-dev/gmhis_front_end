@@ -10,6 +10,7 @@ import { ExaminationListComponent } from './examination/examination-list/examina
 import { ConstantModule } from '../constant/constant.module';
 import { ExamenModule } from '../examen/examen.module';
 import { PrescriptionModule } from '../prescription/prescription.module';
+import { MedicalCertificatesModule } from '../medical-certificates/medical-certificates.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PrescriptionModule } from '../prescription/prescription.module';
     NbMenuModule.forRoot(), 
     ConstantModule,
     ExamenModule,
-    PrescriptionModule
+    PrescriptionModule,
+    MedicalCertificatesModule
   ]
 })
 export class MedicalFolderModule { }

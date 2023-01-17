@@ -85,6 +85,14 @@ export class PatientFolderComponent implements OnInit {
             text: '0',
             status: 'warning',
           },
+        },
+        {
+          title: 'Certificats médicaux',
+          icon: 'minus-outline',
+          badge: {
+            text: '0',
+            status: 'warning',
+          },
         }
   ];
   ngOnInit(): void {

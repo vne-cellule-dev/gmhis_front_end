@@ -79,6 +79,10 @@
                 <h5 class="mb-4">LISTE DES ORDONNANCES</h5>
                 <app-prescription-list  (updatePatientPrescriptionNumber)="updatePatientPrescriptionNumber()" [patientId]="patientId"></app-prescription-list>
             </div>
+            <div *ngIf="menuClick=='Certificats médicaux'" class="col-lg-10">
+                <h5 class="mb-4">CERTIFICATS MEDICAUX</h5>
+                <app-medical-certificates-list></app-medical-certificates-list>
+            </div>
         </div>
     </nb-card-body>
 </nb-card>
