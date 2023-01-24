@@ -162,43 +162,9 @@ export class LaboratoryExamenComponent implements OnInit {
   onExamenFileSelect(event) {
     
     this.file = event.target.files[0];    
-    // this.analysisRequestItems[2]["file"] = this.file;
-    
-    // this.readFile(this.files[0]).then(fileContents => {
-
-    // })
+   
   }
 
-  
-
-  markAsperformed(){    
-  if (this.selectectedExamIds.length != 0 && this.file != null ) {
-    this.examenService.makAsPerformed(this.selectectedExamIds, this.file).subscribe(
-      (response : any) => {
-        this.modalService.dismissAll(); 
-        this.notificationService.notify(
-          NotificationType.SUCCESS,
-          "analyse effectuée avec succès"
-        );  
-        this.getAllExam();  
-        this.selectectedExamIds = [];  
-        this.file = null;
-      },(errorResponse: HttpErrorResponse) => {
-          this.showloading = false;
-          this.notificationService.notify(
-            NotificationType.ERROR,
-            errorResponse.error.message
-          );
-          this.selectectedExamIds = [];  
-        }
-    )
-  }else{
-    this.notificationService.notify(
-      NotificationType.ERROR,
-     "Veuillez joindre un fichier et choisir une analyse."
-    );
-  }
-  }
 
   getAnalysisRequestItemsByAnalysisId(analysisId): any {
     this.examenService.getAnalysisRequestItemsByAnalysisId(analysisId).subscribe(
@@ -250,5 +216,13 @@ getExamItemsIdToCollected(examId){
     this.selectectedExamIds.push(examId);
   }
   
+}
+
+performeAnalysis(){
+  this.notificationService.notify(
+    NotificationType.SUCCESS,
+    "analyse effectuée avec succès"
+  );  
+  this.getAllExam();
 }
 }

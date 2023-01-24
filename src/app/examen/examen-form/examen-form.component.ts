@@ -95,7 +95,6 @@ export class ExamenFormComponent implements OnInit {
   }
 
   getPrescriptionItemsIdToCollected(item) {  
-    console.log(item);
       
     this.examDto.acts = [];
     if (this.selectectedItems.includes(item)) {
@@ -106,7 +105,6 @@ export class ExamenFormComponent implements OnInit {
       this.selectectedItems.push(item);
     }
     this.removeDuplicates(this.medicalAnalysisSpecialitySecondSection,item["medicalAnalysisName"]);   
-    console.log(this.medicalAnalysisSpecialitySecondSection);
      
   }
 

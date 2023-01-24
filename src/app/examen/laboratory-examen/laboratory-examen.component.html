@@ -115,7 +115,7 @@
     <nb-icon style="cursor: pointer" (click)="d('Cross click')" class="h4" icon="close-circle-outline"></nb-icon>
   </div>
   <div class="modal-body">
-    <app-analysis-bulletin [examen]="examen"></app-analysis-bulletin>
+    <app-analysis-bulletin (performeAnalysis)="performeAnalysis()" [examen]="examen"></app-analysis-bulletin>
   </div>
 </ng-template>
 
