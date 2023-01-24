@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
@@ -146,7 +147,8 @@ export class PatientFormmComponent implements OnInit {
     private notificationService: NotificationService,
     private insuranceService: InsuranceService,
     private insuranceSubscriberService: SubscriberService,
-    private insuredServiceService: InsuredServiceService
+    private insuredServiceService: InsuredServiceService,
+    private datePipe : DatePipe
   ) {}
 
   // Unsubscribe when the component dies
@@ -157,6 +159,8 @@ export class PatientFormmComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     if (this.patient) {
+      console.log(this.patient);
+      
       this.patientService
         .getPatientDetail(this.patient.id)
         .subscribe((response: IPatient) => {
@@ -164,13 +168,13 @@ export class PatientFormmComponent implements OnInit {
           this.patientForm.get('country').setValue(response['country']['id']);
           this.onGetCityBycountry(response['country']['id']);
           this.patientForm.get('cityId').setValue(response['city']['id']);
-          let date = new Date(response.birthDate);
+          let date = this.datePipe.transform(response.birthDate, "yyyy-MM-dd")
+          console.log(date);
+          
           this.patientForm.get('birthDate').setValue(date);
           this.insuredServiceService
             .getInsuredByPatientId(response.id)
-            .subscribe((res: any) => {
-              console.log(res);
-              
+            .subscribe((res: any) => {              
               res.forEach((el, index) => {
                 this.addInsurance();
                 this.insuranceFormGroup.controls[index]
@@ -188,21 +192,21 @@ export class PatientFormmComponent implements OnInit {
                 this.insuranceFormGroup.controls[index]
                   .get('insuranceSuscriber')
                   .setValue(el.subscriberId);
-                this.insuranceFormGroup.controls[index]
-                  .get('isPrincipalInsured')
-                  .setValue(el.isPrincipalInsured);
+                // this.insuranceFormGroup.controls[index]
+                //   .get('isPrincipalInsured')
+                //   .setValue(el.isPrincipalInsured);
                 this.insuranceFormGroup.controls[index]
                   .get('coverage')
                   .setValue(el.coverage);
-                this.insuranceFormGroup.controls[index]
-                  .get('principalInsuredContact')
-                  .setValue(el.principalInsuredContact);
-                this.insuranceFormGroup.controls[index]
-                  .get('principalInsuredName')
-                  .setValue(el.principalInsuredName);
-                this.insuranceFormGroup.controls[index]
-                  .get('principalInsuredAffiliation')
-                  .setValue(el.principalInsuredAffiliation);
+                // this.insuranceFormGroup.controls[index]
+                //   .get('principalInsuredContact')
+                //   .setValue(el.principalInsuredContact);
+                // this.insuranceFormGroup.controls[index]
+                //   .get('principalInsuredName')
+                //   .setValue(el.principalInsuredName);
+                // this.insuranceFormGroup.controls[index]
+                //   .get('principalInsuredAffiliation')
+                //   .setValue(el.principalInsuredAffiliation);
                   this.insuranceFormGroup.controls[index]
                   .get('society')
                   .setValue(el.society);
@@ -232,7 +236,7 @@ export class PatientFormmComponent implements OnInit {
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl(''),
       cellPhone1: new FormControl('', [Validators.required]),
-      cellPhone2: new FormControl(''),
+      // cellPhone2: new FormControl(''),
       birthDate: new FormControl('', [Validators.required]),
       gender: new FormControl('', [Validators.required]),
       civility: new FormControl('', [Validators.required]),
@@ -243,16 +247,16 @@ export class PatientFormmComponent implements OnInit {
       correspondant: new FormControl('', [Validators.required]),
       correspondantCellPhone: new FormControl(''),
       maritalStatus: new FormControl(''),
-      maidenName: new FormControl(''),
+      // maidenName: new FormControl(''),
       emergencyContact: new FormControl(''),
-      emergencyContact2: new FormControl(''),
+      // emergencyContact2: new FormControl(''),
       numberOfChildren: new FormControl('0'),
       country: new FormControl(null),
       cityId: new FormControl(null),
-      motherFirstName: new FormControl('Dosso', [Validators.required]),
-      motherLastName: new FormControl('Mariam', [Validators.required]),
-      motherProfession: new FormControl('commercante'),
-      fatherName: new FormControl('kanate ali'),
+      // motherFirstName: new FormControl('Dosso', [Validators.required]),
+      // motherLastName: new FormControl('Mariam', [Validators.required]),
+      // motherProfession: new FormControl('commercante'),
+      // fatherName: new FormControl('kanate ali'),
       age: new FormControl(null),
       height: new FormControl(null),
       weight: new FormControl(null),
@@ -272,9 +276,9 @@ export class PatientFormmComponent implements OnInit {
   get cellPhone1() {
     return this.patientForm.get('cellPhone1');
   }
-  get cellPhone2() {
-    return this.patientForm.get('cellPhone2');
-  }
+  // get cellPhone2() {
+  //   return this.patientForm.get('cellPhone2');
+  // }
   get address() {
     return this.patientForm.get('address');
   }
@@ -308,15 +312,15 @@ export class PatientFormmComponent implements OnInit {
   get maritalStatus() {
     return this.patientForm.get('maritalStatus');
   }
-  get maidenName() {
-    return this.patientForm.get('maidenName');
-  }
+  // get maidenName() {
+  //   return this.patientForm.get('maidenName');
+  // }
   get emergencyContact() {
     return this.patientForm.get('emergencyContact');
   }
-  get emergencyContact2() {
-    return this.patientForm.get('emergencyContact2');
-  }
+  // get emergencyContact2() {
+  //   return this.patientForm.get('emergencyContact2');
+  // }
   get numberOfChildren() {
     return this.patientForm.get('numberOfChildren');
   }
@@ -326,15 +330,15 @@ export class PatientFormmComponent implements OnInit {
   get country() {
     return this.patientForm.get('country');
   }
-  get motherFirstName() {
-    return this.patientForm.get('motherFirstName');
-  }
-  get motherLastName() {
-    return this.patientForm.get('motherLastName');
-  }
-  get motherProfession() {
-    return this.patientForm.get('motherProfession');
-  }
+  // get motherFirstName() {
+  //   return this.patientForm.get('motherFirstName');
+  // }
+  // get motherLastName() {
+  //   return this.patientForm.get('motherLastName');
+  // }
+  // get motherProfession() {
+  //   return this.patientForm.get('motherProfession');
+  // }
   get patientExternalId() {
     return this.patientForm.get('patientExternalId');
   }
@@ -347,11 +351,11 @@ export class PatientFormmComponent implements OnInit {
       coverage: new FormControl(null, [Validators.required]),
       insurance: new FormControl(null, [Validators.required]),
       insuranceSuscriber: new FormControl(null, [Validators.required]),
-      isPrincipalInsured: new FormControl(null),
+      // isPrincipalInsured: new FormControl(null),
       patient: new FormControl(null),
-      principalInsuredAffiliation: new FormControl(''),
-      principalInsuredContact: new FormControl(''),
-      principalInsuredName: new FormControl(''),
+      // principalInsuredAffiliation: new FormControl(''),
+      // principalInsuredContact: new FormControl(''),
+      // principalInsuredName: new FormControl(''),
       society : new FormControl('')
     });
   }
@@ -377,9 +381,7 @@ export class PatientFormmComponent implements OnInit {
       this.invalidFom = !this.insuranceFormGroup.valid;
       if (this.insuranceFormGroup.valid) {
         this.showloading = true;
-      this.patient = this.patientForm.value;
-      console.log(this.patient);
-      
+      this.patient = this.patientForm.value;      
       this.infoFormString();
       this.patient.insurances = this.insuranceFormGroup.value;
       if (this.patient.id) {
@@ -424,15 +426,15 @@ export class PatientFormmComponent implements OnInit {
     this.patient.cellPhone1 = this.patientForm
       .get('cellPhone1')
       .value.toString();
-    this.patient.cellPhone2 = this.patientForm
-      .get('cellPhone2')
-      .value.toString();
+    // this.patient.cellPhone2 = this.patientForm
+    //   .get('cellPhone2')
+    //   .value.toString();
     this.patient.emergencyContact = this.patientForm
       .get('emergencyContact')
       .value.toString();
-    this.patient.emergencyContact2 = this.patientForm
-      .get('emergencyContact2')
-      .value.toString();
+    // this.patient.emergencyContact2 = this.patientForm
+    //   .get('emergencyContact2')
+    //   .value.toString();
     this.patient.numberOfChildren = this.patientForm
       .get('numberOfChildren')
       .value.toString();
@@ -493,33 +495,30 @@ export class PatientFormmComponent implements OnInit {
     );
   }
 
-  isPrincipalInsuredChange(row) {
-    console.log(this.insuranceFormGroup.controls[row].get('isPrincipalInsured').value);
-    
-    if (
-      this.insuranceFormGroup.controls[row].get('isPrincipalInsured').value ==
-      'Y'
-    ) {
-      let insuredName =
-        this.patientForm.get('firstName').value +
-        '' +
-        this.patientForm.get('maidenName').value +
-        ' ' +
-        this.patientForm.get('lastName').value;
-      let insuredContact = this.patientForm.get('cellPhone1').value;
-      this.insuranceFormGroup.controls[row]
-        .get('principalInsuredName')
-        .setValue(insuredName);
-      this.insuranceFormGroup.controls[row]
-        .get('principalInsuredContact')
-        .setValue(insuredContact);
-      this.insuranceFormGroup.controls[row]
-        .get('principalInsuredName')
-        .disable();
-      this.insuranceFormGroup.controls[row]
-        .get('principalInsuredAffiliation')
-        .disable();
-    }
+  isPrincipalInsuredChange(row) {  
+    console.log( this.insuranceFormGroup.controls[row].get('isPrincipalInsured').value);
+      
+    // if (this.insuranceFormGroup.controls[row].get('isPrincipalInsured').value) {
+    //   let insuredName =
+    //     this.patientForm.get('firstName').value +
+    //     '' +
+    //     this.patientForm.get('maidenName').value +
+    //     ' ' +
+    //     this.patientForm.get('lastName').value;
+    //   let insuredContact = this.patientForm.get('cellPhone1').value;
+    //   this.insuranceFormGroup.controls[row]
+    //     .get('principalInsuredName')
+    //     .setValue(insuredName);
+    //   this.insuranceFormGroup.controls[row]
+    //     .get('principalInsuredContact')
+    //     .setValue(insuredContact);
+    //   this.insuranceFormGroup.controls[row]
+    //     .get('principalInsuredName')
+    //     .disable();
+    //   this.insuranceFormGroup.controls[row]
+    //     .get('principalInsuredAffiliation')
+    //     .disable();
+    // }
   }
 
   showInsuranceView() {

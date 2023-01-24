@@ -122,7 +122,7 @@
       </div>
 
       <!-- Téléphone 2 -->
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="cellPhone2" class="form-label text-capitalize"
           >Second N° de téléphone</label
         >
@@ -132,7 +132,7 @@
           class="form-control"
           formControlName="cellPhone2"
         />
-      </div>
+      </div> -->
 
       <!-- Date de naissance -->
       <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
@@ -353,6 +353,7 @@
           id="correspondant"
           class="form-control"
           formControlName="correspondant"
+          placeholder="Personne a contacter en cas d'urgence"
         />
         <div class="invalid-feedback">
           <span *ngIf="patientForm.get('correspondant')?.errors?.required"
@@ -373,10 +374,10 @@
               id="emergencyContact"
               class="form-control"
               formControlName="emergencyContact"
-              placeholder="Contact 1"
+              placeholder="Numéro d'urgence"
             />
           </div>
-          <div class="col">
+          <!-- <div class="col">
             <input
               type="number"
               id="emergencyContact2"
@@ -384,7 +385,7 @@
               formControlName="emergencyContact2"
               placeholder="Contact 2"
             />
-          </div>
+          </div> -->
         </div>
         <!-- <input type="number" id="correspondantCellPhone" class="form-control" formControlName="correspondantCellPhone"
           [ngClass]="{ 'is-invalid': formsErrors['correspondantCellPhone'] }" /> -->
@@ -408,7 +409,7 @@
       </div>
 
       <!-- Nom Epous(e) -->
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="maidenName" class="form-label text-capitalize"
           >Nom de jeune fille</label
         >
@@ -419,10 +420,10 @@
           formControlName="maidenName"
           [ngClass]="{ 'is-invalid': formsErrors['maidenName'] }"
         />
-      </div>
+      </div> -->
 
       <!-- Contact d'urgence -->
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="emergencyContact" class="form-label text-capitalize"
           >Nom du père</label
         >
@@ -432,7 +433,7 @@
           class="form-control"
           formControlName="fatherName"
         />
-      </div>
+      </div> -->
 
       <!-- Contact d'urgence -->
       <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
@@ -490,7 +491,7 @@
       </div>
 
       <!-- Nom de la mère -->
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="motherLastName" class="form-label text-capitalize"
           >Nom de la mère</label
         >
@@ -512,10 +513,10 @@
             >Ce champ est requis</span
           >
         </div>
-      </div>
+      </div> -->
 
-      <!-- Prenom(s) -->
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+      <!-- Prenom(s) de la mère -->
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="motherFirstName" class="form-label text-capitalize"
           >Prenom(s) de la mère</label
         >
@@ -538,10 +539,10 @@
             >Ce champ est requis</span
           >
         </div>
-      </div>
+      </div> -->
 
       <!-- Profession de la mère -->
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+      <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
         <label for="motherProfession" class="form-label text-capitalize"
           >Profession de la mère</label
         >
@@ -552,7 +553,7 @@
           formControlName="motherProfession"
           [ngClass]="{ 'is-invalid': formsErrors['motherProfession'] }"
         />
-      </div>
+      </div> -->
 
       <div class="text-center fw-bold mb-2">le Patient est t-il assuré ?</div>
       <div class="insurance_choise d-flex justify-content-center">
@@ -692,7 +693,7 @@
           </div>
 
           <!-- isPrincipalInsured -->
-          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+          <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
               for="isPrincipalInsured-{{ i }}"
               class="form-label text-capitalize"
@@ -701,7 +702,7 @@
             <ng-select
               class=""
               formControlName="isPrincipalInsured"
-              (change)="isPrincipalInsuredChange(index)"
+              (change)="isPrincipalInsuredChange(i)"
             >
               <ng-option
                 *ngFor="let option of isPrincipalInsuredOptions"
@@ -709,11 +710,11 @@
                 >{{ option.value }}</ng-option
               >
             </ng-select>
-          </div>
+          </div> -->
 
           <!-- patient -->
           <!-- principalInsuredAffiliation -->
-          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+          <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
               for="principalInsuredAffiliation-{{ i }}"
               class="form-label text-capitalize"
@@ -725,9 +726,9 @@
               class="form-control"
               formControlName="principalInsuredAffiliation"
             />
-          </div>
+          </div> -->
           <!-- principalInsuredName -->
-          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+          <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
               for="principalInsuredName-{{ i }}"
               class="form-label text-capitalize"
@@ -739,10 +740,10 @@
               class="form-control"
               formControlName="principalInsuredName"
             />
-          </div>
+          </div> -->
           <!-- principalInsuredContact -->
 
-          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+          <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
             <label
               for="principalInsuredContact-{{ i }}"
               class="form-label text-capitalize"
@@ -757,7 +758,7 @@
                 'is-invalid': formsErrors['principalInsuredContact']
               }"
             />
-          </div>
+          </div> -->
 
           <!-- Remove insurance -->
           <div class="col-md-6">
