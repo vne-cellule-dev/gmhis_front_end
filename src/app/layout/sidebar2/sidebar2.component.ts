@@ -94,7 +94,7 @@ export class Sidebar2Component implements OnInit, OnDestroy {
       ],
     },
     {
-      title: 'CAISSES DE RÉGLEMENTS',
+      title: 'CAISSES',
       icon: 'folder-outline',
       hidden: !this.canAccessBasicFiles(),
       children: [
@@ -103,16 +103,14 @@ export class Sidebar2Component implements OnInit, OnDestroy {
           link: '/cash-register/list',
           icon: 'minus-outline',
         },
-      ],
-    },
-    {
-      title: 'CAISSIERS',
-      icon: 'folder-outline',
-      hidden: !this.canAccessBasicFiles(),
-      children: [
         {
           title: 'Liste des caissiers',
           link: '/cashier/list',
+          icon: 'minus-outline',
+        },
+        {
+          title: 'Gestion des caisses',
+          link: '/cr-activity/list',
           icon: 'minus-outline',
         },
       ],

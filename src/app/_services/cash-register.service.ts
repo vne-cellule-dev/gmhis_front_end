@@ -19,7 +19,7 @@ export class CashRegisterService {
    * @returns CashRegister[]
    */
   findActive(): Observable<CashRegister[]> {
-    return this.http.get<CashRegister[]>(`${this.host}/cash-register/active-list`)
+    return this.http.get<CashRegister[]>(`${this.host}/cashRegister/active_cash_register_name`)
   }
 
 

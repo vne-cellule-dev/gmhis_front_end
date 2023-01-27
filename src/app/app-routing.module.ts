@@ -55,7 +55,12 @@ const routes: Routes = [
           import('./cashier/cashier.module').then((m) => m.CashierModule),
       },
       {
-        path: 'constant',
+        path: 'cr-activity',
+        loadChildren: () =>
+          import('./cr-activity/cr-activity.module').then( (m) => m.CrActivityModule),
+      },
+      {
+        path: 'constant', 
         loadChildren: () =>
           import('./constant/constant.module').then((m) => m.ConstantModule),
       },

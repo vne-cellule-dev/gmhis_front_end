@@ -20,7 +20,7 @@ export class UserService {
    * @returns User[]
    */
   findAllActive(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.host}/user/active-list`)
+    return this.http.get<User[]>(`${this.host}/user/active_user_name`)
   }
 
 

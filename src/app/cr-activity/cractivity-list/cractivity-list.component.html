@@ -1,0 +1,192 @@
+<nb-card class="nbCardList">
+    <nb-card-header class="row d-flex justify-content-between align-items-center">
+      <div class="col-lg-7 col-md-3 col-sm-12">
+        <h4
+          class="text-capitalize d-flex justify-content-start w-100 text-center"
+        >
+          ACTIVITEES DE CAISSES
+        </h4>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-12 justify-content-end">
+        <button
+          (click)="openAddForm(addFormContent)"
+          class="text-capitalize btn btn-block btn-success w-100 d-flex align-items-center justify-content-center text-white rounded"
+        >
+          <nb-icon icon="plus-outline"></nb-icon>
+          <span class="fw-bold"> NOUVEAU</span>
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="searchForm">
+        <div class="row d-flex justify-content-between align-items-center">
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <ng-select placeholder="Etat" formControlName="state">
+                  <ng-option *ngFor="let state of states" [value]="state.id">{{
+                    state.value
+                  }}</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <ng-select placeholder="Caisse" formControlName="cashRegister">
+                  <ng-option *ngFor="let cashRegister of cashRegistersNameAndId" [value]="cashRegister.id">{{
+                    cashRegister.name
+                  }}</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-12 mb-2 rounded-pill">
+                <ng-select placeholder="Caissier" formControlName="cashier">
+                  <ng-option *ngFor="let cashier of cashiers" [value]="cashier.id">{{
+                    cashier.name
+                  }}</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-lg-2">
+                <span
+                  (click)="getCrActivity()"
+                  style="
+                    background-color: #ededed;
+                    color: #14a2b8;
+                    cursor: pointer;
+                  "
+                  class="material-icons px-2 p-1 rounded"
+                >
+                  search
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-sm-12">
+            <ng-select
+              [(ngModel)]="selectedSize"
+              formControlName="size"
+              (change)="getCrActivity()"
+            >
+              <ng-option *ngFor="let size of sizes" [value]="size.id">{{
+                size.value
+              }}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </form>
+      <div class="tableFixHead">
+        <table class="table table-bordered table-hover table-md align-middle">
+          <thead class="pb-3 text-capitalize">
+            <tr class="pb-3">
+              <th>Caisse</th>
+              <th>Date d'ouverture</th>
+              <th>Solde ouverture</th>
+              <th>caissier</th>
+              <th scope="col">Date de fermeture</th>
+              <th scope="col">Solde fermeture</th>
+              <th scope="col">Etat</th>
+              <th scope="col">Action</th>
+            </tr>
+  
+            <tr></tr>
+          </thead>
+  
+          <tbody>
+            <tr
+              *ngFor="
+                let crActivity of items
+                  | paginate
+                    : {
+                        itemsPerPage: selectedSize,
+                        currentPage: currentPage,
+                        totalItems: totalItems
+                      };
+                let i = index
+              "
+
+              [class.active]="i == currentIndex"
+              (click)="rowSelected(commune, i)"
+            >
+              <td>{{ crActivity?.cashier | uppercase }}</td>
+              <td>{{ crActivity?.openingDate | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+              <td>{{ crActivity?.openingBalance | currency: "FCFA":"symbol":"1.0-0" }}</td>
+              <td>{{ crActivity?.cashRegister | uppercase }}</td>
+              <td></td>
+              <td></td>
+              <td class="text-center">
+                  <span style="width: 20px" [ngClass]="{'opened' : crActivity?.state  == true,'closed' : crActivity?.state  == false }" class=" px-2">{{crActivity?.state == true ? 'ouverte' : 'fermée'}}</span>
+                </td>
+              <td style="font-size: 30px">
+                <nb-icon
+                  (click)="openUpdateForm(updateFormContent, cashRegister)"
+                  class="mx-2 pointer"
+                  style="cursor: pointer"
+                  icon="edit-outline"
+                ></nb-icon>
+                <!-- <nb-icon (click)="openDetailsForm(detailFormContent, commune)" class="mx-2 pointer" style=" cursor: pointer;" icon="eye-outline"></nb-icon> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex w-100 justify-content-center">
+        <div
+          style="color: #623508"
+          *ngIf="showLoader"
+          class="spinner-border"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls
+          responsive="true"
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onPageChange($event)"
+        >
+        </pagination-controls>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  
+  <!-- add modal -->
+  <ng-template #addFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
+        Ajouter une caisse
+      </h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body">
+      <app-cash-register-form
+        (addCashRegister)="addCashRegister()"
+      ></app-cash-register-form>
+    </div>
+  </ng-template>
+  
+  <!-- update modal -->
+  <ng-template #updateFormContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
+        Modifer nue caisse
+      </h4>
+      <nb-icon
+        style="cursor: pointer"
+        (click)="d('Cross click')"
+        class="h4"
+        icon="close-circle-outline"
+      ></nb-icon>
+    </div>
+    <div class="modal-body">
+      <app-cash-register-form
+        [cashRegister]="cashRegister"
+        (updateCashRegister)="updateCashRegister()"
+      ></app-cash-register-form>
+    </div>
+  </ng-template>
+  
