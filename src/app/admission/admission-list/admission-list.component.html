@@ -150,7 +150,7 @@
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
               >
-              <td class="text-nowrap">{{admission.admissionDate | date: "medium"}}</td>
+              <td class="text-nowrap">{{admission.admissionDate | date:  "dd/MM/yyyy HH:mm:ss"}}</td>
               <td>{{admission?.admissionNumber | uppercase }}</td>
               <td class="text-nowrap">{{admission.patientExternalId}}</td>
               <td class="text-nowrap">{{admission.patientFirstName}}</td>

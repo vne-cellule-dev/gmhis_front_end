@@ -117,7 +117,7 @@
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
             >
-              <td class="text-nowrap">{{ invoice.billDate | date: "medium" }}</td>
+              <td class="text-nowrap">{{ invoice.billDate | date:  "dd/MM/yyyy HH:mm:ss" }}</td>
               <td>{{ invoice?.billNumber | uppercase }}</td>
               <td class="text-nowrap">
                   {{ invoice?.patientNumber }}

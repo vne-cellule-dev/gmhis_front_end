@@ -72,7 +72,7 @@ export class CractivityListComponent implements OnInit {
       cashRegister: new FormControl(''),
       state : new FormControl(null),
       page: new FormControl(0),
-      size: new FormControl(10),
+      size: new FormControl(50),
       sort: new FormControl('id,desc'),
     })
   }
@@ -117,10 +117,12 @@ export class CractivityListComponent implements OnInit {
 
   openUpdateForm(updateFormContent, item?) {
     this.crActivity = item;
+    console.log(this.crActivity);
+    
     this.modalService.open(updateFormContent, { size: 'lg' });
   }
 
-  addCashRegister() {
+  addCrActivity() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,
@@ -129,7 +131,7 @@ export class CractivityListComponent implements OnInit {
     this.getCrActivity();
   }
 
-  updateCashRegister() {
+  updateCrActivity() {
     this.modalService.dismissAll();
     this.notificationService.notify(
       NotificationType.SUCCESS,

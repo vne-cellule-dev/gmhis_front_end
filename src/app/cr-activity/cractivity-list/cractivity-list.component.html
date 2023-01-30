@@ -9,11 +9,12 @@
       </div>
       <div class="col-lg-2 col-md-3 col-sm-12 justify-content-end">
         <button
+        style="background-color: #14a2b8;"
           (click)="openAddForm(addFormContent)"
-          class="text-capitalize btn btn-block btn-success w-100 d-flex align-items-center justify-content-center text-white rounded"
+          class="text-capitalize  btn w-100 d-flex align-items-center justify-content-center text-white rounded"
         >
           <nb-icon icon="plus-outline"></nb-icon>
-          <span class="fw-bold"> NOUVEAU</span>
+          <span class="fw-bold"> OUVRIR CAISSE</span>
         </button>
       </div>
     </nb-card-header>
@@ -66,7 +67,7 @@
             >
               <ng-option *ngFor="let size of sizes" [value]="size.id">{{
                 size.value
-              }}</ng-option>
+              }} lignes</ng-option>
             </ng-select>
           </div>
         </div>
@@ -78,7 +79,7 @@
               <th>Caisse</th>
               <th>Date d'ouverture</th>
               <th>Solde ouverture</th>
-              <th>caissier</th>
+              <th>caissier(e)</th>
               <th scope="col">Date de fermeture</th>
               <th scope="col">Solde fermeture</th>
               <th scope="col">Etat</th>
@@ -104,10 +105,10 @@
               [class.active]="i == currentIndex"
               (click)="rowSelected(commune, i)"
             >
-              <td>{{ crActivity?.cashier | uppercase }}</td>
-              <td>{{ crActivity?.openingDate | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+              <td>{{ crActivity?.cashRegisterName | uppercase }}</td>
+              <td>{{ crActivity?.cashierName | uppercase }}</td>
+              <td>{{ crActivity?.openingDate | date:  "dd/MM/yyyy HH:mm:ss" }}</td>
               <td>{{ crActivity?.openingBalance | currency: "FCFA":"symbol":"1.0-0" }}</td>
-              <td>{{ crActivity?.cashRegister | uppercase }}</td>
               <td></td>
               <td></td>
               <td class="text-center">
@@ -115,7 +116,7 @@
                 </td>
               <td style="font-size: 30px">
                 <nb-icon
-                  (click)="openUpdateForm(updateFormContent, cashRegister)"
+                  (click)="openUpdateForm(updateFormContent, crActivity)"
                   class="mx-2 pointer"
                   style="cursor: pointer"
                   icon="edit-outline"
@@ -153,7 +154,7 @@
   <ng-template #addFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="text-capitalize modal-title color-biblos" id="add-form-modal">
-        Ajouter une caisse
+        nouvelle ouverture de caisse
       </h4>
       <nb-icon
         style="cursor: pointer"
@@ -163,9 +164,9 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-cash-register-form
-        (addCashRegister)="addCashRegister()"
-      ></app-cash-register-form>
+      <app-cractivity-form
+        (addCrActivity)="addCrActivity()"
+      ></app-cractivity-form>
     </div>
   </ng-template>
   
@@ -173,7 +174,7 @@
   <ng-template #updateFormContent let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="text-capitalize modal-title color-biblos" id="update-form-modal">
-        Modifer nue caisse
+        Modifer une activite de caisse
       </h4>
       <nb-icon
         style="cursor: pointer"
@@ -183,10 +184,10 @@
       ></nb-icon>
     </div>
     <div class="modal-body">
-      <app-cash-register-form
-        [cashRegister]="cashRegister"
-        (updateCashRegister)="updateCashRegister()"
-      ></app-cash-register-form>
+      <app-cractivity-form
+        [crActivity]="crActivity"
+        (updateCrActivity)="updateCrActivity()"
+      ></app-cractivity-form>
     </div>
   </ng-template>
   

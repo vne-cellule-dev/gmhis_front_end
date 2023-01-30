@@ -53,7 +53,7 @@ export class CashRegisterActivityService {
   * server.
   * @returns Observable<ICashRegisterActivity>
   */
-  public createAct(crActivityDto : ICashRegisterActivity): Observable<ICashRegisterActivity>{    
+  public createCrActivity(crActivityDto : ICashRegisterActivity): Observable<ICashRegisterActivity>{    
     return this.http.post<ICashRegisterActivity>(`${this.apiUrl}/api/v1/cashRegisterManagement`, crActivityDto)
   }
 
@@ -63,7 +63,9 @@ export class CashRegisterActivityService {
  * are sending to the server.
  * @returns Observable<ICashRegisterActivity>
  */
-  public updateAct(crActivityDto : ICashRegisterActivity) : Observable<ICashRegisterActivity>{
-    return this.http.put<ICashRegisterActivity>(`${this.apiUrl}/act/update/${crActivityDto.id}`, crActivityDto)
+  public updateCrActivity(crActivityDto : ICashRegisterActivity) : Observable<ICashRegisterActivity>{
+    console.log(crActivityDto);
+    
+    return this.http.put<ICashRegisterActivity>(`${this.apiUrl}/api/v1/cashRegisterManagement/${crActivityDto.id}`, crActivityDto)
   }
 }
