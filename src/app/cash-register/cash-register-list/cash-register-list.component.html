@@ -69,13 +69,12 @@
       <table class="table table-bordered table-hover table-md align-middle">
         <thead class="pb-3 text-capitalize">
           <tr class="pb-3">
-            <th>Nom Caisse</th>
-            <th>Caisse</th>
+            <th>Libelle</th>
             <th>Etat</th>
-            <th>crée le</th>
+            <!-- <th>crée le</th>
             <th scope="col">crée par</th>
             <th scope="col">Dernière modif.</th>
-            <th scope="col">Modifié par</th>
+            <th scope="col">Modifié par</th> -->
             <th scope="col">Action</th>
           </tr>
 
@@ -98,7 +97,7 @@
             (click)="rowSelected(commune, i)"
           >
             <td>{{ cashRegister?.name | uppercase }}</td>
-            <td>{{ cashRegister?.value }}</td>
+            <!-- <td>{{ cashRegister?.value }}</td> -->
             <td>
               <nb-icon
                 *ngIf="cashRegister.active == true"
@@ -111,7 +110,7 @@
                 icon="close-circle"
               ></nb-icon>
             </td>
-            <td>{{ cashRegister?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+            <!-- <td>{{ cashRegister?.createdAt | date: "dd/MM/yyyy hh:mm:ss" }}</td>
             <td>
               {{
                 cashRegister.createdByFirstName +
@@ -128,7 +127,7 @@
                     cashRegister.UpdatedByLastName
                   : ("" | uppercase)
               }}
-            </td>
+            </td> -->
             <td style="font-size: 30px">
               <nb-icon
                 (click)="openUpdateForm(updateFormContent, cashRegister)"
